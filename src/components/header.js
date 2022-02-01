@@ -1,42 +1,57 @@
 import * as React from "react"
 import PropTypes from "prop-types"
 import { Link } from "gatsby"
+import MenuItem from "./menu-item"
+import styled from "styled-components"
+import { GatsbyImage } from "gatsby-plugin-image"
 
-const Header = ({ siteTitle }) => (
-  <header
-    style={{
-      background: `rebeccapurple`,
-      marginBottom: `1.45rem`,
-    }}
-  >
-    <div
-      style={{
-        margin: `0 auto`,
-        maxWidth: 960,
-        padding: `1.45rem 1.0875rem`,
-      }}
-    >
-      <h1 style={{ margin: 0 }}>
-        <Link
-          to="/"
-          style={{
-            color: `white`,
-            textDecoration: `none`,
-          }}
-        >
-          {siteTitle}
-        </Link>
-      </h1>
-    </div>
-  </header>
+const Header = ({ src, alt }) => (
+  <StyledHeader>
+    <StyledDiv>
+      <Link to="/">
+        <StyledLogo image={src} alt={alt} />
+      </Link>
+      <StyledNav>
+        <MenuItem to="/page-2/" label="główna" />
+        <MenuItem to="/page-2/" label="kontakt" />
+      </StyledNav>
+    </StyledDiv>
+  </StyledHeader>
 )
 
-Header.propTypes = {
-  siteTitle: PropTypes.string,
-}
+Header.propTypes = {}
 
-Header.defaultProps = {
-  siteTitle: ``,
-}
+Header.defaultProps = {}
 
 export default Header
+
+/* STYLED COMPONENTS */
+
+const StyledNav = styled.nav``
+
+const StyledDiv = styled.div`
+  grid-column: 2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 60px;
+`
+
+const StyledHeader = styled.header`
+  position: sticky;
+  top: 0;
+  left: 0;
+  display: grid;
+  grid-template-columns:
+    1fr
+    min(1450px, 100%)
+    1fr;
+  padding: 1.0875rem 1.45rem;
+  background: white;
+  z-index: 1000;
+`
+
+const StyledLogo = styled(GatsbyImage)`
+  width: 240px;
+  height: 80px;
+`
