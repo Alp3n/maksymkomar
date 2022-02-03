@@ -3,69 +3,33 @@ import PropTypes from "prop-types"
 import styled from "styled-components"
 import { GatsbyImage } from "gatsby-plugin-image"
 import styles from "../styles"
-import Button from "./button"
 
-const FullBleedSection = ({
-  hero,
-  altHero,
-  logo,
-  altLogo,
-  background,
-  cta,
-  ctaLabel,
-  ctaUrl,
-  blend,
-  title,
-  text,
-}) => {
+const FullBleedBlog = ({ hero, altHero, title }) => {
   return (
     <StyledWrapper>
       <StyledStaticImage image={hero} alt={altHero} />
       <StyledBox>
-        <StyledBoxBackground background={background} blend={blend} />
+        <StyledBoxBackground />
         <StyledBoxContent>
-          {title ? <StyledTitle>{title}</StyledTitle> : null}
-          {text ? (
-            <StyledText blend={blend} logo={logo}>
-              {text}
-            </StyledText>
-          ) : null}
-          {cta ? <Button label={ctaLabel} url={ctaUrl} /> : null}
-          {logo ? <StyledStaticLogo image={logo} alt={altLogo} /> : null}
+          <StyledTitle>{title}</StyledTitle>
         </StyledBoxContent>
       </StyledBox>
     </StyledWrapper>
   )
 }
 
-export default FullBleedSection
+export default FullBleedBlog
 
-FullBleedSection.propTypes = {
+FullBleedBlog.propTypes = {
   hero: PropTypes.object,
   altHero: PropTypes.string,
   title: PropTypes.string,
-  text: PropTypes.string,
-  logo: PropTypes.object,
-  altLogo: PropTypes.string,
-  background: PropTypes.string,
-  cta: PropTypes.bool,
-  ctaLabel: PropTypes.string,
-  ctaUrl: PropTypes.string,
-  blend: PropTypes.bool,
 }
 
-FullBleedSection.defaultProps = {
+FullBleedBlog.defaultProps = {
   hero: {},
   altHero: "",
-  logo: null,
-  altLogo: "",
   title: "",
-  text: "",
-  background: "",
-  cta: false,
-  ctaLabel: "Więcej",
-  ctaUrl: "/",
-  blend: false,
 }
 
 /* STYLED COMPONENTS */
@@ -118,12 +82,8 @@ const StyledBoxBackground = styled.div`
   position: absolute;
   width: 100%;
   height: 100%;
-  background: ${props => (props.background ? props.background : "#f2f2f2")};
-  mix-blend-mode: ${props => (props.blend ? "multiply" : "none")};
+  background: ${styles.color.lightBlue};
+  mix-blend-mode: multiply;
   opacity: 0.89;
   z-index: 1;
-`
-const StyledStaticLogo = styled(GatsbyImage)`
-  width: 260px;
-  margin-bottom: 35px;
 `

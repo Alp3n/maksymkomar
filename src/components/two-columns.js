@@ -5,7 +5,7 @@ import styles from "../styles"
 import Button from "./button"
 
 const TwoColumns = ({
-  textTitle,
+  title,
   textLeft,
   textRight,
   textButtonLabel,
@@ -14,15 +14,17 @@ const TwoColumns = ({
 }) => {
   return (
     <StyledWrapper>
-      <StyledTitle>{textTitle}</StyledTitle>
+      <StyledTitle>{title}</StyledTitle>
       <StyledTextsBox>
-        <StyledTextBox right>{textLeft}</StyledTextBox>
+        <StyledTextBox right dangerouslySetInnerHTML={{ __html: textLeft }}>
+          {/* {textLeft} */}
+        </StyledTextBox>
         <StyledVerticalLine />
-        <StyledTextBox left>{textRight}</StyledTextBox>
+        <StyledTextBox left dangerouslySetInnerHTML={{ __html: textRight }}>
+          {/* {textRight} */}
+        </StyledTextBox>
       </StyledTextsBox>
-      {cta ? (
-        <Button label={textButtonLabel} url={textButtonUrl} marginTop="2vw" />
-      ) : null}
+      {cta ? <Button label={textButtonLabel} url={textButtonUrl} /> : null}
     </StyledWrapper>
   )
 }
@@ -30,7 +32,7 @@ const TwoColumns = ({
 export default TwoColumns
 
 TwoColumns.propTypes = {
-  textTitle: PropTypes.string,
+  title: PropTypes.string,
   textLeft: PropTypes.string,
   textRight: PropTypes.string,
   textButtonLabel: PropTypes.string,
@@ -38,7 +40,7 @@ TwoColumns.propTypes = {
 }
 
 TwoColumns.defaultProps = {
-  textTitle: "Tytuł",
+  title: "Tytuł",
   textLeft: "Tekst po lewej stronie",
   textRight: "Tekst po prawej stronie",
   textButtonLabel: "Więcej",
@@ -51,29 +53,23 @@ const StyledWrapper = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
-  margin: 5vw 0;
+  margin-bottom: 100px;
 `
 
 const StyledTitle = styled.h1`
   white-space: nowrap;
-  margin-bottom: 3vw;
-  font-size: 72px;
-  font-weight: 400;
-  line-height: 80px;
-  color: ${styles.color.primary};
+  margin-bottom: 60px;
 `
 
 const StyledTextsBox = styled.div`
   display: grid;
-  grid-template-columns: 35vw 1px 35vw;
+  grid-template-columns: 1fr 1px 1fr;
+  margin-bottom: 60px;
 `
 
 const StyledTextBox = styled.div`
   padding-left: ${props => (props.left ? "12%" : "0")};
   padding-right: ${props => (props.right ? "10%" : "0")};
-  font-size: 20px;
-  line-height: 35px;
-  font-weight: 300;
 `
 const StyledVerticalLine = styled.div`
   border-left: 1px solid ${styles.color.primary};

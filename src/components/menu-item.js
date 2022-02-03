@@ -5,16 +5,13 @@ import { Link } from "gatsby"
 import styles from "../styles"
 
 const MenuItem = ({ url, label }) => {
-  return <StyledLink to={url}>{label}</StyledLink>
+  return <StyledLink to="o-mnie/">{label}</StyledLink>
 }
 
 const StyledLink = styled(Link)`
-  font-family: ${styles.font.family.montserrat};
-  font-size: 20px;
-  /* font-size: ${styles.font.size.menu}; */
   text-transform: capitalize;
   text-decoration: none;
-  margin: 0 1vw;
+  margin: 0 16px;
 
   /* unvisited link */
   :link {

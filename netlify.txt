@@ -1,0 +1,3 @@
+https://api.netlify.com/build_hooks/61f67b91290c89ec38304dfb
+https://api.netlify.com/api/v1/badges/9e90e085-97c0-4f44-bfc5-3c24677111e9/deploy-status
+https://app.netlify.com/sites/maksymkomar/deploys

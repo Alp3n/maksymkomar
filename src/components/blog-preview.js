@@ -5,12 +5,51 @@ import { GatsbyImage } from "gatsby-plugin-image"
 import styles from "../styles"
 import Button from "./button"
 import { Link } from "gatsby"
+import Slider from "react-slick"
 
 const BlogPreview = ({ posts }) => {
+  const settings = {
+    infinite: true,
+    dots: false,
+    speed: 1000,
+    slidesToShow: 3,
+    slidesToScroll: 1,
+    nextArrow: <StyledArrow right />,
+    prevArrow: <StyledArrow left />,
+
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 1,
+          arrows: false,
+        },
+      },
+      {
+        breakpoint: 600,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 1,
+          arrows: false,
+        },
+      },
+      {
+        breakpoint: 480,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+          arrows: false,
+          centerMode: true,
+        },
+      },
+    ],
+  }
   return (
     <StyledWrapper>
       <StyledTitleMain>Blog</StyledTitleMain>
-      <StyledPostsWrapper>
+      {/* <StyledPostsWrapper> */}
+      <Slider {...settings}>
         {posts.map(p => (
           <StyledBlogItem key={p.node.id}>
             <StyledImageWrapper>
@@ -32,7 +71,8 @@ const BlogPreview = ({ posts }) => {
             <StyledLink to={`blog/${p.node.slug}`}>Więcej</StyledLink>
           </StyledBlogItem>
         ))}
-      </StyledPostsWrapper>
+      </Slider>
+      {/* </StyledPostsWrapper> */}
       <StyledButtonWrapper>
         <Button label="Zobacz wszystkie" />
       </StyledButtonWrapper>
@@ -50,15 +90,11 @@ BlogPreview.defaultProps = {}
 const StyledWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  margin: 5vw 0;
+  width: 100%;
+  margin-bottom: 100px;
 `
 const StyledTitleMain = styled.h1`
-  white-space: nowrap;
-  margin-bottom: 3vw;
-  font-size: 4vw;
-  font-weight: 400;
-  line-height: 4.4vw;
-  color: ${styles.color.primary};
+  margin-bottom: 60px;
 `
 
 const StyledPostsWrapper = styled.div`
@@ -71,16 +107,17 @@ const StyledBlogItem = styled.div`
   display: flex;
   flex-direction: column;
   margin-bottom: 60px;
+  padding: 0 20px;
 `
 const StyledImageWrapper = styled.div`
   position: relative;
-  width: 400px;
-  height: 300px;
+  max-width: 400px;
+  height: auto;
   margin-bottom: 30px;
 `
 const StyledCategory = styled.div`
   position: absolute;
-  bottom: 25px;
+  bottom: 8%;
   left: -15px;
   padding: 5px 10px;
   background-color: ${styles.color.lightBlue};
@@ -88,9 +125,8 @@ const StyledCategory = styled.div`
 `
 const StyledImage = styled(GatsbyImage)``
 
-const StyledTitle = styled.h2`
-  font-weight: 400;
-  font-size: 32px;
+const StyledTitle = styled.h4`
+  font-family: ${styles.font.family.montserrat};
 `
 
 const StyledDesc = styled.p`
@@ -107,4 +143,17 @@ const StyledButtonWrapper = styled.div`
   display: flex;
   width: 100%;
   justify-content: center;
+`
+const StyledArrow = styled.div`
+  position: absolute;
+  top: 50%;
+  left: ${props => (props.left ? "-50px" : null)};
+  right: ${props => (props.right ? "-50px" : null)};
+  border-top: 2px solid ${styles.color.primary};
+  border-right: 2px solid ${styles.color.primary};
+  transform: ${props => (props.left ? "rotate(-135deg)" : "rotate(45deg)")};
+  height: 30px;
+  width: 30px;
+  z-index: 100;
+  cursor: pointer;
 `

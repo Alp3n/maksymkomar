@@ -12,8 +12,8 @@ const Header = ({ src, alt }) => (
         <StyledLogo image={src} alt={alt} />
       </Link>
       <StyledNav>
-        <MenuItem to="/page-2/" label="główna" />
-        <MenuItem to="/page-2/" label="kontakt" />
+        <MenuItem to="o-mnie/" label="główna" />
+        <MenuItem to="page-2/" label="kontakt" />
       </StyledNav>
     </StyledDiv>
   </StyledHeader>

@@ -10,33 +10,61 @@ import Footer from "./footer"
 
 const Layout = ({ children }) => {
   const data = useStaticQuery(graphql`
-    query SiteTitleQuery {
-      logoPrimary: wpMediaItem(id: { eq: "cG9zdDozNA==" }) {
-        localFile {
-          childImageSharp {
-            gatsbyImageData(quality: 100)
+    query Layout {
+      layout: wpPage(databaseId: { eq: 170 }) {
+        logos {
+          signatureColor {
+            localFile {
+              childImageSharp {
+                gatsbyImageData
+              }
+              name
+            }
+            altText
+          }
+          signatureWhite {
+            localFile {
+              childImageSharp {
+                gatsbyImageData
+              }
+              name
+            }
+            altText
+          }
+          socialmedia {
+            icon {
+              localFile {
+                url
+                childImageSharp {
+                  gatsbyImageData
+                }
+              }
+              mediaType
+            }
+            url
           }
         }
-        altText
       }
     }
   `)
-
+  console.log(data)
   return (
     <>
       <Header
-        src={data.logoPrimary.localFile.childImageSharp.gatsbyImageData}
-        alt={data.logoPrimary.altText}
+        src={
+          data.layout.logos.signatureColor.localFile.childImageSharp
+            .gatsbyImageData
+        }
+        alt={data.layout.logos.signatureColor.altText}
       />
-
-      <StyledMain>
-        <NavSocial />
-        {children}
-      </StyledMain>
-
+      <NavSocial socialmedia={data.layout.logos.socialmedia} />
+      <StyledMain>{children}</StyledMain>
       <Footer
-        src={data.logoPrimary.localFile.childImageSharp.gatsbyImageData}
-        alt={data.logoPrimary.altText}
+        src={
+          data.layout.logos.signatureColor.localFile.childImageSharp
+            .gatsbyImageData
+        }
+        alt={data.layout.logos.signatureColor.altText}
       />
     </>
   )

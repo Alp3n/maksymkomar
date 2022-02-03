@@ -7,7 +7,7 @@ import Seo from "../components/seo"
 import FullBleedMain from "../components/full-bleed-main"
 import TwoColumns from "../components/two-columns"
 import FullBleedSection from "../components/full-bleed-section"
-import Reviews from "../components/reviews"
+import Opinions from "../components/opinions"
 import BlogPreview from "../components/blog-preview"
 import Newsletter from "../components/newsletter"
 import Faq from "../components/faq"
@@ -15,131 +15,71 @@ import qa from "../data/faq"
 
 const IndexPage = ({ data }) => {
   console.log(data)
-
-  const reviews = [
-    {
-      src: data.portrait1.localFile.childImageSharp.gatsbyImageData,
-      name: "Name 1",
-      opinion:
-        "Some opionion blablablabalbalbla. Some opionion blablablabalbalblaSome opionion blablablabalbalblaSome opionion blablablabalbalbla.Some opionion blablablabalbalbla",
-    },
-    {
-      src: data.portrait2.localFile.childImageSharp.gatsbyImageData,
-      name: "Name 2",
-      opinion: "Some opionion blablablabalbalbla",
-    },
-    {
-      src: data.portrait1.localFile.childImageSharp.gatsbyImageData,
-      name: "Name 3",
-      opinion: "Some opionion blablablabalbalbla",
-    },
-    {
-      src: data.portrait2.localFile.childImageSharp.gatsbyImageData,
-      name: "Name 4",
-      opinion: "Some opionion blablablabalbalbla",
-    },
-    {
-      src: data.portrait1.localFile.childImageSharp.gatsbyImageData,
-      name: "Name 5",
-      opinion: "Some opionion blablablabalbalbla",
-    },
-    {
-      src: data.portrait2.localFile.childImageSharp.gatsbyImageData,
-      name: "Name 6",
-      opinion: "Some opionion blablablabalbalbla",
-    },
-  ]
-
+  const myData = data.wpPage.home
+  const myPosts = data.allWpPost.edges
   return (
     <Layout>
       <Seo title="Home" />
       <FullBleedMain
-        src={data.hero.localFile.childImageSharp.gatsbyImageData}
-        alt={data.hero.altText}
-        logo={data.logo.localFile.childImageSharp.gatsbyImageData}
-        altLogo={data.logo.altText}
-        main={true}
+        hero={
+          myData.heroSection.image.localFile.childImageSharp.gatsbyImageData
+        }
+        alt={myData.heroSection.image.altText}
+        logo={
+          myData.heroSection.signature.localFile.childImageSharp.gatsbyImageData
+        }
+        altLogo={myData.heroSection.signature.altText}
+        title={myData.heroSection.title}
         background={styles.color.primary}
       />
       <TwoColumns
-        textTitle="Moja metoda"
-        textLeft="Pracując wiele lat z ludźmi z całego świata, zauważyłem pewne
-        algorytmy oraz wzorce zachowań, co zainspirowało mnie do stworzenia
-        unikalnej metody pracy z ludzką psychiką i zachowaniem człowieka."
-        textRight="Metoda pozwala na przepracowanie problemów z różnych obszarów życia:
-        od zdrowia i poczucia własnej wartości, uzależnień po finanse i
-        relacje. Metoda charakteryzuje się skutecznością i szybkim tempem
-        uzyskania pożądanego efektu. Większość problemów da się rozwiązać
-        podczas maksymalnie pięciu seansów, a często wystarczy nawet tylko
-        jeden."
-        textButtonLabel="Więcej"
-        textButtonUrl="/o-mnie/"
+        title={myData.col2Section.title}
+        textLeft={myData.col2Section.textLeft}
+        textRight={myData.col2Section.textRight}
+        textButtonLabel={myData.col2Section.ctaLabel}
+        textButtonUrl={myData.col2Section.ctaUrl}
         cta
       />
       <FullBleedSection
-        src={data.sekcja1.localFile.childImageSharp.gatsbyImageData}
-        alt={data.sekcja1.altText}
+        hero={myData.fwSection.image.localFile.childImageSharp.gatsbyImageData}
+        altHero={myData.fwSection.image.altText}
         background={styles.color.grey}
         cta
-      >
-        <StyledTitle>
-          Seanse
-          <br />
-          terapeutyczne
-        </StyledTitle>
-        <StyledDesc>
-          Hipnoterapia jako jedna z najskuteczniejszych rodzajów terapii, daje
-          efekty w bardzo krótkim czasie. Większość problemów można trwale
-          rozwiązać w trakcie maksymalnie kilku spotkań. Niektóre problemy nawet
-          w ciągu jednego.
-        </StyledDesc>
-      </FullBleedSection>
+        ctaLabel={myData.fwSection.ctaLabel}
+        ctaUrl={myData.fwSection.ctaUrl}
+        title={myData.fwSection.title}
+        text={myData.fwSection.text}
+      />
       <TwoColumns
-        textTitle="Audioterapie"
-        textLeft="W obecnych, bardzo zautomatyzowanych czasach, 
-        zależy mi na tym, aby każdy miał dostęp do profesjonalnej pomocy nawet w zaciszu własnego 
-        domu. "
-        textRight="Audioterapie są to moje autorskie nagrania, w których przeprowadzam Cię przez proces terapeutyczny. Dzięki nim możesz popracować ze sobą, ze swoimi problemami i przemyśleniami, bez fizycznego kontaktu ze mną."
-        textButtonLabel="Więcej"
-        textButtonUrl="/page-2/"
+        title={myData.col2Section2.title}
+        textLeft={myData.col2Section2.textLeft}
+        textRight={myData.col2Section2.textRight}
+        textButtonLabel={myData.col2Section2.ctaLabel}
+        textButtonUrl={myData.col2Section2.ctaUrl}
         cta
       />
       <FullBleedSection
-        src={data.sekcja2.localFile.childImageSharp.gatsbyImageData}
-        alt={data.sekcja2.altText}
+        hero={myData.fwSection2.image.localFile.childImageSharp.gatsbyImageData}
+        altHero={myData.fwSection2.image.altText}
         background={styles.color.grey}
         cta
-      >
-        <StyledTitle>
-          W jakich
-          <br />
-          przypadkach <br />
-          mogę Ci pomóc
-        </StyledTitle>
-        <StyledDesc>
-          Zakres problemów, w których mogę pomóc Ci rozwiązać jest szeroki.
-          Począwszy od zmiany szkodliwych przekonań, poprzez redukcję stresu i
-          napięć po przepracowywanie traum i fobii.
-        </StyledDesc>
-      </FullBleedSection>
-      <Reviews reviews={reviews} />
+        ctaLabel={myData.fwSection2.ctaLabel}
+        ctaUrl={myData.fwSection2.ctaUrl}
+        title={myData.fwSection2.title}
+        text={myData.fwSection2.text}
+      />
+      <Opinions opinions={myData.opinionsSection.opinions} />
       <FullBleedSection
-        src={data.sekcja3.localFile.childImageSharp.gatsbyImageData}
-        alt={data.sekcja3.altText}
+        hero={myData.fwSection3.image.localFile.childImageSharp.gatsbyImageData}
+        altHero={myData.fwSection3.image.altText}
         background={styles.color.grey}
         cta
-      >
-        <StyledTitle>
-          Szkolenia dla <br />
-          terapeutów
-        </StyledTitle>
-        <StyledDesc>
-          Profesjonalne kursy dla osób, które są zainteresowane hipnozą, chcą
-          pomagać ludziom, czy też związać z tym swoją przyszłość jako terapeuci
-          i hipnoterapeuci.
-        </StyledDesc>
-      </FullBleedSection>
-      <BlogPreview posts={data.blogPosts.edges} />
+        ctaLabel={myData.fwSection3.ctaLabel}
+        ctaUrl={myData.fwSection3.ctaUrl}
+        title={myData.fwSection3.title}
+        text={myData.fwSection3.text}
+      />
+      <BlogPreview posts={myPosts} />
       <Newsletter />
       <Faq qa={qa} />
     </Layout>
@@ -147,68 +87,127 @@ const IndexPage = ({ data }) => {
 }
 
 export const pageQuery = graphql`
-  query Index {
-    hero: wpMediaItem(id: { eq: "cG9zdDo5MA==" }) {
-      localFile {
-        childImageSharp {
-          gatsbyImageData(quality: 100)
+  query HomeQuery {
+    wpPage(databaseId: { eq: 46 }) {
+      id
+      home {
+        heroSection {
+          fieldGroupName
+          title
+          image {
+            localFile {
+              childImageSharp {
+                gatsbyImageData(quality: 100)
+              }
+            }
+            altText
+          }
+          signature {
+            localFile {
+              childImageSharp {
+                gatsbyImageData(quality: 100)
+              }
+            }
+            altText
+          }
+        }
+        col2Section {
+          ctaLabel
+          ctaUrl
+          fieldGroupName
+          textLeft
+          textRight
+          title
+        }
+        fwSection {
+          ctaLabel
+          ctaUrl
+          fieldGroupName
+          text
+          title
+          image {
+            localFile {
+              childImageSharp {
+                gatsbyImageData(quality: 100)
+              }
+            }
+            altText
+          }
+        }
+        col2Section2 {
+          ctaLabel
+          ctaUrl
+          fieldGroupName
+          textLeft
+          textRight
+          title
+        }
+        fwSection2 {
+          ctaLabel
+          ctaUrl
+          fieldGroupName
+          text
+          title
+          image {
+            localFile {
+              childImageSharp {
+                gatsbyImageData(quality: 100)
+              }
+            }
+            altText
+          }
+        }
+        opinionsSection {
+          opinions {
+            fieldGroupName
+            name
+            opinion
+            image {
+              localFile {
+                childImageSharp {
+                  gatsbyImageData(quality: 100)
+                }
+              }
+              altText
+            }
+          }
+          fieldGroupName
+        }
+        fwSection3 {
+          ctaLabel
+          ctaUrl
+          fieldGroupName
+          text
+          title
+          image {
+            localFile {
+              childImageSharp {
+                gatsbyImageData(quality: 100)
+              }
+            }
+            altText
+          }
+        }
+        newsletterSection {
+          ctaLabel
+          fieldGroupName
+          title
+        }
+        faqSection {
+          fieldGroupName
+          qa {
+            answer
+            fieldGroupName
+            question
+          }
         }
       }
-      altText
     }
-    logo: wpMediaItem(id: { eq: "cG9zdDo5NQ==" }) {
-      localFile {
-        childImageSharp {
-          gatsbyImageData(quality: 100)
-        }
-      }
-      altText
-    }
-    sekcja1: wpMediaItem(id: { eq: "cG9zdDoyNTE=" }) {
-      localFile {
-        childImageSharp {
-          gatsbyImageData(quality: 100)
-        }
-      }
-      altText
-    }
-    sekcja2: wpMediaItem(id: { eq: "cG9zdDoyNTc=" }) {
-      localFile {
-        childImageSharp {
-          gatsbyImageData(quality: 100)
-        }
-      }
-      altText
-    }
-    sekcja3: wpMediaItem(id: { eq: "cG9zdDoyMzc=" }) {
-      localFile {
-        childImageSharp {
-          gatsbyImageData(quality: 100)
-        }
-      }
-      altText
-    }
-    portrait1: wpMediaItem(id: { eq: "cG9zdDoxOTU=" }) {
-      localFile {
-        childImageSharp {
-          gatsbyImageData(quality: 100)
-        }
-      }
-      altText
-    }
-    portrait2: wpMediaItem(id: { eq: "cG9zdDoxOTY=" }) {
-      localFile {
-        childImageSharp {
-          gatsbyImageData(quality: 100)
-        }
-      }
-      altText
-    }
-    blogPosts: allWpPost(limit: 3, sort: { fields: date, order: DESC }) {
+    allWpPost {
       edges {
         node {
           id
-          title
+          excerpt
           featuredImage {
             node {
               localFile {
@@ -216,15 +215,16 @@ export const pageQuery = graphql`
                   gatsbyImageData(quality: 100)
                 }
               }
+              altText
             }
           }
-          excerpt
+          title
+          slug
           categories {
             nodes {
               name
             }
           }
-          slug
         }
       }
     }
@@ -235,17 +235,6 @@ export default IndexPage
 
 /* STYLED COMPONENTS */
 
-const StyledTitle = styled.h1`
-  white-space: nowrap;
-  margin-bottom: 40px;
-  font-size: 72px;
-  font-weight: 400;
-  line-height: 80px;
-  color: ${styles.color.primary};
-`
-
 const StyledDesc = styled.p`
-  font-weight: 300;
-  line-height: 33px;
   margin-bottom: 2vw;
 `

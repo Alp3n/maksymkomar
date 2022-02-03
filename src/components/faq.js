@@ -10,8 +10,16 @@ const Faq = ({ qa }) => {
       <StyledTitle>FAQ</StyledTitle>
       {qa.map(i => (
         <StyledItemWrapper key={i.question}>
-          <StyledItemQuestion>{i.question}</StyledItemQuestion>
-          <StyledItemAnswer>{i.answer}</StyledItemAnswer>
+          <StyledItemQuestion
+            dangerouslySetInnerHTML={{
+              __html: i.question,
+            }}
+          />
+          <StyledItemAnswer
+            dangerouslySetInnerHTML={{
+              __html: i.answer,
+            }}
+          />
         </StyledItemWrapper>
       ))}
     </StyledWrapper>
@@ -28,15 +36,10 @@ const StyledWrapper = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
-  margin: 80px 0;
+  margin-bottom: 100px;
 `
 const StyledTitle = styled.h1`
-  white-space: nowrap;
-  margin-bottom: 3vw;
-  font-size: 72px;
-  font-weight: 400;
-  line-height: 80px;
-  color: ${styles.color.primary};
+  margin-bottom: 60px;
 `
 
 const StyledItemWrapper = styled.div`

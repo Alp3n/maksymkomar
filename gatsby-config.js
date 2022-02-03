@@ -41,8 +41,7 @@ module.exports = {
     {
       resolve: "gatsby-source-wordpress",
       options: {
-        url: "http://localhost/komar/graphql",
-        hostingWPCOM: false,
+        url: "https://maksymkomar.adamwalukiewicz.pl/?graphql=true",
       },
     },
     {

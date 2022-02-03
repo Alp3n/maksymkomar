@@ -3,12 +3,10 @@ import PropTypes from "prop-types"
 import styled from "styled-components"
 import { GatsbyImage } from "gatsby-plugin-image"
 import styles from "../styles"
-import Button from "./button"
 import Slider from "react-slick"
 import "slick-carousel/slick/slick.css"
-// import "slick-carousel/slick/slick-theme.css"
 
-const Reviews = ({ reviews }) => {
+const Opinions = ({ opinions }) => {
   const settings = {
     infinite: true,
     dots: false,
@@ -24,6 +22,7 @@ const Reviews = ({ reviews }) => {
           slidesToShow: 3,
           slidesToScroll: 3,
           arrows: false,
+          dots: true,
         },
       },
       {
@@ -33,6 +32,7 @@ const Reviews = ({ reviews }) => {
           slidesToScroll: 2,
           initialSlide: 2,
           arrows: false,
+          dots: true,
         },
       },
       {
@@ -41,6 +41,7 @@ const Reviews = ({ reviews }) => {
           slidesToShow: 1,
           slidesToScroll: 1,
           arrows: false,
+          dots: true,
         },
       },
     ],
@@ -49,11 +50,14 @@ const Reviews = ({ reviews }) => {
     <StyledWrapper>
       <StyledTitle>Opinie</StyledTitle>
       <Slider {...settings}>
-        {reviews.map(r => (
-          <StyledItem key={r.src}>
+        {opinions.map(r => (
+          <StyledItem key={r.name}>
             <StyledPortraitWrapper>
               <StyledPortraitBackground />
-              <StyledPortraitImage image={r.src} />
+              <StyledPortraitImage
+                image={r.image.localFile.childImageSharp.gatsbyImageData}
+                alt={r.image.altText}
+              />
             </StyledPortraitWrapper>
 
             <StyledName>{r.name}</StyledName>
@@ -64,39 +68,35 @@ const Reviews = ({ reviews }) => {
     </StyledWrapper>
   )
 }
-export default Reviews
+export default Opinions
 
-Reviews.propTypes = {}
+Opinions.propTypes = {}
 
-Reviews.defaultProps = {}
+Opinions.defaultProps = {}
 
 /* STYLED COMPONENTS */
 
 const StyledWrapper = styled.div`
   width: 100%;
-  margin: 5vw 0;
+  margin-bottom: 100px;
 `
 
 const StyledTitle = styled.h1`
   white-space: nowrap;
-  margin-bottom: 4vw;
-  font-size: 4vw;
-  font-weight: 400;
-  line-height: 4.4vw;
-  color: ${styles.color.primary};
+  margin-bottom: 60px;
 `
 
 const StyledItem = styled.div`
   display: flex;
   flex-direction: column;
-  /* margin: 0 2vw; */
+  padding: 0 40px;
 `
 
 const StyledPortraitWrapper = styled.div`
   position: relative;
-  width: 8vw;
-  height: 8vw;
-  margin-bottom: 3vw;
+  width: 150px;
+  height: 150px;
+  margin-bottom: 40px;
 `
 
 const StyledPortraitBackground = styled.div`
@@ -118,17 +118,12 @@ const StyledPortraitImage = styled(GatsbyImage)`
   z-index: 2;
 `
 
-const StyledName = styled.p`
+const StyledName = styled.h4`
   font-family: ${styles.font.family.montserrat};
-  font-size: 32px;
-  margin-bottom: 3vw;
+  margin-bottom: 40px;
 `
 
-const StyledOpinion = styled.p`
-  font-size: 20px;
-  font-weight: 300;
-  line-height: 33px;
-`
+const StyledOpinion = styled.p``
 
 const StyledArrow = styled.div`
   position: absolute;

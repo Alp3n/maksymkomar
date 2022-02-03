@@ -5,18 +5,17 @@ import { GatsbyImage } from "gatsby-plugin-image"
 import styles from "../styles"
 import Button from "./button"
 
-const FullBleedMain = ({ src, alt, logo, altLogo, background }) => {
+const FullBleedMain = ({ hero, alt, logo, altLogo, background, title }) => {
   return (
     <StyledWrapper>
-      <StyledStaticImage image={src} alt={alt} />
+      <StyledStaticImage image={hero} alt={alt} />
       <StyledBox>
         <StyledBoxBackground background={background} />
         <StyledBoxContent>
           <StyledStaticLogo image={logo} alt={altLogo} />
-          <StyledTitle>
-            TRENER HIPNOZY, <br />
-            HIPNOTERAPEUTA
-          </StyledTitle>
+          <StyledTitle
+            dangerouslySetInnerHTML={{ __html: title }}
+          ></StyledTitle>
           <Button label="Więcej" url={"/o-mnie/"} />
         </StyledBoxContent>
       </StyledBox>
@@ -27,14 +26,14 @@ const FullBleedMain = ({ src, alt, logo, altLogo, background }) => {
 export default FullBleedMain
 
 FullBleedMain.propTypes = {
-  src: PropTypes.object,
+  hero: PropTypes.object,
   label: PropTypes.string,
   text: PropTypes.string,
   main: PropTypes.bool,
 }
 
 FullBleedMain.defaultProps = {
-  src: {},
+  hero: {},
   label: "",
   text: "",
   main: false,
@@ -42,24 +41,11 @@ FullBleedMain.defaultProps = {
 
 /* STYLED COMPONENTS */
 
-const StyledTitle = styled.h1`
-  white-space: nowrap;
-  margin-bottom: 3vw;
-  font-size: 72px;
-  font-weight: 400;
-  line-height: 80px;
-  color: ${styles.color.white};
-
-  @media only screen and (max-width: 1200px) {
-    font-size: 42px;
-    line-height: 50px;
-  }
-`
-
 const StyledWrapper = styled.div`
   position: relative;
   width: 100%;
   grid-column: 1 / -1;
+  margin-bottom: 120px;
 `
 
 const StyledStaticImage = styled(GatsbyImage)`
@@ -79,7 +65,7 @@ const StyledBox = styled.div`
   height: auto;
   left: 8%;
   top: 15%;
-  padding: 3vw 4vw;
+  padding: 60px 80px;
 `
 
 const StyledBoxContent = styled.div`
@@ -88,10 +74,24 @@ const StyledBoxContent = styled.div`
   flex-direction: column;
   z-index: 3;
 `
+const StyledTitle = styled.h1`
+  /* white-space: nowrap; */
+  margin-bottom: 70px;
+  font-size: 72px;
+  font-weight: 400;
+  line-height: 80px;
+  text-transform: uppercase;
+  color: ${styles.color.white};
+
+  @media only screen and (max-width: 1200px) {
+    font-size: 42px;
+    line-height: 50px;
+  }
+`
 
 const StyledStaticLogo = styled(GatsbyImage)`
-  width: 14vw;
-  margin: 1.7vw 0;
+  width: 260px;
+  margin-bottom: 35px;
 `
 
 const StyledBoxBackground = styled.div`

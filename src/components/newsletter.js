@@ -28,16 +28,12 @@ const StyledWrapper = styled.div`
   width: 100%;
   background-color: ${styles.color.grey};
   padding: 80px 0;
+  margin-bottom: 100px;
 `
 
 const StyledContent = styled.div`
   grid-column: 2;
 `
 const StyledTitle = styled.h1`
-  white-space: nowrap;
-  margin-bottom: 4vw;
-  font-size: 4vw;
-  font-weight: 400;
-  line-height: 4.4vw;
-  color: ${styles.color.primary};
+  margin-bottom: 60px;
 `

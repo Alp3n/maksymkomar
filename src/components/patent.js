@@ -6,21 +6,21 @@ import styles from "../styles"
 import Button from "./button"
 import { GatsbyImage } from "gatsby-plugin-image"
 
-const Patent = ({ src, alt }) => {
+const Patent = ({ image, ctaLabel, alt, title }) => {
   return (
     <StyledWrapper>
       <StyledBox>
-        <StyledTitle>
-          Patent
+        <StyledTitle dangerouslySetInnerHTML={{ __html: title }}>
+          {/* Patent
           <br />
           “The Maksym Komar’s
           <br />
-          Method”
+          Method” */}
         </StyledTitle>
-        <Button label="Zobacz" />
+        <Button label={ctaLabel} />
       </StyledBox>
       <StyledBox>
-        <StyledImage image={src} alt={alt} />
+        <StyledImage image={image} alt={alt} />
       </StyledBox>
     </StyledWrapper>
   )
@@ -35,7 +35,7 @@ const StyledWrapper = styled.div`
   grid-template-columns: 1fr 1fr;
   width: 100%;
   place-items: center;
-  margin-bottom: 80px;
+  margin-bottom: 120px;
 `
 
 const StyledTitle = styled.h1`
