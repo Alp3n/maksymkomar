@@ -1,8 +1,7 @@
 import * as React from "react"
-import PropTypes from "prop-types"
-import { Link } from "gatsby"
+// import PropTypes from "prop-types"
 import styled from "styled-components"
-import styles from "../styles"
+// import styles from "../styles"
 import Button from "./button"
 import { GatsbyImage } from "gatsby-plugin-image"
 
@@ -10,13 +9,7 @@ const Patent = ({ image, ctaLabel, alt, title }) => {
   return (
     <StyledWrapper>
       <StyledBox>
-        <StyledTitle dangerouslySetInnerHTML={{ __html: title }}>
-          {/* Patent
-          <br />
-          “The Maksym Komar’s
-          <br />
-          Method” */}
-        </StyledTitle>
+        <StyledTitle dangerouslySetInnerHTML={{ __html: title }}></StyledTitle>
         <Button label={ctaLabel} />
       </StyledBox>
       <StyledBox>

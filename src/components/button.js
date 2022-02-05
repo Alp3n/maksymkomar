@@ -1,5 +1,5 @@
 import * as React from "react"
-import PropTypes from "prop-types"
+// import PropTypes from "prop-types"
 import { Link } from "gatsby"
 import styled from "styled-components"
 import styles from "../styles"
@@ -31,7 +31,7 @@ const StyledButton = styled(Link)`
     padding: 4px 40px;
   }
 `
-Button.propTypes = {
+/* Button.propTypes = {
   url: PropTypes.string,
   label: PropTypes.string,
 }
@@ -39,4 +39,4 @@ Button.propTypes = {
 Button.defaultProps = {
   url: "",
   label: "",
-}
+} */

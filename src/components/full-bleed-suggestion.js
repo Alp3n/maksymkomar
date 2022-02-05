@@ -1,36 +1,62 @@
 import * as React from "react"
-import PropTypes from "prop-types"
+// import PropTypes from "prop-types"
 import styled from "styled-components"
 import { GatsbyImage } from "gatsby-plugin-image"
 import styles from "../styles"
+import Button from "./button"
 
-const FullBleedBlog = ({ hero, altHero, title }) => {
+const FullBleedSuggestion = ({
+  image,
+  alt,
+  ctaLabel,
+  ctaUrl,
+  duration,
+  format,
+  price,
+  title,
+}) => {
   return (
     <StyledWrapper>
-      <StyledStaticImage image={hero} alt={altHero} />
+      <StyledStaticImage image={image} alt={alt} />
       <StyledBox>
         <StyledBoxBackground />
         <StyledBoxContent>
           <StyledTitle>{title}</StyledTitle>
+          <StyledTextBox>
+            <span>
+              <strong>Format</strong> - {format}
+            </span>
+            <span>
+              <strong>Długość</strong> - {duration}
+            </span>
+            <span>
+              <strong>Cena</strong> - {price}
+            </span>
+          </StyledTextBox>
+          <Button label={ctaLabel} url={ctaUrl} />
         </StyledBoxContent>
       </StyledBox>
     </StyledWrapper>
   )
 }
 
-export default FullBleedBlog
+export default FullBleedSuggestion
 
-FullBleedBlog.propTypes = {
+/* FullBleedSuggestion.propTypes = {
   hero: PropTypes.object,
   altHero: PropTypes.string,
   title: PropTypes.string,
+  ctaLabel: PropTypes.string,
+  ctaUrl: PropTypes.string,
 }
 
-FullBleedBlog.defaultProps = {
+FullBleedSuggestion.defaultProps = {
   hero: {},
   altHero: "",
   title: "",
-}
+  ctaLabel: "Więcej",
+  ctaUrl: "/",
+} */
 
 /* STYLED COMPONENTS */
 
@@ -39,6 +65,7 @@ const StyledWrapper = styled.div`
   width: 100%;
   grid-column: 1 / -1;
   margin-bottom: 150px;
+  color: ${styles.color.white};
 `
 
 const StyledStaticImage = styled(GatsbyImage)`
@@ -67,22 +94,21 @@ const StyledBoxContent = styled.div`
   z-index: 3;
 `
 
-const StyledTitle = styled.h1`
-  margin-bottom: 40px;
-  color: ${props => (props.blend ? styles.color.white : styles.color.primary)};
+const StyledTextBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 50px;
 `
 
-const StyledText = styled.p`
+const StyledTitle = styled.h1`
   margin-bottom: 40px;
-  font-size: ${props => (props.logo ? "1.2rem" : null)};
-  color: ${props => (props.blend ? styles.color.white : styles.color.primary)};
 `
 
 const StyledBoxBackground = styled.div`
   position: absolute;
   width: 100%;
   height: 100%;
-  background: ${styles.color.lightBlue};
+  background: ${styles.color.lightOrange};
   mix-blend-mode: multiply;
   opacity: 0.89;
   z-index: 1;

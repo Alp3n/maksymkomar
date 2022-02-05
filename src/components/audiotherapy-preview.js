@@ -7,12 +7,12 @@ import Button from "./button"
 import { Link, useStaticQuery, graphql } from "gatsby"
 import Slider from "react-slick"
 
-const BlogPreview = () => {
+const AudiotherapyPreview = () => {
   const data = useStaticQuery(graphql`
-    query NotAudiotherapy {
+    query AudtiotherapyPreview {
       allWpPost(
         filter: {
-          categories: { nodes: { elemMatch: { databaseId: { ne: 115 } } } }
+          categories: { nodes: { elemMatch: { databaseId: { eq: 115 } } } }
         }
       ) {
         edges {
@@ -36,6 +36,16 @@ const BlogPreview = () => {
                 name
               }
             }
+            audioterapia {
+              productSection {
+                textLeft {
+                  availability
+                  duration
+                  format
+                  price
+                }
+              }
+            }
           }
         }
       }
@@ -46,7 +56,7 @@ const BlogPreview = () => {
     infinite: true,
     dots: false,
     speed: 1000,
-    slidesToShow: 3,
+    slidesToShow: 2,
     slidesToScroll: 1,
     nextArrow: <StyledArrow right />,
     prevArrow: <StyledArrow left />,
@@ -81,38 +91,46 @@ const BlogPreview = () => {
   }
   return (
     <StyledWrapper>
-      <StyledTitleMain>Blog</StyledTitleMain>
+      <StyledTitleMain>Audioterapie</StyledTitleMain>
       <Slider {...settings}>
         {data.allWpPost.edges.map(p => (
           <StyledBlogItem key={p.node.id}>
             <StyledImageWrapper>
-              <StyledCategory>
-                {p.node.categories.nodes.map(c => c.name)}
-              </StyledCategory>
               <StyledImage
                 image={
                   p.node.featuredImage.node.localFile.childImageSharp
                     .gatsbyImageData
                 }
-                alt={p.node.title}
+                alt={p.node.featuredImage.node.localFile.altText}
               />
             </StyledImageWrapper>
             <StyledTitle>{p.node.title}</StyledTitle>
-            <StyledDesc
-              dangerouslySetInnerHTML={{ __html: p.node.excerpt }}
-            ></StyledDesc>
-            <StyledLink to={`/blog/${p.node.slug}`}>Więcej</StyledLink>
+            <StyledDesc>
+              <span>
+                <strong>Format</strong> -{" "}
+                {p.node.audioterapia.productSection.textLeft.format}
+              </span>
+              <span>
+                <strong>Długość</strong> -{" "}
+                {p.node.audioterapia.productSection.textLeft.duration}
+              </span>
+              <span>
+                <strong>Cena</strong> -{" "}
+                {p.node.audioterapia.productSection.textLeft.price}
+              </span>
+            </StyledDesc>
+            <Button to={`/blog/${p.node.slug}`} label="Więcej" />
           </StyledBlogItem>
         ))}
       </Slider>
-      <StyledButtonWrapper>
+      {/* <StyledButtonWrapper>
         <Button label="Zobacz wszystkie" url={"/blog/"} />
-      </StyledButtonWrapper>
+      </StyledButtonWrapper> */}
     </StyledWrapper>
   )
 }
 
-export default BlogPreview
+export default AudiotherapyPreview
 
 /* BlogPreview.propTypes = {}
 
@@ -141,34 +159,16 @@ const StyledImageWrapper = styled.div`
   height: auto;
   margin-bottom: 30px;
 `
-const StyledCategory = styled.div`
-  position: absolute;
-  bottom: 8%;
-  left: -15px;
-  padding: 5px 10px;
-  background-color: ${styles.color.lightBlue};
-  z-index: 2;
-`
 const StyledImage = styled(GatsbyImage)``
 
-const StyledTitle = styled.h4`
+const StyledTitle = styled.h5`
   font-family: ${styles.font.family.montserrat};
 `
 
-const StyledDesc = styled.p`
-  font-weight: 300;
-  font-size: 20px;
-  line-height: 33px;
-`
-const StyledLink = styled(Link)`
-  text-decoration: none;
-  color: ${styles.color.primary};
-  z-index: 3;
-`
-const StyledButtonWrapper = styled.div`
+const StyledDesc = styled.div`
   display: flex;
-  width: 100%;
-  justify-content: center;
+  flex-direction: column;
+  margin-bottom: 50px;
 `
 const StyledArrow = styled.div`
   position: absolute;

@@ -1,11 +1,11 @@
 import * as React from "react"
 import styled from "styled-components"
-import PropTypes from "prop-types"
+// import PropTypes from "prop-types"
 import { Link } from "gatsby"
 import styles from "../styles"
 
-const MenuItem = ({ url, label }) => {
-  return <StyledLink to="o-mnie/">{label}</StyledLink>
+const MenuItem = ({ to, label }) => {
+  return <StyledLink to={to}>{label}</StyledLink>
 }
 
 const StyledLink = styled(Link)`
@@ -34,7 +34,7 @@ const StyledLink = styled(Link)`
   }
 `
 
-MenuItem.propTypes = {
+/* MenuItem.propTypes = {
   url: PropTypes.string,
   label: PropTypes.string,
 }
@@ -42,6 +42,6 @@ MenuItem.propTypes = {
 MenuItem.defaultProps = {
   url: `/`,
   label: ``,
-}
+} */
 
 export default MenuItem

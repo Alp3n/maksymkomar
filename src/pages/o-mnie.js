@@ -1,7 +1,6 @@
 import * as React from "react"
 import { graphql } from "gatsby"
 import styled from "styled-components"
-import { GatsbyImage } from "gatsby-plugin-image"
 import styles from "../styles"
 import Layout from "../components/layout"
 import Seo from "../components/seo"
@@ -34,6 +33,7 @@ const Omnie = ({ data }) => {
         title={myData.col2Section.title}
         textLeft={myData.col2Section.textLeft}
         textRight={myData.col2Section.textRight}
+        id="moja-metoda"
       />
       <Patent
         image={
@@ -126,41 +126,6 @@ export const pageQuery = graphql`
 export default Omnie
 
 /* STYLED COMPONENTS */
-
-const StyledTitle = styled.h1`
-  white-space: nowrap;
-  margin-bottom: 40px;
-  font-size: 72px;
-  font-weight: 400;
-  line-height: 80px;
-  color: ${props => props.color};
-`
-
-const StyledDesc = styled.p`
-  font-family: "Marcellus";
-  font-weight: 300;
-  font-size: 32px;
-  line-height: 47px;
-  margin-bottom: 2vw;
-  color: ${styles.color.white};
-`
-const StyledStaticLogo = styled(GatsbyImage)`
-  width: 14vw;
-  /* margin: 50px 0; */
-`
-
-const StyledFlex = styled.div`
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  margin-top: 80px;
-`
-
-const StyledText = styled.p`
-  font-weight: 300;
-  font-size: 20px;
-  line-height: 36px;
-`
 
 const StyledSimpleSection = styled.div`
   display: flex;

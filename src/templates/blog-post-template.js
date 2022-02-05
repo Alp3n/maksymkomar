@@ -1,10 +1,10 @@
 import * as React from "react"
 import { Link, graphql } from "gatsby"
-import styles from "../styles"
 import Layout from "../components/layout"
 import Seo from "../components/seo"
-import FullBleedSection from "../components/full-bleed-section"
-import FullBleedBlog from "../components/full-bleed-bloc"
+import FullBleedBlog from "../components/full-bleed-blog"
+import styled from "styled-components"
+import BlogPreview from "../components/blog-preview"
 
 const BlogPostTemplate = ({ data }) => {
   console.log(data)
@@ -18,8 +18,29 @@ const BlogPostTemplate = ({ data }) => {
         }
         altHero={data.wpPost.blog.heroSection.image.altText}
         title={data.wpPost.blog.heroSection.title}
+        categories={data.wpPost.categories.nodes}
+        date={data.wpPost.date}
       />
-      <h1>{data.wpPost.title}</h1>
+      <StyledWrapper>
+        <StyledDescription>{data.wpPost.blog.description}</StyledDescription>
+        {data.wpPost.blog.simpleSection.map(i => (
+          <StyledItem key={i.heading}>
+            <h3>{i.heading}</h3>
+            {i.text && <p>{i.text}</p>}
+            {i.video && (
+              <StyledIframe
+                src={i.video}
+                title="Video"
+                webkitallowfullscreen="true"
+                mozallowfullscreen="true"
+                allowFullScreen
+                frameBorder={0}
+              />
+            )}
+          </StyledItem>
+        ))}
+      </StyledWrapper>
+      <BlogPreview /* posts={data.allWpPost.edges} */ />
     </Layout>
   )
 }
@@ -45,7 +66,7 @@ export const query = graphql`
             altText
             localFile {
               childImageSharp {
-                gatsbyImageData
+                gatsbyImageData(quality: 100)
               }
             }
           }
@@ -62,7 +83,28 @@ export const query = graphql`
           }
         }
       }
-      date(locale: "pl-pl", formatString: "DD-MMMM-YYYY")
+      date(locale: "pl-pl", formatString: "DD MMMM YYYY")
     }
   }
+`
+
+const StyledWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  place-self: flex-start;
+  width: 70%;
+`
+const StyledDescription = styled.h4`
+  font-family: Montserrat;
+  font-weight: 300;
+  line-height: 1.4;
+  margin-bottom: 100px;
+`
+const StyledItem = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 50px;
+`
+const StyledIframe = styled.iframe`
+  width: 100%;
 `

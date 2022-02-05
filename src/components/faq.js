@@ -1,6 +1,6 @@
 import * as React from "react"
 import styled from "styled-components"
-import PropTypes from "prop-types"
+// import PropTypes from "prop-types"
 import { Link } from "gatsby"
 import styles from "../styles"
 
@@ -28,7 +28,7 @@ const Faq = ({ qa }) => {
 
 export default Faq
 
-Faq.propTypes = {}
+/* Faq.propTypes = {} */
 
 /* STYLED COMPONENTS */
 

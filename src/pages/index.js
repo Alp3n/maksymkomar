@@ -1,6 +1,5 @@
 import * as React from "react"
 import { graphql } from "gatsby"
-import styled from "styled-components"
 import styles from "../styles"
 import Layout from "../components/layout"
 import Seo from "../components/seo"
@@ -11,25 +10,21 @@ import Opinions from "../components/opinions"
 import BlogPreview from "../components/blog-preview"
 import Newsletter from "../components/newsletter"
 import Faq from "../components/faq"
-import qa from "../data/faq"
 
 const IndexPage = ({ data }) => {
-  console.log(data)
   const myData = data.wpPage.home
-  const myPosts = data.allWpPost.edges
+  // const myPosts = data.allWpPost.edges
   return (
     <Layout>
       <Seo title="Home" />
       <FullBleedMain
-        hero={
-          myData.heroSection.image.localFile.childImageSharp.gatsbyImageData
-        }
-        alt={myData.heroSection.image.altText}
+        hero={myData.heroSec.image.localFile.childImageSharp.gatsbyImageData}
+        alt={myData.heroSec.image.altText}
         logo={
-          myData.heroSection.signature.localFile.childImageSharp.gatsbyImageData
+          myData.heroSec.signature.localFile.childImageSharp.gatsbyImageData
         }
-        altLogo={myData.heroSection.signature.altText}
-        title={myData.heroSection.title}
+        altLogo={myData.heroSec.signature.altText}
+        title={myData.heroSec.title}
         background={styles.color.primary}
       />
       <TwoColumns
@@ -79,9 +74,9 @@ const IndexPage = ({ data }) => {
         title={myData.fwSection3.title}
         text={myData.fwSection3.text}
       />
-      <BlogPreview posts={myPosts} />
+      <BlogPreview /* posts={myPosts} */ />
       <Newsletter />
-      <Faq qa={qa} />
+      <Faq qa={myData.faqSection.qa} />
     </Layout>
   )
 }
@@ -91,8 +86,7 @@ export const pageQuery = graphql`
     wpPage(databaseId: { eq: 46 }) {
       id
       home {
-        heroSection {
-          fieldGroupName
+        heroSec {
           title
           image {
             localFile {
@@ -203,38 +197,9 @@ export const pageQuery = graphql`
         }
       }
     }
-    allWpPost {
-      edges {
-        node {
-          id
-          excerpt
-          featuredImage {
-            node {
-              localFile {
-                childImageSharp {
-                  gatsbyImageData(quality: 100)
-                }
-              }
-              altText
-            }
-          }
-          title
-          slug
-          categories {
-            nodes {
-              name
-            }
-          }
-        }
-      }
-    }
   }
 `
 
 export default IndexPage
 
 /* STYLED COMPONENTS */
-
-const StyledDesc = styled.p`
-  margin-bottom: 2vw;
-`

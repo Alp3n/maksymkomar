@@ -1,6 +1,5 @@
 import * as React from "react"
-import PropTypes from "prop-types"
-import { useStaticQuery, graphql } from "gatsby"
+// import PropTypes from "prop-types"
 import styled from "styled-components"
 import styles from "../styles"
 import { GatsbyImage } from "gatsby-plugin-image"
@@ -42,7 +41,7 @@ const Footer = ({ src, alt }) => {
 
 export default Footer
 
-Footer.propTypes = {}
+/* Footer.propTypes = {} */
 
 /* STYLED COMPONENTS */
 

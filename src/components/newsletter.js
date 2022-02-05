@@ -1,5 +1,5 @@
 import * as React from "react"
-import PropTypes from "prop-types"
+// import PropTypes from "prop-types"
 import styled from "styled-components"
 import styles from "../styles"
 import Button from "./button"
@@ -17,7 +17,7 @@ const Newsletter = () => {
 
 export default Newsletter
 
-Newsletter.propTypes = {}
+/* Newsletter.propTypes = {} */
 
 /* STYLED COMPONENTS */
 

@@ -1,5 +1,5 @@
 import * as React from "react"
-import PropTypes from "prop-types"
+// import PropTypes from "prop-types"
 import styled from "styled-components"
 import { GatsbyImage } from "gatsby-plugin-image"
 import styles from "../styles"
@@ -25,7 +25,7 @@ const FullBleedMain = ({ hero, alt, logo, altLogo, background, title }) => {
 
 export default FullBleedMain
 
-FullBleedMain.propTypes = {
+/* FullBleedMain.propTypes = {
   hero: PropTypes.object,
   label: PropTypes.string,
   text: PropTypes.string,
@@ -37,7 +37,7 @@ FullBleedMain.defaultProps = {
   label: "",
   text: "",
   main: false,
-}
+} */
 
 /* STYLED COMPONENTS */
 
