@@ -3,69 +3,47 @@ import * as React from "react"
 import styled from "styled-components"
 import { GatsbyImage } from "gatsby-plugin-image"
 import styles from "../styles"
-import Button from "./button"
 
-const FullBleedSection = ({
+const FullBleedOther = ({
   hero,
   altHero,
-  logo,
-  altLogo,
-  background,
-  cta,
-  ctaLabel,
-  ctaUrl,
-  blend,
   title,
-  text,
+  subtitle,
+  client,
+  orange,
+  blend,
 }) => {
   return (
     <StyledWrapper>
       <StyledStaticImage image={hero} alt={altHero} />
       <StyledBox>
-        <StyledBoxBackground background={background} blend={blend} />
-        <StyledBoxContent>
-          {title ? <StyledTitle>{title}</StyledTitle> : null}
-          {text ? (
-            <StyledText blend={blend} logo={logo}>
-              {text}
-            </StyledText>
-          ) : null}
-          {cta ? <Button label={ctaLabel} url={ctaUrl} /> : null}
-          {logo ? <StyledStaticLogo image={logo} alt={altLogo} /> : null}
+        <StyledBoxBackground orange={orange} blend={blend} />
+        <StyledBoxContent blend={blend}>
+          <StyledBlog blend={blend}>
+            {client ? "strefa klienta" : "strefa terapeuty"}
+          </StyledBlog>
+          <StyledTitle>{title}</StyledTitle>
+          <StyledFlex
+            dangerouslySetInnerHTML={{ __html: subtitle }}
+          ></StyledFlex>
         </StyledBoxContent>
       </StyledBox>
     </StyledWrapper>
   )
 }
 
-export default FullBleedSection
+export default FullBleedOther
 
-/* FullBleedSection.propTypes = {
+/* FullBleedOther.propTypes = {
   hero: PropTypes.object,
   altHero: PropTypes.string,
   title: PropTypes.string,
-  text: PropTypes.string,
-  logo: PropTypes.object,
-  altLogo: PropTypes.string,
-  background: PropTypes.string,
-  cta: PropTypes.bool,
-  ctaLabel: PropTypes.string,
-  ctaUrl: PropTypes.string,
-  blend: PropTypes.bool,
 }
 
-FullBleedSection.defaultProps = {
+FullBleedOther.defaultProps = {
   hero: {},
   altHero: "",
-  logo: null,
-  altLogo: "",
   title: "",
-  text: "",
-  background: "",
-  cta: false,
-  ctaLabel: "Więcej",
-  ctaUrl: "/",
-  blend: false,
 } */
 
 /* STYLED COMPONENTS */
@@ -73,6 +51,7 @@ FullBleedSection.defaultProps = {
 const StyledWrapper = styled.div`
   position: relative;
   width: 100%;
+  height: 600px;
   grid-column: 1 / -1;
   margin-bottom: 150px;
 `
@@ -82,7 +61,6 @@ const StyledStaticImage = styled(GatsbyImage)`
   position: relative;
   min-height: 670px;
 `
-
 const StyledBox = styled.div`
   position: absolute;
   display: flex;
@@ -93,6 +71,7 @@ const StyledBox = styled.div`
   top: 15%;
   padding: 60px 80px;
   min-height: 600px;
+  font-family: Marcellus;
 `
 
 const StyledBoxContent = styled.div`
@@ -101,29 +80,38 @@ const StyledBoxContent = styled.div`
   flex-direction: column;
   max-width: 500px;
   z-index: 3;
+  color: ${props => (props.blend ? styles.color.white : styles.color.primary)};
 `
 
 const StyledTitle = styled.h1`
   margin-bottom: 40px;
-  color: ${props => (props.blend ? styles.color.white : styles.color.primary)};
+  text-transform: uppercase;
 `
-
-const StyledText = styled.p`
-  margin-bottom: 40px;
-  font-size: ${props => (props.logo ? "1.2rem" : null)};
-  color: ${props => (props.blend ? styles.color.white : styles.color.primary)};
-`
-
 const StyledBoxBackground = styled.div`
   position: absolute;
   width: 100%;
   height: 100%;
-  background: ${props => (props.background ? props.background : "#f2f2f2")};
+  background: ${props =>
+    props.orange ? styles.color.lightOrange : styles.color.grey};
   mix-blend-mode: ${props => (props.blend ? "multiply" : "none")};
   opacity: 0.89;
   z-index: 1;
 `
-const StyledStaticLogo = styled(GatsbyImage)`
-  width: 260px;
-  margin-bottom: 35px;
+const StyledBlog = styled.h4`
+  width: max-content;
+  padding-bottom: 20px;
+  border-bottom: 1px solid
+    ${props => (props.blend ? styles.color.white : styles.color.primary)};
 `
+
+const StyledFlex = styled.div`
+  display: flex;
+`
+
+
+/* 
+Pojedyncza sesja w niektórych przypadkach już może przynieść pożądany efekt.<br/>
+Pierwsza sesja zazwyczaj stanowi gruntowne przygotowanie psychiczne i stawia fundamenty pod dalszą pracę terapeutyczną. Z mojej praktyki wynika, że większość problemów pozwala się rozwiązać w ciągu 3-5 
+seansów. Konkretna liczba seansów będzie dokładnie oszacowana po wywiadzie diagnostycznym podczas pierwszego spotkania.<br/>
+
+*/

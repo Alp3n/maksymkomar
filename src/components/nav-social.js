@@ -1,29 +1,55 @@
 import React from "react"
-import PropTypes from "prop-types"
+// import PropTypes from "prop-types"
 import styled from "styled-components"
+import { GatsbyImage } from "gatsby-plugin-image"
 
-const NavSocial = ({ ig, yt, fb }) => {
-  return <StyledWrapper></StyledWrapper>
+const NavSocial = ({ socialmedia }) => {
+  return (
+    <StyledWrapper>
+      {socialmedia.map(s => (
+        <StyledLink
+          key={s.url}
+          href={s.url}
+          target="_blank"
+          rel="noopener norefferer"
+        >
+          <StyledLogo
+            image={s.icon.localFile.childImageSharp.gatsbyImageData}
+            alt={s.icon.altText}
+          />
+        </StyledLink>
+      ))}
+    </StyledWrapper>
+  )
 }
 
-NavSocial.propTypes = {
-  ig: PropTypes.string,
-  fb: PropTypes.string,
-  yt: PropTypes.string,
-}
+/* NavSocial.propTypes = {
+  socialmedia: PropTypes.array,
+} */
 
 export default NavSocial
 
 /* STYLED COMPONENTS */
 
+const StyledLink = styled.a`
+  z-index: 5;
+`
+
+const StyledLogo = styled(GatsbyImage)`
+  width: 31px;
+  height: 31px;
+  z-index: 4;
+`
+
 const StyledWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
   position: fixed;
-  top: 50%;
+  top: 45%;
   right: 30px;
-  height: 120px;
-  width: 40px;
-  background-color: red;
-  z-index: 1000;
+  display: grid;
+  gap: 16px;
+  z-index: 3;
+
+  @media screen and (max-width: 1200px) {
+    display: none;
+  }
 `

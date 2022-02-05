@@ -1,7 +1,7 @@
 html {
   -ms-text-size-adjust: 100%;
   -webkit-text-size-adjust: 100%;
-  font: 112.5%/1.45em "Montserrat";
+  font: 125%/1.25em "Montserrat";
   box-sizing: border-box;
   overflow-y: scroll;
 }
@@ -11,7 +11,8 @@ body {
   -moz-osx-font-smoothing: grayscale;
   color: #152d41;
   font-family: "Montserrat";
-  font-weight: normal;
+  font-weight: 300;
+  line-height: 1.75;
   word-wrap: break-word;
   font-kerning: normal;
   -moz-font-feature-settings: "kern", "liga", "clig", "calt";
@@ -81,11 +82,11 @@ h1 {
   padding-top: 0;
   margin-bottom: 1.45rem;
   color: inherit;
-  font-family: "Marcellus";
-  font-weight: bold;
+  font-family: "Marcellus", sans-serif;
+  font-weight: normal;
   text-rendering: optimizeLegibility;
-  font-size: 2.25rem;
-  line-height: 1.1;
+  font-size: 3.052rem;
+  line-height: 1.3;
 }
 mark {
   background-color: #ff0;
@@ -260,10 +261,10 @@ h2 {
   margin-bottom: 1.45rem;
   color: inherit;
   font-family: "Marcellus";
-  font-weight: bold;
+  font-weight: normal;
   text-rendering: optimizeLegibility;
-  font-size: 1.62671rem;
-  line-height: 1.1;
+  font-size: 2.441rem;
+  line-height: 1.3;
 }
 h3 {
   margin-left: 0;
@@ -276,10 +277,10 @@ h3 {
   margin-bottom: 1.45rem;
   color: inherit;
   font-family: "Marcellus";
-  font-weight: bold;
+  font-weight: normal;
   text-rendering: optimizeLegibility;
-  font-size: 1.38316rem;
-  line-height: 1.1;
+  font-size: 1.953rem;
+  line-height: 1.3;
 }
 h4 {
   margin-left: 0;
@@ -292,10 +293,10 @@ h4 {
   margin-bottom: 1.45rem;
   color: inherit;
   font-family: "Marcellus";
-  font-weight: bold;
+  font-weight: normal;
   text-rendering: optimizeLegibility;
-  font-size: 1rem;
-  line-height: 1.1;
+  font-size: 1.563rem;
+  line-height: 1.3;
 }
 h5 {
   margin-left: 0;
@@ -308,10 +309,10 @@ h5 {
   margin-bottom: 1.45rem;
   color: inherit;
   font-family: "Marcellus";
-  font-weight: bold;
+  font-weight: normal;
   text-rendering: optimizeLegibility;
-  font-size: 0.85028rem;
-  line-height: 1.1;
+  font-size: 1.25rem;
+  line-height: 1.3;
 }
 h6 {
   margin-left: 0;
@@ -324,7 +325,7 @@ h6 {
   margin-bottom: 1.45rem;
   color: inherit;
   font-family: "Marcellus";
-  font-weight: bold;
+  font-weight: normal;
   text-rendering: optimizeLegibility;
   font-size: 0.78405rem;
   line-height: 1.1;

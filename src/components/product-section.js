@@ -4,49 +4,56 @@ import styled from "styled-components"
 import styles from "../styles"
 import Button from "./button"
 
-const TwoColumns = ({
+const ProductSection = ({
   title,
   textLeft,
   textRight,
-  textButtonLabel,
-  textButtonUrl,
-  cta,
+  ctaLabel,
+  ctaUrl,
   id,
 }) => {
   return (
     <StyledWrapper id={id}>
       <StyledTitle>{title}</StyledTitle>
       <StyledTextsBox>
-        <StyledTextBox
-          right
-          dangerouslySetInnerHTML={{ __html: textLeft }}
-        ></StyledTextBox>
+        <StyledTextBox right>
+          <span>
+            <strong>Format</strong> - {textLeft.format}
+          </span>
+          <span>
+            <strong>Długość</strong> - {textLeft.duration}
+          </span>
+          <span>
+            <strong>Cena</strong> - {textLeft.price}
+          </span>
+          <span>
+            <strong>Dostępność</strong> - {textLeft.availability}
+          </span>
+        </StyledTextBox>
         <StyledVerticalLine />
-        <StyledTextBox
-          left
-          dangerouslySetInnerHTML={{ __html: textRight }}
-        ></StyledTextBox>
+        <StyledTextBox left>{textRight}</StyledTextBox>
       </StyledTextsBox>
-      {cta ? <Button label={textButtonLabel} url={textButtonUrl} /> : null}
+      <Button label={ctaLabel} url={ctaUrl} />
     </StyledWrapper>
   )
 }
 
-export default TwoColumns
+export default ProductSection
 
-/* TwoColumns.propTypes = {
+/* ProductSection.propTypes = {
   title: PropTypes.string,
-  textLeft: PropTypes.string,
+  textLeft: PropTypes.object,
   textRight: PropTypes.string,
-  textButtonLabel: PropTypes.string,
-  textButtonUrl: PropTypes.string,
+  ctaLabel: PropTypes.string,
+  ctaUrl: PropTypes.string,
 }
 
-TwoColumns.defaultProps = {
-  textLeft: "Tekst po lewej stronie",
+ProductSection.defaultProps = {
+  title: "Tytuł",
+  textLeft: {},
   textRight: "Tekst po prawej stronie",
-  textButtonLabel: "Więcej",
-  textButtonUrl: "",
+  ctaLabel: "",
+  ctaUrl: "",
 } */
 
 /* STYLED COMPONENTS */
@@ -71,6 +78,8 @@ const StyledTextsBox = styled.div`
 `
 
 const StyledTextBox = styled.div`
+  display: flex;
+  flex-direction: column;
   padding-left: ${props => (props.left ? "12%" : "0")};
   padding-right: ${props => (props.right ? "10%" : "0")};
 `

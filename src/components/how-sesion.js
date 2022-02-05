@@ -1,14 +1,11 @@
 import * as React from "react"
-import PropTypes from "prop-types"
+// import PropTypes from "prop-types"
 import styled from "styled-components"
-import { GatsbyImage } from "gatsby-plugin-image"
 import styles from "../styles"
-import Button from "./button"
 import Slider from "react-slick"
 import "slick-carousel/slick/slick.css"
-// import "slick-carousel/slick/slick-theme.css"
 
-const Reviews = ({ reviews }) => {
+const HowSession = ({ videos, title, textList }) => {
   const settings = {
     infinite: true,
     dots: false,
@@ -24,6 +21,7 @@ const Reviews = ({ reviews }) => {
           slidesToShow: 3,
           slidesToScroll: 3,
           arrows: false,
+          dots: true,
         },
       },
       {
@@ -33,6 +31,7 @@ const Reviews = ({ reviews }) => {
           slidesToScroll: 2,
           initialSlide: 2,
           arrows: false,
+          dots: true,
         },
       },
       {
@@ -41,93 +40,48 @@ const Reviews = ({ reviews }) => {
           slidesToShow: 1,
           slidesToScroll: 1,
           arrows: false,
+          dots: true,
         },
       },
     ],
   }
   return (
     <StyledWrapper>
-      <StyledTitle>Opinie</StyledTitle>
+      <StyledTitle>{title}</StyledTitle>
+      <p dangerouslySetInnerHTML={{ __html: textList }}></p>
       <Slider {...settings}>
-        {reviews.map(r => (
-          <StyledItem key={r.src}>
-            <StyledPortraitWrapper>
-              <StyledPortraitBackground />
-              <StyledPortraitImage image={r.src} />
-            </StyledPortraitWrapper>
-
-            <StyledName>{r.name}</StyledName>
-            <StyledOpinion>{r.opinion}</StyledOpinion>
+        {videos.map(v => (
+          <StyledItem key={v.title}>
+            <StyledIframe src={v.videoUrl} />
+            <StyledName>{v.videoTitle}</StyledName>
           </StyledItem>
         ))}
       </Slider>
     </StyledWrapper>
   )
 }
-export default Reviews
 
-Reviews.propTypes = {}
-
-Reviews.defaultProps = {}
-
-/* STYLED COMPONENTS */
+export default HowSession
 
 const StyledWrapper = styled.div`
   width: 100%;
-  margin: 5vw 0;
+  margin-bottom: 100px;
 `
 
 const StyledTitle = styled.h1`
   white-space: nowrap;
-  margin-bottom: 4vw;
-  font-size: 4vw;
-  font-weight: 400;
-  line-height: 4.4vw;
-  color: ${styles.color.primary};
+  margin-bottom: 60px;
 `
 
 const StyledItem = styled.div`
   display: flex;
   flex-direction: column;
-  /* margin: 0 2vw; */
+  padding: 0 40px;
 `
 
-const StyledPortraitWrapper = styled.div`
-  position: relative;
-  width: 8vw;
-  height: 8vw;
-  margin-bottom: 3vw;
-`
-
-const StyledPortraitBackground = styled.div`
-  position: absolute;
-  background-color: ${styles.color.lightOrange};
-  border-radius: 100%;
-  width: 100%;
-  height: 100%;
-  z-index: 1;
-`
-
-const StyledPortraitImage = styled(GatsbyImage)`
-  position: absolute;
-  background-color: ${styles.color.grey};
-  border-radius: 100%;
-  left: 1.5vw;
-  width: 100%;
-  height: 100%;
-  z-index: 2;
-`
-
-const StyledName = styled.p`
+const StyledName = styled.h5`
   font-family: ${styles.font.family.montserrat};
-  font-size: 32px;
-  margin-bottom: 3vw;
-`
-
-const StyledOpinion = styled.p`
-  font-size: 20px;
-  font-weight: 300;
-  line-height: 33px;
+  margin-bottom: 40px;
 `
 
 const StyledArrow = styled.div`
@@ -142,4 +96,9 @@ const StyledArrow = styled.div`
   width: 30px;
   z-index: 100;
   cursor: pointer;
+`
+
+const StyledIframe = styled.iframe`
+  width: 300px;
+  height: 250px;
 `

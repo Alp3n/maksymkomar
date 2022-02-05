@@ -1,5 +1,5 @@
 import * as React from "react"
-import PropTypes from "prop-types"
+// import PropTypes from "prop-types"
 import { Link } from "gatsby"
 import MenuItem from "./menu-item"
 import styled from "styled-components"
@@ -12,16 +12,21 @@ const Header = ({ src, alt }) => (
         <StyledLogo image={src} alt={alt} />
       </Link>
       <StyledNav>
-        <MenuItem to="/page-2/" label="główna" />
-        <MenuItem to="/page-2/" label="kontakt" />
+        <MenuItem to="/o-mnie/" label="główna" />
+        <MenuItem to="/seanse-terapeutyczne/" label="Seanse terapeutyczne" />
+        <MenuItem
+          to="/szkolenia-dla-terapeutow/"
+          label="Szkolenia dla terapeutów"
+        />
+        <MenuItem to="/kontakt/" label="kontakt" />
       </StyledNav>
     </StyledDiv>
   </StyledHeader>
 )
 
-Header.propTypes = {}
+/* Header.propTypes = {}
 
-Header.defaultProps = {}
+Header.defaultProps = {} */
 
 export default Header
 

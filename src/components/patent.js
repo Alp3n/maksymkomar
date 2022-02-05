@@ -1,26 +1,19 @@
 import * as React from "react"
-import PropTypes from "prop-types"
-import { Link } from "gatsby"
+// import PropTypes from "prop-types"
 import styled from "styled-components"
-import styles from "../styles"
+// import styles from "../styles"
 import Button from "./button"
 import { GatsbyImage } from "gatsby-plugin-image"
 
-const Patent = ({ src, alt }) => {
+const Patent = ({ image, ctaLabel, alt, title }) => {
   return (
     <StyledWrapper>
       <StyledBox>
-        <StyledTitle>
-          Patent
-          <br />
-          “The Maksym Komar’s
-          <br />
-          Method”
-        </StyledTitle>
-        <Button label="Zobacz" />
+        <StyledTitle dangerouslySetInnerHTML={{ __html: title }}></StyledTitle>
+        <Button label={ctaLabel} />
       </StyledBox>
       <StyledBox>
-        <StyledImage image={src} alt={alt} />
+        <StyledImage image={image} alt={alt} />
       </StyledBox>
     </StyledWrapper>
   )
@@ -35,7 +28,7 @@ const StyledWrapper = styled.div`
   grid-template-columns: 1fr 1fr;
   width: 100%;
   place-items: center;
-  margin-bottom: 80px;
+  margin-bottom: 120px;
 `
 
 const StyledTitle = styled.h1`

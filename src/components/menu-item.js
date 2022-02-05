@@ -1,20 +1,17 @@
 import * as React from "react"
 import styled from "styled-components"
-import PropTypes from "prop-types"
+// import PropTypes from "prop-types"
 import { Link } from "gatsby"
 import styles from "../styles"
 
-const MenuItem = ({ url, label }) => {
-  return <StyledLink to={url}>{label}</StyledLink>
+const MenuItem = ({ to, label }) => {
+  return <StyledLink to={to}>{label}</StyledLink>
 }
 
 const StyledLink = styled(Link)`
-  font-family: ${styles.font.family.montserrat};
-  font-size: 20px;
-  /* font-size: ${styles.font.size.menu}; */
   text-transform: capitalize;
   text-decoration: none;
-  margin: 0 1vw;
+  margin: 0 16px;
 
   /* unvisited link */
   :link {
@@ -37,7 +34,7 @@ const StyledLink = styled(Link)`
   }
 `
 
-MenuItem.propTypes = {
+/* MenuItem.propTypes = {
   url: PropTypes.string,
   label: PropTypes.string,
 }
@@ -45,6 +42,6 @@ MenuItem.propTypes = {
 MenuItem.defaultProps = {
   url: `/`,
   label: ``,
-}
+} */
 
 export default MenuItem

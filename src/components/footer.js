@@ -1,21 +1,12 @@
 import * as React from "react"
-import PropTypes from "prop-types"
-import { useStaticQuery, graphql } from "gatsby"
+// import PropTypes from "prop-types"
 import styled from "styled-components"
 import styles from "../styles"
 import { GatsbyImage } from "gatsby-plugin-image"
 
 const Footer = ({ src, alt }) => {
   return (
-    <StyledFooterWrapper
-      style={{
-        display: "grid",
-        gridTemplateColumns: `1fr
-      min(1450px, 100%)
-      1fr`,
-        padding: `0 1.0875rem 1.45rem`,
-      }}
-    >
+    <StyledFooterWrapper>
       <StyledFooterContent>
         <StyledContactInfo>
           <StyledLogo image={src} alt={alt} />
@@ -50,14 +41,15 @@ const Footer = ({ src, alt }) => {
 
 export default Footer
 
-Footer.propTypes = {}
+/* Footer.propTypes = {} */
 
 /* STYLED COMPONENTS */
 
 const StyledFooterWrapper = styled.footer`
+  width: 100%;
   display: grid;
   grid-template-columns: 1fr min(1450px, 100%) 1fr;
-  padding: 1.0875rem 1.45rem;
+  padding: 60px 0;
   background: ${styles.color.grey};
 `
 
@@ -69,4 +61,6 @@ const StyledFooterContent = styled.div`
 `
 
 const StyledContactInfo = styled.div``
-const StyledLogo = styled(GatsbyImage)``
+const StyledLogo = styled(GatsbyImage)`
+  margin-bottom: 40px;
+`
