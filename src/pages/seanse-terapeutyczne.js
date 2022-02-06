@@ -6,13 +6,14 @@ import Layout from "../components/layout"
 import Seo from "../components/seo"
 import TwoColumns from "../components/two-columns"
 import FullBleedOther from "../components/full-bleed-other"
-import Button from "../components/button"
+// import Button from "../components/button"
 import HowSession from "../components/how-sesion"
 import Opinions from "../components/opinions"
 import AudiotherapyPreview from "../components/audiotherapy-preview"
+import PriceList from "../components/price-list"
+import TherapyProduct from "../components/therapy-prodcut"
 
 const SeanseTerapeutyczne = ({ data }) => {
-  // const myData = data.wpPage.seanseTerapeutyczne
   return (
     <Layout>
       <Seo title={"Seanse terapeutyczne"} />
@@ -23,8 +24,9 @@ const SeanseTerapeutyczne = ({ data }) => {
         }
         altHero={data.wpPage.seanseterapeutyczne.heroSection.image.altText}
         title={data.wpPage.seanseterapeutyczne.heroSection.title}
-        orange
+        background={styles.color.lightOrange}
         blend
+        client
       />
       <TwoColumns
         title={data.wpPage.seanseterapeutyczne.col2Section.title}
@@ -35,221 +37,39 @@ const SeanseTerapeutyczne = ({ data }) => {
         textButtonUrl={data.wpPage.seanseterapeutyczne.col2Section.ctaUrl}
       />
       <StyledSimpleSection>
-        <h1>{data.wpPage.seanseterapeutyczne.simpleSection.title}</h1>
+        <h1>{data.wpPage.seanseterapeutyczne.simpleSection1.title}</h1>
         <p
           dangerouslySetInnerHTML={{
-            __html: data.wpPage.seanseterapeutyczne.simpleSection.text,
+            __html: data.wpPage.seanseterapeutyczne.simpleSection1.text,
           }}
         />
       </StyledSimpleSection>
-      {/* <StyledSimpleSection>
+      <StyledSimpleSection>
         <h1>{data.wpPage.seanseterapeutyczne.simpleSection2.title}</h1>
         <p
           dangerouslySetInnerHTML={{
             __html: data.wpPage.seanseterapeutyczne.simpleSection2.text,
           }}
         />
-      </StyledSimpleSection> */}
-      <StyledWrapper>
-        <StyledTitle>
-          {data.wpPage.seanseterapeutyczne.priceListSection.title}
-        </StyledTitle>
-        <p>{data.wpPage.seanseterapeutyczne.priceListSection.textFirst}</p>
-        <StyledTextsBox>
-          <StyledTextBox right>
-            <StyledFlex>
-              <span>
-                <strong>
-                  {
-                    data.wpPage.seanseterapeutyczne.priceListSection.textLeft
-                      .office
-                  }
-                </strong>
-              </span>
-              <span>
-                <strong>Czas trwania</strong> -{" "}
-                {
-                  data.wpPage.seanseterapeutyczne.priceListSection.textLeft
-                    .duration
-                }
-              </span>
-              <span>
-                <strong>1 seans</strong> -{" "}
-                {
-                  data.wpPage.seanseterapeutyczne.priceListSection.textLeft
-                    .oneSeance
-                }
-              </span>
-              <span>
-                <strong>3 seanse</strong> -{" "}
-                {
-                  data.wpPage.seanseterapeutyczne.priceListSection.textLeft
-                    .twoSeance
-                }
-              </span>
-              <span>
-                <strong>5 seansów</strong> -{" "}
-                {
-                  data.wpPage.seanseterapeutyczne.priceListSection.textLeft
-                    .fiveSeance
-                }
-              </span>
-            </StyledFlex>
-          </StyledTextBox>
-          <StyledVerticalLine />
-          <StyledTextBox left>
-            <StyledFlex>
-              <span>
-                <strong>
-                  {
-                    data.wpPage.seanseterapeutyczne.priceListSection.textRight
-                      .online
-                  }
-                </strong>
-              </span>
-              <span>
-                <strong>Czas trwania</strong> -{" "}
-                {
-                  data.wpPage.seanseterapeutyczne.priceListSection.textRight
-                    .duration
-                }
-              </span>
-              <span>
-                <strong>1 seans</strong> -{" "}
-                {
-                  data.wpPage.seanseterapeutyczne.priceListSection.textRight
-                    .oneSeance
-                }
-              </span>
-              <span>
-                <strong>3 seanse</strong> -{" "}
-                {
-                  data.wpPage.seanseterapeutyczne.priceListSection.textRight
-                    .twoSeance
-                }
-              </span>
-              <span>
-                <strong>5 seansów</strong> -{" "}
-                {
-                  data.wpPage.seanseterapeutyczne.priceListSection.textLeft
-                    .fiveSeance
-                }
-              </span>
-            </StyledFlex>
-          </StyledTextBox>
-        </StyledTextsBox>
-        <p>
-          <b>{data.wpPage.seanseterapeutyczne.priceListSection.boldText}</b>
-        </p>
-        <p>{data.wpPage.seanseterapeutyczne.priceListSection.textSecond}</p>
-        <Button
-          label={data.wpPage.seanseterapeutyczne.priceListSection.ctaLabel}
-        />
-      </StyledWrapper>
+      </StyledSimpleSection>
+      <PriceList
+        priceListSection={data.wpPage.seanseterapeutyczne.priceListSection}
+      />
+      <TherapyProduct
+        complexPersonalityTherapySection={
+          data.wpPage.seanseterapeutyczne.complexPersonalityTherapySection
+        }
+      />
 
-      <StyledWrapper>
-        <StyledTitle>
-          {
-            data.wpPage.seanseterapeutyczne.complexPersonalityTherapySection
-              .title
-          }
-        </StyledTitle>
-        <p style={{ width: "60%" }}>
-          {
-            data.wpPage.seanseterapeutyczne.complexPersonalityTherapySection
-              .textFirst
-          }
-        </p>
-        <StyledTextsBox>
-          <StyledTextBox right>
-            <strong>
-              {
-                data.wpPage.seanseterapeutyczne.complexPersonalityTherapySection
-                  .textLeftBold
-              }
-            </strong>
-            <StyledFlex
-              dangerouslySetInnerHTML={{
-                __html:
-                  data.wpPage.seanseterapeutyczne
-                    .complexPersonalityTherapySection.textLeft,
-              }}
-            ></StyledFlex>
-          </StyledTextBox>
-          <StyledVerticalLine />
-          <StyledTextBox left>
-            <strong>
-              {
-                data.wpPage.seanseterapeutyczne.complexPersonalityTherapySection
-                  .textRightBold
-              }
-            </strong>
-            <StyledFlex
-              dangerouslySetInnerHTML={{
-                __html:
-                  data.wpPage.seanseterapeutyczne
-                    .complexPersonalityTherapySection.textRight,
-              }}
-            ></StyledFlex>
-          </StyledTextBox>
-        </StyledTextsBox>
-
-        <p style={{ width: "60%" }}>
-          {
-            data.wpPage.seanseterapeutyczne.complexPersonalityTherapySection
-              .textSecond
-          }
-        </p>
-        <div
-          style={{
-            marginBottom: "50px",
-            display: "flex",
-            flexDirection: "column",
-          }}
-        >
-          <span>
-            <strong>
-              {
-                data.wpPage.seanseterapeutyczne.complexPersonalityTherapySection
-                  .durationBold
-              }
-            </strong>
-            {
-              data.wpPage.seanseterapeutyczne.complexPersonalityTherapySection
-                .durationValue
-            }
-          </span>
-          <span>
-            <strong>
-              {
-                data.wpPage.seanseterapeutyczne.complexPersonalityTherapySection
-                  .costBold
-              }
-            </strong>{" "}
-            {
-              data.wpPage.seanseterapeutyczne.complexPersonalityTherapySection
-                .costValue
-            }
-          </span>
-        </div>
-        <Button
-          label={
-            data.wpPage.seanseterapeutyczne.complexPersonalityTherapySection
-              .ctaLabel
-          }
-        />
-      </StyledWrapper>
       <HowSession
         videos={data.wpPage.seanseterapeutyczne.sessionWaySection.items}
         title={data.wpPage.seanseterapeutyczne.sessionWaySection.title}
         textList={data.wpPage.seanseterapeutyczne.sessionWaySection.textList}
       />
-      {/* <Opinions
-        title={"Opinie"}
-        opinions={
-          data.wpPage.seanseterapeutyczne.opinionsSection?.opinions?.items
-        }
-      /> */}
+      <Opinions
+        single
+        opinions={data.wpPage.seanseterapeutyczne.opinionSection}
+      />
       <AudiotherapyPreview />
     </Layout>
   )
@@ -290,17 +110,14 @@ export const pageQuery = graphql`
             altText
             localFile {
               childImageSharp {
-                gatsbyImageData
+                gatsbyImageData(quality: 100)
               }
             }
           }
         }
-        opinionsSection {
-          items {
-            name
-            opinion
-          }
-          title
+        opinionSection {
+          name
+          opinion
         }
         priceListSection {
           boldText
@@ -333,7 +150,11 @@ export const pageQuery = graphql`
           textList
           title
         }
-        simpleSection {
+        simpleSection1 {
+          text
+          title
+        }
+        simpleSection2 {
           text
           title
         }

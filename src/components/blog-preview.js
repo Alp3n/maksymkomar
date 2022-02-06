@@ -41,6 +41,11 @@ const BlogPreview = () => {
       }
     }
   `)
+  /*   const filteredItems = data.allWpPost.edges.reduce( 
+    node.categories.nodes.map(c => c)
+  ) */
+
+  // console.log(filteredItems, "FILTERRRRRRR")
 
   const settings = {
     infinite: true,
@@ -114,10 +119,6 @@ const BlogPreview = () => {
 
 export default BlogPreview
 
-/* BlogPreview.propTypes = {}
-
-BlogPreview.defaultProps = {} */
-
 /* STYLED COMPONENTS */
 const StyledWrapper = styled.div`
   display: flex;
@@ -147,7 +148,7 @@ const StyledCategory = styled.div`
   left: -15px;
   padding: 5px 10px;
   background-color: ${styles.color.lightBlue};
-  z-index: 2;
+  z-index: 9;
 `
 const StyledImage = styled(GatsbyImage)``
 

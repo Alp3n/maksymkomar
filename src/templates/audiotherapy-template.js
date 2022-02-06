@@ -21,9 +21,10 @@ const AudiotherapyTemplate = ({ data }) => {
         }
         altHero={data.wpPost.audioterapia.heroSection.image.altText}
         title={data.wpPost.audioterapia.heroSection.title}
-        subtitle={data.wpPost.audioterapia.heroSection.subtitle}
-        orange
+        subtitle={data.wpPost.title}
+        background={styles.color.lightOrange}
         blend
+        client
       />
       <TwoColumns
         title={data.wpPost.audioterapia.col2Section.title}
@@ -82,7 +83,6 @@ export const query = graphql`
           title
         }
         heroSection {
-          subtitle
           title
           image {
             localFile {
@@ -92,9 +92,6 @@ export const query = graphql`
             }
             altText
           }
-        }
-        opinionsSection {
-          title
         }
         simpleSection {
           text

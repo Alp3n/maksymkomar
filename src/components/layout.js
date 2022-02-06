@@ -1,14 +1,24 @@
-import * as React from "react"
+import React, { useState } from "react"
 // import PropTypes from "prop-types"
 import { useStaticQuery, graphql } from "gatsby"
 import styled from "styled-components"
-
+import Modal from "react-modal"
 import Header from "./header"
 import "./layout.css"
 import NavSocial from "./nav-social"
 import Footer from "./footer"
+import BookForm from "./book-form"
 
 const Layout = ({ children }) => {
+  const [isOpen, setIsOpen] = useState(false)
+
+  const openModal = () => {
+    setIsOpen(true)
+  }
+  const closeModal = () => {
+    setIsOpen(false)
+  }
+
   const data = useStaticQuery(graphql`
     query Layout {
       layout: wpPage(databaseId: { eq: 170 }) {
@@ -57,9 +67,38 @@ const Layout = ({ children }) => {
             .gatsbyImageData
         }
         alt={data.layout.logos.signatureColor.altText}
+        openModal={openModal}
       />
       <NavSocial socialmedia={data.layout.logos.socialmedia} />
-      <StyledMain>{children}</StyledMain>
+
+      <StyledMain>
+        <Modal
+          isOpen={isOpen}
+          onRequestClose={closeModal}
+          onAfterOpen={() => (document.body.style.overflow = "hidden")}
+          onAfterClose={() => (document.body.style.overflow = "unset")}
+          style={{
+            content: {
+              padding: 0,
+              position: "absolute",
+              top: "50%",
+              left: "50%",
+              right: "auto",
+              bottom: "auto",
+              marginRight: "-50%",
+              transform: "translate(-50%, -50%)",
+              minWidth: "600px",
+            },
+            overlay: {
+              zIndex: 1000,
+              backgroundColor: "rgba(57, 57, 57, 0.9)",
+            },
+          }}
+        >
+          <BookForm closeModal={closeModal} />
+        </Modal>
+        {children}
+      </StyledMain>
       <Footer
         src={
           data.layout.logos.signatureColor.localFile.childImageSharp

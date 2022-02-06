@@ -102,6 +102,7 @@ const AudiotherapyPreview = () => {
                     .gatsbyImageData
                 }
                 alt={p.node.featuredImage.node.localFile.altText}
+                objectFit="cover"
               />
             </StyledImageWrapper>
             <StyledTitle>{p.node.title}</StyledTitle>
@@ -151,12 +152,11 @@ const StyledBlogItem = styled.div`
   display: flex;
   flex-direction: column;
   margin-bottom: 60px;
-  padding: 0 20px;
 `
 const StyledImageWrapper = styled.div`
   position: relative;
   max-width: 400px;
-  height: auto;
+  height: 300px;
   margin-bottom: 30px;
 `
 const StyledImage = styled(GatsbyImage)``

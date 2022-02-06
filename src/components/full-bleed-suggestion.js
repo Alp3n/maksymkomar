@@ -101,6 +101,7 @@ const StyledTextBox = styled.div`
 `
 
 const StyledTitle = styled.h1`
+  text-transform: uppercase;
   margin-bottom: 40px;
 `
 

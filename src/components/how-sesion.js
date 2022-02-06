@@ -52,7 +52,7 @@ const HowSession = ({ videos, title, textList }) => {
       <Slider {...settings}>
         {videos.map(v => (
           <StyledItem key={v.title}>
-            <StyledIframe src={v.videoUrl} />
+            <StyledIframe src={v.videoUrl} allowFullScreen />
             <StyledName>{v.videoTitle}</StyledName>
           </StyledItem>
         ))}
@@ -101,4 +101,5 @@ const StyledArrow = styled.div`
 const StyledIframe = styled.iframe`
   width: 300px;
   height: 250px;
+  border: none;
 `

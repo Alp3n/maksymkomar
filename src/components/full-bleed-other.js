@@ -10,18 +10,22 @@ const FullBleedOther = ({
   title,
   subtitle,
   client,
-  orange,
+  background,
   blend,
+  noHeading,
 }) => {
   return (
     <StyledWrapper>
       <StyledStaticImage image={hero} alt={altHero} />
       <StyledBox>
-        <StyledBoxBackground orange={orange} blend={blend} />
+        <StyledBoxBackground background={background} blend={blend} />
         <StyledBoxContent blend={blend}>
-          <StyledBlog blend={blend}>
-            {client ? "strefa klienta" : "strefa terapeuty"}
-          </StyledBlog>
+          {noHeading ? null : (
+            <StyledBlog blend={blend}>
+              {client ? "strefa klienta" : "strefa terapeuty"}
+            </StyledBlog>
+          )}
+
           <StyledTitle>{title}</StyledTitle>
           <StyledFlex
             dangerouslySetInnerHTML={{ __html: subtitle }}
@@ -70,6 +74,7 @@ const StyledBox = styled.div`
   left: 8%;
   top: 15%;
   padding: 60px 80px;
+  min-width: 600px;
   min-height: 600px;
   font-family: Marcellus;
 `
@@ -78,7 +83,7 @@ const StyledBoxContent = styled.div`
   position: relative;
   display: flex;
   flex-direction: column;
-  max-width: 500px;
+  max-width: 550px;
   z-index: 3;
   color: ${props => (props.blend ? styles.color.white : styles.color.primary)};
 `
@@ -91,8 +96,7 @@ const StyledBoxBackground = styled.div`
   position: absolute;
   width: 100%;
   height: 100%;
-  background: ${props =>
-    props.orange ? styles.color.lightOrange : styles.color.grey};
+  background: ${props => props.background};
   mix-blend-mode: ${props => (props.blend ? "multiply" : "none")};
   opacity: 0.89;
   z-index: 1;
@@ -107,11 +111,3 @@ const StyledBlog = styled.h4`
 const StyledFlex = styled.div`
   display: flex;
 `
-
-
-/* 
-Pojedyncza sesja w niektórych przypadkach już może przynieść pożądany efekt.<br/>
-Pierwsza sesja zazwyczaj stanowi gruntowne przygotowanie psychiczne i stawia fundamenty pod dalszą pracę terapeutyczną. Z mojej praktyki wynika, że większość problemów pozwala się rozwiązać w ciągu 3-5 
-seansów. Konkretna liczba seansów będzie dokładnie oszacowana po wywiadzie diagnostycznym podczas pierwszego spotkania.<br/>
-
-*/

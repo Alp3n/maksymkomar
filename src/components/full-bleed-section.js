@@ -17,13 +17,14 @@ const FullBleedSection = ({
   blend,
   title,
   text,
+  wide,
 }) => {
   return (
-    <StyledWrapper>
+    <StyledWrapper wide={wide}>
       <StyledStaticImage image={hero} alt={altHero} />
-      <StyledBox>
+      <StyledBox wide={wide}>
         <StyledBoxBackground background={background} blend={blend} />
-        <StyledBoxContent>
+        <StyledBoxContent wide={wide}>
           {title ? <StyledTitle>{title}</StyledTitle> : null}
           {text ? (
             <StyledText blend={blend} logo={logo}>
@@ -74,7 +75,7 @@ const StyledWrapper = styled.div`
   position: relative;
   width: 100%;
   grid-column: 1 / -1;
-  margin-bottom: 150px;
+  margin-bottom: ${props => (props.wide ? "200px" : "150px")};
 `
 
 const StyledStaticImage = styled(GatsbyImage)`
@@ -92,6 +93,7 @@ const StyledBox = styled.div`
   left: 8%;
   top: 15%;
   padding: 60px 80px;
+  min-width: ${props => (props.wide ? "900px" : "none")};
   min-height: 600px;
 `
 
@@ -99,7 +101,7 @@ const StyledBoxContent = styled.div`
   position: relative;
   display: flex;
   flex-direction: column;
-  max-width: 500px;
+  max-width: ${props => (props.wide ? "600px" : "500px")};
   z-index: 3;
 `
 

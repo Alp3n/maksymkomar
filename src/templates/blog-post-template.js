@@ -24,10 +24,10 @@ const BlogPostTemplate = ({ data }) => {
       <StyledWrapper>
         <StyledDescription>{data.wpPost.blog.description}</StyledDescription>
         {data.wpPost.blog.simpleSection.map(i => (
-          <StyledItem key={i.heading}>
-            <h3>{i.heading}</h3>
-            {i.text && <p>{i.text}</p>}
-            {i.video && (
+          <StyledItem key={i.heading ? i.heading : null}>
+            <h3>{i.heading ? i.heading : null}</h3>
+            {i.text ? <p>{i.text}</p> : null}
+            {i.video ? (
               <StyledIframe
                 src={i.video}
                 title="Video"
@@ -36,7 +36,7 @@ const BlogPostTemplate = ({ data }) => {
                 allowFullScreen
                 frameBorder={0}
               />
-            )}
+            ) : null}
           </StyledItem>
         ))}
       </StyledWrapper>

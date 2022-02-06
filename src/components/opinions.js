@@ -6,21 +6,21 @@ import styles from "../styles"
 import Slider from "react-slick"
 import "slick-carousel/slick/slick.css"
 
-const Opinions = ({ opinions }) => {
+const Opinions = ({ opinions, single }) => {
   const settings = {
     infinite: true,
     dots: false,
     speed: 1000,
-    slidesToShow: 3,
-    slidesToScroll: 3,
+    slidesToShow: single ? 1 : 3,
+    slidesToScroll: 1,
     nextArrow: <StyledArrow right />,
     prevArrow: <StyledArrow left />,
     responsive: [
       {
         breakpoint: 1024,
         settings: {
-          slidesToShow: 3,
-          slidesToScroll: 3,
+          slidesToShow: single ? 1 : 2,
+          slidesToScroll: single ? 1 : 2,
           arrows: false,
           dots: true,
         },
@@ -28,9 +28,8 @@ const Opinions = ({ opinions }) => {
       {
         breakpoint: 600,
         settings: {
-          slidesToShow: 2,
-          slidesToScroll: 2,
-          initialSlide: 2,
+          slidesToShow: 1,
+          slidesToScroll: 1,
           arrows: false,
           dots: true,
         },
@@ -50,20 +49,27 @@ const Opinions = ({ opinions }) => {
     <StyledWrapper>
       <StyledTitle>Opinie</StyledTitle>
       <Slider {...settings}>
-        {opinions.map(r => (
-          <StyledItem key={r.name}>
-            <StyledPortraitWrapper>
-              <StyledPortraitBackground />
-              <StyledPortraitImage
-                image={r.image.localFile.childImageSharp.gatsbyImageData}
-                alt={r.image.altText}
-              />
-            </StyledPortraitWrapper>
+        {opinions.map(o =>
+          single ? (
+            <StyledItemSingle>
+              <StyledName>{o.name}</StyledName>
+              <StyledOpinion>{o.opinion}</StyledOpinion>
+            </StyledItemSingle>
+          ) : (
+            <StyledItem key={o.name}>
+              <StyledPortraitWrapper>
+                <StyledPortraitBackground />
+                <StyledPortraitImage
+                  image={o.image.localFile.childImageSharp.gatsbyImageData}
+                  alt={o.image.altText}
+                />
+              </StyledPortraitWrapper>
 
-            <StyledName>{r.name}</StyledName>
-            <StyledOpinion>{r.opinion}</StyledOpinion>
-          </StyledItem>
-        ))}
+              <StyledName>{o.name}</StyledName>
+              <StyledOpinion>{o.opinion}</StyledOpinion>
+            </StyledItem>
+          )
+        )}
       </Slider>
     </StyledWrapper>
   )
@@ -119,11 +125,14 @@ const StyledPortraitImage = styled(GatsbyImage)`
 `
 
 const StyledName = styled.h4`
-  font-family: ${styles.font.family.montserrat};
+  grid-area: name;
   margin-bottom: 40px;
+  font-family: ${styles.font.family.montserrat};
 `
 
-const StyledOpinion = styled.p``
+const StyledOpinion = styled.p`
+  grid-area: opinion;
+`
 
 const StyledArrow = styled.div`
   position: absolute;
@@ -137,4 +146,12 @@ const StyledArrow = styled.div`
   width: 30px;
   z-index: 100;
   cursor: pointer;
+`
+const StyledItemSingle = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 60px 1fr 1fr;
+  grid-template-areas: "name opinion
+  opinion opinion
+  opinion opinion";
 `

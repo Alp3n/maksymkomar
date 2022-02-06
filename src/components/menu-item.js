@@ -4,13 +4,18 @@ import styled from "styled-components"
 import { Link } from "gatsby"
 import styles from "../styles"
 
-const MenuItem = ({ to, label }) => {
-  return <StyledLink to={to}>{label}</StyledLink>
+const MenuItem = ({ to, label, invert, isShown, className }) => {
+  return (
+    <StyledLink to={to} invert={invert} isShown={isShown} className={className}>
+      {label}
+    </StyledLink>
+  )
 }
 
 const StyledLink = styled(Link)`
   text-transform: capitalize;
   text-decoration: none;
+  width: fit-content;
   margin: 0 16px;
 
   /* unvisited link */
@@ -25,7 +30,8 @@ const StyledLink = styled(Link)`
 
   /* mouse over link */
   :hover {
-    color: ${styles.color.lightBlue};
+    color: ${props =>
+      props.invert ? styles.color.white : styles.color.lightBlue};
   }
 
   /* selected link */
