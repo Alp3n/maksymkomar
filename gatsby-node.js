@@ -42,7 +42,7 @@ exports.createPages = async ({ graphql, actions }) => {
       context: {
         id: post.node.id,
       },
-      defer: true,
+      defer: false,
     })
   })
   const Audiotherapy = result.data.audiotherapy.edges
@@ -53,7 +53,7 @@ exports.createPages = async ({ graphql, actions }) => {
       context: {
         id: post.node.id,
       },
-      defer: true,
+      defer: false,
     })
   })
 }

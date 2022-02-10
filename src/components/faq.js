@@ -51,8 +51,8 @@ const StyledItemWrapper = styled.div`
     width: 100%;
   }
 `
-const StyledItemQuestion = styled.p`
+const StyledItemQuestion = styled.div`
   font-weight: 700;
   margin-bottom: 5px;
 `
-const StyledItemAnswer = styled.p``
+const StyledItemAnswer = styled.div``

@@ -164,7 +164,7 @@ const StyledName = styled.h4`
   }
 `
 
-const StyledOpinion = styled.p`
+const StyledOpinion = styled.div`
   grid-area: opinion;
   ${props =>
     props.single
