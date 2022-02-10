@@ -116,6 +116,9 @@ const StyledWrapper = styled.div`
   place-self: flex-start;
   width: 70%;
   margin-bottom: 100px;
+  @media only screen and (max-width: 1200px) {
+    width: 100%;
+  }
 `
 const StyledDescription = styled.h4`
   font-family: Montserrat;
@@ -131,10 +134,25 @@ const StyledItem = styled.div`
 const StyledIframe = styled.iframe`
   /* width: 100%; */
   height: 540px;
+  @media only screen and (max-width: 1200px) {
+    height: 420px;
+  }
+  @media only screen and (max-width: 600px) {
+    height: 280px;
+  }
 `
 const StyledImage = styled(GatsbyImage)`
   height: 50%;
   width: 50%;
+  margin-bottom: 20px;
+  @media only screen and (max-width: 1200px) {
+    height: 80%;
+    width: 80%;
+  }
+  @media only screen and (max-width: 600px) {
+    height: 90%;
+    width: 90%;
+  }
 `
 
 const StyledTitle = styled.h3`
