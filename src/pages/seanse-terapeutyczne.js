@@ -1,75 +1,105 @@
-import * as React from "react"
+import React, { useState } from "react"
 import { graphql } from "gatsby"
 import styled from "styled-components"
 import styles from "../styles"
 import Layout from "../components/layout"
 import Seo from "../components/seo"
 import TwoColumns from "../components/two-columns"
-import FullBleedOther from "../components/full-bleed-other"
-// import Button from "../components/button"
-import HowSession from "../components/how-sesion"
+import FullBleed from "../components/full-bleed"
+import HowSession from "../components/how-session"
 import Opinions from "../components/opinions"
 import AudiotherapyPreview from "../components/audiotherapy-preview"
 import PriceList from "../components/price-list"
-import TherapyProduct from "../components/therapy-prodcut"
+import TherapyProduct from "../components/therapy-product"
+import Modal from "react-modal"
+import BookForm from "../components/book-form"
 
 const SeanseTerapeutyczne = ({ data }) => {
+  const [isOpen, setIsOpen] = useState(false)
+  const openModal = () => {
+    setIsOpen(true)
+  }
+  const closeModal = () => {
+    setIsOpen(false)
+  }
   return (
     <Layout>
       <Seo title={"Seanse terapeutyczne"} />
-      <FullBleedOther
+      <Modal
+        isOpen={isOpen}
+        onRequestClose={closeModal}
+        onAfterOpen={() => (document.body.style.overflow = "hidden")}
+        onAfterClose={() => (document.body.style.overflow = "unset")}
+        style={{
+          content: {
+            padding: 0,
+            position: "absolute",
+            top: "50%",
+            left: "50%",
+            right: "auto",
+            bottom: "auto",
+            marginRight: "-50%",
+            transform: "translate(-50%, -50%)",
+            minWidth: "600px",
+          },
+          overlay: {
+            zIndex: 1000,
+            backgroundColor: "rgba(57, 57, 57, 0.9)",
+          },
+        }}
+      >
+        <BookForm closeModal={closeModal} />
+      </Modal>
+      <FullBleed
         hero={
-          data.wpPage.seanseterapeutyczne.heroSection.image.localFile
-            .childImageSharp.gatsbyImageData
+          data.wpPage.ACFseanse.sekcjaHero.obrazHero.localFile.childImageSharp
+            .gatsbyImageData
         }
-        altHero={data.wpPage.seanseterapeutyczne.heroSection.image.altText}
-        title={data.wpPage.seanseterapeutyczne.heroSection.title}
+        alt={data.wpPage.ACFseanse.sekcjaHero.obrazHero.altText}
+        title={data.wpPage.ACFseanse.sekcjaHero.tytul}
         background={styles.color.lightOrange}
-        blend
-        client
+        multiply
+        heading={"strefa klienta"}
       />
       <TwoColumns
-        title={data.wpPage.seanseterapeutyczne.col2Section.title}
-        textLeft={data.wpPage.seanseterapeutyczne.col2Section.textLeft}
-        textRight={data.wpPage.seanseterapeutyczne.col2Section.textRight}
+        title={data.wpPage.ACFseanse.sekcja2Kolumny.tytul}
+        textLeft={data.wpPage.ACFseanse.sekcja2Kolumny.tekstLewo}
+        textRight={data.wpPage.ACFseanse.sekcja2Kolumny.tekstPrawo}
         cta
-        textButtonLabel={data.wpPage.seanseterapeutyczne.col2Section.ctaLabel}
-        textButtonUrl={data.wpPage.seanseterapeutyczne.col2Section.ctaUrl}
+        textButtonLabel={data.wpPage.ACFseanse.sekcja2Kolumny.ctaEtykieta}
+        textButtonUrl={data.wpPage.ACFseanse.sekcja2Kolumny.ctaUrl}
       />
       <StyledSimpleSection>
-        <h1>{data.wpPage.seanseterapeutyczne.simpleSection1.title}</h1>
+        <StyledTitle>{data.wpPage.ACFseanse.sekcjaProsta.tytul}</StyledTitle>
         <p
           dangerouslySetInnerHTML={{
-            __html: data.wpPage.seanseterapeutyczne.simpleSection1.text,
+            __html: data.wpPage.ACFseanse.sekcjaProsta.tekst,
           }}
         />
       </StyledSimpleSection>
       <StyledSimpleSection>
-        <h1>{data.wpPage.seanseterapeutyczne.simpleSection2.title}</h1>
+        <StyledTitle>{data.wpPage.ACFseanse.sekcjaProsta2.tytul}</StyledTitle>
         <p
           dangerouslySetInnerHTML={{
-            __html: data.wpPage.seanseterapeutyczne.simpleSection2.text,
+            __html: data.wpPage.ACFseanse.sekcjaProsta2.tekst,
           }}
         />
       </StyledSimpleSection>
       <PriceList
-        priceListSection={data.wpPage.seanseterapeutyczne.priceListSection}
+        priceListSection={data.wpPage.ACFseanse.sekcjaCennik}
+        openModal={openModal}
       />
       <TherapyProduct
-        complexPersonalityTherapySection={
-          data.wpPage.seanseterapeutyczne.complexPersonalityTherapySection
-        }
+        sekcja={data.wpPage.ACFseanse.sekcjaTerapia}
+        openModal={openModal}
       />
 
       <HowSession
-        videos={data.wpPage.seanseterapeutyczne.sessionWaySection.items}
-        title={data.wpPage.seanseterapeutyczne.sessionWaySection.title}
-        textList={data.wpPage.seanseterapeutyczne.sessionWaySection.textList}
+        videos={data.wpPage.ACFseanse.sekcjaJak.filmy}
+        title={data.wpPage.ACFseanse.sekcjaJak.tytul}
+        text={data.wpPage.ACFseanse.sekcjaJak.tekst}
       />
-      <Opinions
-        single
-        opinions={data.wpPage.seanseterapeutyczne.opinionSection}
-      />
+      <Opinions single opinions={data.wpPage.ACFseanse.sekcjaOpinie2} />
       <AudiotherapyPreview />
     </Layout>
   )
@@ -77,36 +107,27 @@ const SeanseTerapeutyczne = ({ data }) => {
 
 export const pageQuery = graphql`
   query SeanceQuery {
-    wpPage(databaseId: { eq: 268 }) {
+    wpPage(databaseId: { eq: 20 }) {
       id
       title
-      seanseterapeutyczne {
-        col2Section {
-          ctaLabel
+      ACFseanse {
+        sekcja2Kolumny {
+          ctaEtykieta
           ctaUrl
-          fieldGroupName
-          textLeft
-          textRight
-          title
+          tekstLewo
+          tekstPrawo
+          tytul
         }
-        complexPersonalityTherapySection {
-          costBold
-          costValue
-          ctaLabel
-          ctaUrl
-          durationBold
-          durationValue
-          textFirst
-          textLeft
-          textLeftBold
-          textRight
-          textRightBold
-          textSecond
-          title
+        sekcjaCennik {
+          ctaEtykieta
+          tekstDrugi
+          tekstLewo
+          tekstPierwszy
+          tekstPrawo
         }
-        heroSection {
-          title
-          image {
+        sekcjaHero {
+          tytul
+          obrazHero {
             altText
             localFile {
               childImageSharp {
@@ -115,48 +136,44 @@ export const pageQuery = graphql`
             }
           }
         }
-        opinionSection {
-          name
-          opinion
-        }
-        priceListSection {
-          boldText
-          ctaLabel
-          ctaUrl
-          textFirst
-          textLeft {
-            duration
-            fiveSeance
-            office
-            oneSeance
-            twoSeance
+        sekcjaJak {
+          fieldGroupName
+          tekst
+          tytul
+          filmy {
+            tytul
+            url
           }
-          textRight {
-            duration
-            fieldGroupName
-            fiveSeance
-            oneSeance
-            online
-            twoSeance
+        }
+        sekcjaOpinie2 {
+          portret {
+            altText
+            localFile {
+              childImageSharp {
+                gatsbyImageData(quality: 80)
+              }
+            }
           }
-          textSecond
-          title
+          imie
+          opinia
         }
-        sessionWaySection {
-          items {
-            videoTitle
-            videoUrl
-          }
-          textList
-          title
+        sekcjaProsta {
+          fieldGroupName
+          tekst
+          tytul
         }
-        simpleSection1 {
-          text
-          title
+        sekcjaProsta2 {
+          fieldGroupName
+          tekst
+          tytul
         }
-        simpleSection2 {
-          text
-          title
+        sekcjaTerapia {
+          ctaEtykieta
+          tekstDrugi
+          tekstLewo
+          tekstPierwszy
+          tytul
+          tekstPrawo
         }
       }
     }
@@ -172,36 +189,21 @@ const StyledSimpleSection = styled.div`
   flex-direction: column;
   width: 100%;
   margin-bottom: 100px;
-`
-const StyledWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  margin-bottom: 100px;
-  scroll-margin-top: 150px;
-`
 
+  @media only screen and (max-width: 1100px) {
+    margin-bottom: 80px;
+  }
+  @media only screen and (max-width: 600px) {
+    margin-bottom: 20px;
+  }
+`
 const StyledTitle = styled.h1`
-  margin-bottom: 60px;
-  width: 50%;
-  text-transform: uppercase;
-`
-
-const StyledTextsBox = styled.div`
-  display: grid;
-  grid-template-columns: 1fr 1px 1fr;
-  margin-bottom: 60px;
-`
-
-const StyledFlex = styled.div`
-  display: flex;
-  flex-direction: column;
-`
-
-const StyledTextBox = styled.div`
-  padding-left: ${props => (props.left ? "12%" : "0")};
-  padding-right: ${props => (props.right ? "10%" : "0")};
-`
-const StyledVerticalLine = styled.div`
-  border-left: 1px solid ${styles.color.primary};
+  @media only screen and (max-width: 1100px) {
+    font-size: 2.2rem;
+    margin-bottom: 30px;
+  }
+  @media only screen and (max-width: 600px) {
+    font-size: 2rem;
+    margin-bottom: 30px;
+  }
 `

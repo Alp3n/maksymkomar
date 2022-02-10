@@ -4,51 +4,64 @@ import styled from "styled-components"
 import styles from "../styles"
 import Layout from "../components/layout"
 import Seo from "../components/seo"
-import FullBleedSection from "../components/full-bleed-section"
+import FullBleed from "../components/full-bleed"
 import TwoColumns from "../components/two-columns"
 import Patent from "../components/patent"
 import References from "../components/references"
 
 const Omnie = ({ data }) => {
-  const myData = data.wpPage.aboutMe
-  console.log(data)
-
+  const myData = data.wpPage.ACFoMnie
   return (
     <Layout>
       <Seo title="O mnie" />
-      <FullBleedSection
-        hero={myData.hero.image.localFile.childImageSharp.gatsbyImageData}
-        altHero={myData.hero.image.altText}
-        logo={myData.hero.signature.localFile.childImageSharp.gatsbyImageData}
-        altLogo={myData.hero.signature.altText}
+      <FullBleed
+        hero={
+          myData.sekcjaHero.obrazHero.localFile.childImageSharp.gatsbyImageData
+        }
+        alt={myData.sekcjaHero.obrazHero.altText}
+        logo={
+          myData.sekcjaHero.obrazPodpis.localFile.childImageSharp
+            .gatsbyImageData
+        }
+        altLogo={myData.sekcjaHero.obrazPodpis.altText}
         background={styles.color.primary}
-        text={myData.hero.text}
-        blend
+        subtitle={
+          /* myData.sekcjaHero.text */ `“Moim wewnętrznym powołaniem jest wskazywanie osobom, które tego pragną, drogi jak przełamywać wewnętrzne bariery i odkrywać potencjał własnej osobowości, ukrytej w sile ludzkiego umysłu.”`
+        }
+        logoBottom
+        multiply
+        subtitleBig
       />
       <StyledSimpleSection>
-        <h1>{myData.simpleSection.title}</h1>
-        <p dangerouslySetInnerHTML={{ __html: myData.simpleSection.text }} />
+        <h1>{myData.sekcjaProsta.tytul}</h1>
+        <p dangerouslySetInnerHTML={{ __html: myData.sekcjaProsta.tekst }} />
       </StyledSimpleSection>
       <TwoColumns
-        title={myData.col2Section.title}
-        textLeft={myData.col2Section.textLeft}
-        textRight={myData.col2Section.textRight}
+        title={myData.sekcja2Kolumny.tytul}
+        textLeft={myData.sekcja2Kolumny.tekstLewo}
+        textRight={myData.sekcja2Kolumny.tekstPrawo}
         id="moja-metoda"
       />
       <Patent
         image={
-          myData.patentSection.image.localFile.childImageSharp.gatsbyImageData
+          myData.sekcjaPatent.obrazOryginal.localFile.childImageSharp
+            .gatsbyImageData
         }
-        alt={myData.patentSection.image.altText}
-        title={myData.patentSection.title}
-        ctaLabel={myData.patentSection.ctaLabel}
+        alt={myData.sekcjaPatent.obrazOryginal.altText}
+        image2={
+          myData.sekcjaPatent.orbazTlumaczenie.localFile.childImageSharp
+            .gatsbyImageData
+        }
+        alt2={myData.sekcjaPatent.orbazTlumaczenie.altText}
+        title={myData.sekcjaPatent.tytul}
+        ctaLabel={myData.sekcjaPatent.ctaEtykieta}
       />
       <References
-        references={myData.referenceSection.references}
-        title={myData.referenceSection.title}
-        text={myData.referenceSection.text}
-        ctaLabel={myData.referenceSection.ctaLabel}
-        ctaUrl={myData.referenceSection.ctaUrl}
+        references={myData.sekcjaReferencje.referencje}
+        title={myData.sekcjaReferencje.tytul}
+        text={myData.sekcjaReferencje.tekst}
+        ctaLabel={myData.sekcjaReferencje.ctaEtykieta}
+        ctaUrl={myData.sekcjaReferencje.ctaUrl}
       />
     </Layout>
   )
@@ -56,21 +69,18 @@ const Omnie = ({ data }) => {
 
 export const pageQuery = graphql`
   query AboutMe {
-    wpPage(databaseId: { eq: 211 }) {
+    wpPage(databaseId: { eq: 17 }) {
       id
       title
       slug
-      aboutMe {
-        col2Section {
-          ctaLabel
-          ctaUrl
-          fieldGroupName
-          textLeft
-          textRight
-          title
+      ACFoMnie {
+        sekcja2Kolumny {
+          tekstLewo
+          tekstPrawo
+          tytul
         }
-        hero {
-          signature {
+        sekcjaHero {
+          obrazHero {
             altText
             localFile {
               childImageSharp {
@@ -78,7 +88,7 @@ export const pageQuery = graphql`
               }
             }
           }
-          image {
+          obrazPodpis {
             altText
             localFile {
               childImageSharp {
@@ -86,37 +96,41 @@ export const pageQuery = graphql`
               }
             }
           }
-          text
+          tytul
         }
-        patentSection {
-          ctaLabel
-          ctaUrl
-          fieldGroupName
-          title
-          image {
+        sekcjaPatent {
+          ctaEtykieta
+          tytul
+          obrazOryginal {
             altText
             localFile {
               childImageSharp {
-                gatsbyImageData
+                gatsbyImageData(quality: 100)
+              }
+            }
+          }
+          orbazTlumaczenie {
+            altText
+            localFile {
+              childImageSharp {
+                gatsbyImageData(quality: 100)
               }
             }
           }
         }
-        referenceSection {
-          ctaLabel
-          ctaUrl
-          fieldGroupName
-          text
-          title
-          references {
-            name
-            reference
-          }
+        sekcjaProsta {
+          tekst
+          tytul
         }
-        simpleSection {
-          fieldGroupName
-          text
-          title
+        sekcjaReferencje {
+          ctaEtykieta
+          ctaUrl
+          tekst
+          tytul
+          referencje {
+            imie
+            referencja
+          }
         }
       }
     }
@@ -132,4 +146,10 @@ const StyledSimpleSection = styled.div`
   flex-direction: column;
   width: 100%;
   margin-bottom: 100px;
+  @media only screen and (max-width: 1200px) {
+    margin-bottom: 60px;
+  }
+  @media only screen and (max-width: 600px) {
+    margin-bottom: 40px;
+  }
 `

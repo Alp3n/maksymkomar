@@ -61,19 +61,46 @@ const StyledWrapper = styled.div`
 
 const StyledTitle = styled.h1`
   margin-bottom: 60px;
-  width: 50%;
+  /* width: 50%; */
+  @media only screen and (max-width: 1100px) {
+    font-size: 2.2rem;
+    margin-bottom: 30px;
+  }
+  @media only screen and (max-width: 600px) {
+    font-size: 2rem;
+    margin-bottom: 30px;
+  }
 `
 
 const StyledTextsBox = styled.div`
   display: grid;
   grid-template-columns: 1fr 1px 1fr;
   margin-bottom: 60px;
+
+  @media only screen and (max-width: 1100px) {
+    grid-template-columns: 1fr;
+    margin-bottom: 10px;
+  }
+
+  @media only screen and (max-width: 600px) {
+    grid-template-columns: 1fr;
+    margin-bottom: 10px;
+  }
 `
 
 const StyledTextBox = styled.div`
   padding-left: ${props => (props.left ? "12%" : "0")};
   padding-right: ${props => (props.right ? "10%" : "0")};
+  @media only screen and (max-width: 1100px) {
+    padding-left: 0;
+    padding-right: 0;
+  }
+
 `
 const StyledVerticalLine = styled.div`
   border-left: 1px solid ${styles.color.primary};
+
+  @media only screen and (max-width: 1100px) {
+    display: none;
+  }
 `

@@ -4,7 +4,7 @@ import styled from "styled-components"
 import { GatsbyImage } from "gatsby-plugin-image"
 import styles from "../styles"
 import Button from "./button"
-import { Link, useStaticQuery, graphql } from "gatsby"
+import { useStaticQuery, graphql } from "gatsby"
 import Slider from "react-slick"
 
 const AudiotherapyPreview = () => {
@@ -12,7 +12,7 @@ const AudiotherapyPreview = () => {
     query AudtiotherapyPreview {
       allWpPost(
         filter: {
-          categories: { nodes: { elemMatch: { databaseId: { eq: 115 } } } }
+          categories: { nodes: { elemMatch: { databaseId: { eq: 39 } } } }
         }
       ) {
         edges {
@@ -36,14 +36,12 @@ const AudiotherapyPreview = () => {
                 name
               }
             }
-            audioterapia {
-              productSection {
-                textLeft {
-                  availability
-                  duration
-                  format
-                  price
-                }
+            ACFaudioterapia {
+              sekcjaSugestia {
+                tytul
+                dlugosc
+                format
+                cena
               }
             }
           }
@@ -63,28 +61,34 @@ const AudiotherapyPreview = () => {
 
     responsive: [
       {
-        breakpoint: 1024,
-        settings: {
-          slidesToShow: 2,
-          slidesToScroll: 1,
-          arrows: false,
-        },
-      },
-      {
-        breakpoint: 600,
-        settings: {
-          slidesToShow: 2,
-          slidesToScroll: 1,
-          arrows: false,
-        },
-      },
-      {
-        breakpoint: 480,
+        breakpoint: 1100,
         settings: {
           slidesToShow: 1,
           slidesToScroll: 1,
           arrows: false,
+          // dots: true,
           centerMode: true,
+        },
+      },
+
+      {
+        breakpoint: 800,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+          arrows: false,
+          // dots: true,
+          centerMode: true,
+        },
+      },
+      {
+        breakpoint: 500,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+          arrows: false,
+          // dots: true,
+          centerMode: false,
         },
       },
     ],
@@ -101,7 +105,7 @@ const AudiotherapyPreview = () => {
                   p.node.featuredImage.node.localFile.childImageSharp
                     .gatsbyImageData
                 }
-                alt={p.node.featuredImage.node.localFile.altText}
+                alt={``}
                 objectFit="cover"
               />
             </StyledImageWrapper>
@@ -109,24 +113,21 @@ const AudiotherapyPreview = () => {
             <StyledDesc>
               <span>
                 <strong>Format</strong> -{" "}
-                {p.node.audioterapia.productSection.textLeft.format}
+                {p.node.ACFaudioterapia.sekcjaSugestia.format}
               </span>
               <span>
                 <strong>Długość</strong> -{" "}
-                {p.node.audioterapia.productSection.textLeft.duration}
+                {p.node.ACFaudioterapia.sekcjaSugestia.dlugosc}
               </span>
               <span>
                 <strong>Cena</strong> -{" "}
-                {p.node.audioterapia.productSection.textLeft.price}
+                {p.node.ACFaudioterapia.sekcjaSugestia.cena}
               </span>
             </StyledDesc>
-            <Button to={`/blog/${p.node.slug}`} label="Więcej" />
+            <Button url={`/audioterapie/${p.node.slug}`} label="Więcej" />
           </StyledBlogItem>
         ))}
       </Slider>
-      {/* <StyledButtonWrapper>
-        <Button label="Zobacz wszystkie" url={"/blog/"} />
-      </StyledButtonWrapper> */}
     </StyledWrapper>
   )
 }
@@ -155,11 +156,17 @@ const StyledBlogItem = styled.div`
 `
 const StyledImageWrapper = styled.div`
   position: relative;
-  max-width: 400px;
-  height: 300px;
+  /* width: auto;
+  height: 260px; */
   margin-bottom: 30px;
 `
-const StyledImage = styled(GatsbyImage)``
+const StyledImage = styled(GatsbyImage)`
+  width: 350px;
+  height: auto;
+  @media only screen and (max-width: 600px) {
+    width: 100%;
+  }
+`
 
 const StyledTitle = styled.h5`
   font-family: ${styles.font.family.montserrat};

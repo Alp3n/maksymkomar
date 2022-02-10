@@ -4,9 +4,9 @@ import styled from "styled-components"
 import { Link } from "gatsby"
 import styles from "../styles"
 
-const MenuItem = ({ to, label, invert, isShown, className }) => {
+const MenuItem = ({ to, label, inverted, className }) => {
   return (
-    <StyledLink to={to} invert={invert} isShown={isShown} className={className}>
+    <StyledLink to={to} inverted={inverted} className={className}>
       {label}
     </StyledLink>
   )
@@ -31,7 +31,7 @@ const StyledLink = styled(Link)`
   /* mouse over link */
   :hover {
     color: ${props =>
-      props.invert ? styles.color.white : styles.color.lightBlue};
+      props.inverted ? styles.color.white : styles.color.lightBlue};
   }
 
   /* selected link */

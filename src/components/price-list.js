@@ -3,61 +3,26 @@ import styled from "styled-components"
 import styles from "../styles"
 import Button from "./button"
 
-const PriceList = ({ priceListSection }) => {
+const PriceList = ({ priceListSection, openModal }) => {
   return (
     <StyledWrapper>
-      <StyledTitle>{priceListSection.title}</StyledTitle>
-      <p>{priceListSection.textFirst}</p>
+      <StyledTitle>Cennik</StyledTitle>
+      <p dangerouslySetInnerHTML={{ __html: priceListSection.tekstPierwszy }} />
       <StyledTextsBox>
         <StyledTextBox right>
-          <StyledFlex>
-            <span>
-              <strong>{priceListSection.textLeft.office}</strong>
-            </span>
-            <span>
-              <strong>Czas trwania</strong> -{" "}
-              {priceListSection.textLeft.duration}
-            </span>
-            <span>
-              <strong>1 seans</strong> - {priceListSection.textLeft.oneSeance}
-            </span>
-            <span>
-              <strong>3 seanse</strong> - {priceListSection.textLeft.twoSeance}
-            </span>
-            <span>
-              <strong>5 seansów</strong> -{" "}
-              {priceListSection.textLeft.fiveSeance}
-            </span>
-          </StyledFlex>
+          <StyledFlex
+            dangerouslySetInnerHTML={{ __html: priceListSection.tekstLewo }}
+          ></StyledFlex>
         </StyledTextBox>
         <StyledVerticalLine />
         <StyledTextBox left>
-          <StyledFlex>
-            <span>
-              <strong>{priceListSection.textRight.online}</strong>
-            </span>
-            <span>
-              <strong>Czas trwania</strong> -{" "}
-              {priceListSection.textRight.duration}
-            </span>
-            <span>
-              <strong>1 seans</strong> - {priceListSection.textRight.oneSeance}
-            </span>
-            <span>
-              <strong>3 seanse</strong> - {priceListSection.textRight.twoSeance}
-            </span>
-            <span>
-              <strong>5 seansów</strong> -{" "}
-              {priceListSection.textRight.fiveSeance}
-            </span>
-          </StyledFlex>
+          <StyledFlex
+            dangerouslySetInnerHTML={{ __html: priceListSection.tekstPrawo }}
+          ></StyledFlex>
         </StyledTextBox>
       </StyledTextsBox>
-      <p>
-        <b>{priceListSection.boldText}</b>
-      </p>
-      <p>{priceListSection.textSecond}</p>
-      <Button label={priceListSection.ctaLabel} />
+      <div dangerouslySetInnerHTML={{ __html: priceListSection.tekstDrugi }} />
+      <Button label={priceListSection.ctaEtykieta} onClick={openModal} />
     </StyledWrapper>
   )
 }
@@ -68,20 +33,30 @@ const StyledWrapper = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
-  margin-bottom: 100px;
+  margin-bottom: 150px;
   scroll-margin-top: 150px;
 `
 
 const StyledTitle = styled.h1`
   margin-bottom: 60px;
-  width: 50%;
   text-transform: uppercase;
+  @media only screen and (max-width: 1100px) {
+    font-size: 2.2rem;
+    margin-bottom: 30px;
+  }
+  @media only screen and (max-width: 600px) {
+    font-size: 2rem;
+  }
 `
 
 const StyledTextsBox = styled.div`
   display: grid;
   grid-template-columns: 1fr 1px 1fr;
   margin-bottom: 60px;
+  @media only screen and (max-width: 1100px) {
+    grid-template-columns: 1fr;
+    margin-bottom: 10px;
+  }
 `
 
 const StyledFlex = styled.div`
@@ -92,6 +67,10 @@ const StyledFlex = styled.div`
 const StyledTextBox = styled.div`
   padding-left: ${props => (props.left ? "12%" : "0")};
   padding-right: ${props => (props.right ? "10%" : "0")};
+  @media only screen and (max-width: 1100px) {
+    padding-left: 0;
+    padding-right: 0;
+  }
 `
 const StyledVerticalLine = styled.div`
   border-left: 1px solid ${styles.color.primary};

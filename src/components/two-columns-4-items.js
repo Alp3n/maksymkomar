@@ -16,16 +16,19 @@ const TwoColumns4Items = ({
       <StyledTitle>{title}</StyledTitle>
       <StyledTextsBox>
         {items.map(i => (
-          <StyledTextBox>
-            <h4>{i.title}</h4>
-            <p>{i.text}</p>
-            <Button href={i.ctaUrl} label={i.ctaLabel} plain />
+          <StyledTextBox key={i.tytul}>
+            <h4>{i.tytul}</h4>
+            <div dangerouslySetInnerHTML={{ __html: i.tekst }} />
+            <Button href={i.ctaUrl} label={i.ctaEtykieta} plain />
           </StyledTextBox>
         ))}
         <StyledVerticalLine />
       </StyledTextsBox>
       <StyledFlex>
-        <Button label={textButtonLabel} url={textButtonUrl} />
+        <Button
+          label={"Zobacz wszystkie kursy"}
+          url={"https://prohypnoinstitute.com/"}
+        />
       </StyledFlex>
     </StyledWrapper>
   )
@@ -56,11 +59,24 @@ const StyledWrapper = styled.div`
   width: 100%;
   margin: 100px 0;
   scroll-margin-top: 150px;
+  @media only screen and (max-width: 1100px) {
+    margin: 60px 0;
+  }
+  @media only screen and (max-width: 600px) {
+    margin: 30px 0;
+  }
 `
 
 const StyledTitle = styled.h1`
   margin-bottom: 100px;
-  width: 50%;
+  width: 60%;
+  @media only screen and (max-width: 1100px) {
+    width: 100%;
+    margin-bottom: 60px;
+  }
+  @media only screen and (max-width: 600px) {
+    margin-bottom: 30px;
+  }
 `
 
 const StyledTextsBox = styled.div`
@@ -69,12 +85,22 @@ const StyledTextsBox = styled.div`
   grid-template-columns: 1fr 1fr;
   margin-bottom: 100px;
   gap: 100px 200px;
+  @media only screen and (max-width: 1200px) {
+    gap: 60px;
+    grid-template-columns: 1fr;
+  }
+  @media only screen and (max-width: 600px) {
+    gap: 30px;
+  }
 `
 
 const StyledTextBox = styled.div`
   width: 80%;
   /* padding-left: ${props => (props.left ? "12%" : "0")};
   padding-right: ${props => (props.right ? "10%" : "0")}; */
+  @media only screen and (max-width: 1100px) {
+    width: 100%;
+  }
 `
 const StyledVerticalLine = styled.div`
   position: absolute;
@@ -82,6 +108,9 @@ const StyledVerticalLine = styled.div`
   top: 0;
   border-left: 1px solid ${styles.color.primary};
   height: 100%;
+  @media only screen and (max-width: 1200px) {
+    display: none;
+  }
 `
 const StyledFlex = styled.div`
   display: flex;

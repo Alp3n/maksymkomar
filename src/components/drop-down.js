@@ -11,17 +11,17 @@ const DropDown = ({ categories }) => {
 
   return (
     <StyledWrapper isOpen={isOpen}>
-      <StyledTitleWrapper>
-        <StyledTitle>{categories.category.title}</StyledTitle>
-        <StyledArrow onClick={() => openAndClose()} isOpen={isOpen} />
+      <StyledTitleWrapper onClick={() => openAndClose()}>
+        <StyledTitle>{categories.kategoria.tytul}</StyledTitle>
+        <StyledArrow isOpen={isOpen} />
       </StyledTitleWrapper>
       {isOpen ? (
         <StyledList>
-          {categories.category.definitions.map(d => (
-            <StyledTerm>
-              <strong>{d.term}</strong>
-              {" - "}
-              {d.definition}
+          {categories.kategoria.definicje.map(d => (
+            <StyledTerm key={d.wyraz}>
+              <strong>{d.wyraz}</strong>
+              {/* {" - "} */}
+              <a dangerouslySetInnerHTML={{ __html: d.definicja }}></a>
             </StyledTerm>
           ))}
         </StyledList>
@@ -33,13 +33,14 @@ const DropDown = ({ categories }) => {
 export default DropDown
 
 const StyledWrapper = styled.div`
-  margin-bottom: ${props => (props.isOpen ? "80px" : "0px")};
+  margin-bottom: ${props => (props.isOpen ? "80px" : "30px")};
   width: 100%;
 `
 const StyledTitleWrapper = styled.div`
   display: flex;
   align-items: center;
-  justify-content: left;
+  justify-content: space-between;
+  cursor: pointer;
 `
 
 const StyledArrow = styled.div`
@@ -49,13 +50,26 @@ const StyledArrow = styled.div`
   height: 20px;
   width: 20px;
   z-index: 100;
-  margin-left: 20px;
   margin-bottom: ${props => (props.isOpen ? "30px" : "60px")};
   cursor: pointer;
+  @media only screen and (max-width: 600px) {
+    margin-bottom: ${props => (props.isOpen ? "5px" : "25px")};
+    height: 10px;
+    width: 10px;
+  }
 `
 
 const StyledTitle = styled.h3`
+  width: fit-content;
   margin-bottom: 55px;
+  @media only screen and (max-width: 1200px) {
+    font-size: 1.8rem;
+    margin-bottom: 35px;
+  }
+  @media only screen and (max-width: 600px) {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+  }
 `
 const StyledList = styled.div`
   display: flex;
@@ -64,4 +78,5 @@ const StyledList = styled.div`
 
 const StyledTerm = styled.span`
   margin-bottom: 35px;
+  width: 70%;
 `

@@ -5,7 +5,7 @@ import styles from "../styles"
 import Slider from "react-slick"
 import "slick-carousel/slick/slick.css"
 
-const HowSession = ({ videos, title, textList }) => {
+const HowSession = ({ videos, title, text }) => {
   const settings = {
     infinite: true,
     dots: false,
@@ -16,31 +16,33 @@ const HowSession = ({ videos, title, textList }) => {
     prevArrow: <StyledArrow left />,
     responsive: [
       {
-        breakpoint: 1024,
-        settings: {
-          slidesToShow: 3,
-          slidesToScroll: 3,
-          arrows: false,
-          dots: true,
-        },
-      },
-      {
-        breakpoint: 600,
+        breakpoint: 1200,
         settings: {
           slidesToShow: 2,
           slidesToScroll: 2,
-          initialSlide: 2,
           arrows: false,
           dots: true,
         },
       },
+
       {
-        breakpoint: 480,
+        breakpoint: 800,
         settings: {
           slidesToShow: 1,
           slidesToScroll: 1,
           arrows: false,
           dots: true,
+          centerMode: true,
+        },
+      },
+      {
+        breakpoint: 500,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+          arrows: false,
+          dots: true,
+          centerMode: false,
         },
       },
     ],
@@ -48,12 +50,12 @@ const HowSession = ({ videos, title, textList }) => {
   return (
     <StyledWrapper>
       <StyledTitle>{title}</StyledTitle>
-      <p dangerouslySetInnerHTML={{ __html: textList }}></p>
+      <p dangerouslySetInnerHTML={{ __html: text }}></p>
       <Slider {...settings}>
         {videos.map(v => (
-          <StyledItem key={v.title}>
-            <StyledIframe src={v.videoUrl} allowFullScreen />
-            <StyledName>{v.videoTitle}</StyledName>
+          <StyledItem key={v.url}>
+            <StyledIframe src={v.url} allowFullScreen />
+            <StyledName>{v.tytul}</StyledName>
           </StyledItem>
         ))}
       </Slider>

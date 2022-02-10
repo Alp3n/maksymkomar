@@ -16,8 +16,8 @@ const ProductSection = ({
     <StyledWrapper id={id}>
       <StyledTitle>{title}</StyledTitle>
       <StyledTextsBox>
-        <StyledTextBox right>
-          <span>
+        <StyledTextBox right dangerouslySetInnerHTML={{ __html: textLeft }}>
+          {/* <span>
             <strong>Format</strong> - {textLeft.format}
           </span>
           <span>
@@ -28,12 +28,15 @@ const ProductSection = ({
           </span>
           <span>
             <strong>Dostępność</strong> - {textLeft.availability}
-          </span>
+          </span> */}
         </StyledTextBox>
         <StyledVerticalLine />
-        <StyledTextBox left>{textRight}</StyledTextBox>
+        <StyledTextBox
+          left
+          dangerouslySetInnerHTML={{ __html: textRight }}
+        ></StyledTextBox>
       </StyledTextsBox>
-      <Button label={ctaLabel} url={ctaUrl} />
+      <Button label={ctaLabel} url={ctaUrl} disabled />
     </StyledWrapper>
   )
 }

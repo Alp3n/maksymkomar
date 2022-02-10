@@ -1,23 +1,21 @@
 import * as React from "react"
 import styled from "styled-components"
 // import PropTypes from "prop-types"
-import { Link } from "gatsby"
-import styles from "../styles"
 
 const Faq = ({ qa }) => {
   return (
-    <StyledWrapper>
+    <StyledWrapper id="faq">
       <StyledTitle>FAQ</StyledTitle>
       {qa.map(i => (
-        <StyledItemWrapper key={i.question}>
+        <StyledItemWrapper key={i.pytanie}>
           <StyledItemQuestion
             dangerouslySetInnerHTML={{
-              __html: i.question,
+              __html: i.pytanie,
             }}
           />
           <StyledItemAnswer
             dangerouslySetInnerHTML={{
-              __html: i.answer,
+              __html: i.odpowiedz,
             }}
           />
         </StyledItemWrapper>
@@ -37,6 +35,7 @@ const StyledWrapper = styled.div`
   flex-direction: column;
   width: 100%;
   margin-bottom: 100px;
+  scroll-margin-top: 150px;
 `
 const StyledTitle = styled.h1`
   margin-bottom: 60px;
@@ -46,14 +45,14 @@ const StyledItemWrapper = styled.div`
   display: flex;
   flex-direction: column;
   margin-bottom: 20px;
+  width: 70%;
+
+  @media only screen and (max-width: 600px) {
+    width: 100%;
+  }
 `
 const StyledItemQuestion = styled.p`
-  font-size: 20px;
   font-weight: 700;
-  line-height: 35px;
   margin-bottom: 5px;
 `
-const StyledItemAnswer = styled.p`
-  font-size: 20px;
-  line-height: 35px;
-`
+const StyledItemAnswer = styled.p``

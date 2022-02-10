@@ -1,66 +1,70 @@
 import * as React from "react"
-import { Link, graphql } from "gatsby"
+import { graphql } from "gatsby"
 import Layout from "../components/layout"
 import Seo from "../components/seo"
-import FullBleedOther from "../components/full-bleed-other"
+import FullBleed from "../components/full-bleed"
 import styles from "../styles"
 import styled from "styled-components"
 import BlogPreview from "../components/blog-preview"
 import ProductSection from "../components/product-section"
-import FullBleedSuggestion from "../components/full-bleed-suggestion"
 import TwoColumns from "../components/two-columns"
 
 const AudiotherapyTemplate = ({ data }) => {
   return (
     <Layout>
       <Seo title={data.wpPost.title} />
-      <FullBleedOther
+      <FullBleed
         hero={
-          data.wpPost.audioterapia.heroSection.image.localFile.childImageSharp
-            .gatsbyImageData
+          data.wpPost.ACFaudioterapia.sekcjaHero.obrazHero.localFile
+            .childImageSharp.gatsbyImageData
         }
-        altHero={data.wpPost.audioterapia.heroSection.image.altText}
-        title={data.wpPost.audioterapia.heroSection.title}
+        alt={data.wpPost.ACFaudioterapia.sekcjaHero.obrazHero.altText}
+        title={"Audioterpaia"}
         subtitle={data.wpPost.title}
+        subtitleBig
         background={styles.color.lightOrange}
-        blend
-        client
+        multiply
+        heading={"strefa klienta"}
       />
       <TwoColumns
-        title={data.wpPost.audioterapia.col2Section.title}
-        textLeft={data.wpPost.audioterapia.col2Section.textLeft}
-        textRight={data.wpPost.audioterapia.col2Section.textRight}
+        title={data.wpPost.ACFaudioterapia.sekcja2KolumnyPierwsza.tytul}
+        textLeft={data.wpPost.ACFaudioterapia.sekcja2KolumnyPierwsza.tekstLewo}
+        textRight={
+          data.wpPost.ACFaudioterapia.sekcja2KolumnyPierwsza.tekstPrawo
+        }
       />
       <StyledSimpleSection>
         <StyledSimpleSectionInner>
           <StyledSimpleSectionTitle>
-            {data.wpPost.audioterapia.simpleSection.title}
+            {data.wpPost.ACFaudioterapia.sekcjaProsta.tytul}
           </StyledSimpleSectionTitle>
           <p
             dangerouslySetInnerHTML={{
-              __html: data.wpPost.audioterapia.simpleSection.text,
+              __html: data.wpPost.ACFaudioterapia.sekcjaProsta.tekst,
             }}
           />
         </StyledSimpleSectionInner>
       </StyledSimpleSection>
       <ProductSection
-        title={data.wpPost.audioterapia.productSection.title}
-        textLeft={data.wpPost.audioterapia.productSection.textLeft}
-        textRight={data.wpPost.audioterapia.productSection.textRight}
-        ctaLabel={data.wpPost.audioterapia.productSection.ctaLabel}
+        title={data.wpPost?.ACFaudioterapia?.sekcja2KolumnyDruga?.tytul}
+        textLeft={data.wpPost.ACFaudioterapia.sekcja2KolumnyDruga.tekstLewo}
+        textRight={data.wpPost.ACFaudioterapia.sekcja2KolumnyDruga.tekstPrawo}
+        ctaLabel={data.wpPost.ACFaudioterapia.sekcja2KolumnyDruga.ctaEtykieta}
       />
-      <FullBleedSuggestion
-        title={data.wpPost.audioterapia.suggestionSection.title}
-        image={
-          data.wpPost.audioterapia.suggestionSection.image.localFile
+      <FullBleed
+        title={data.wpPost.ACFaudioterapia.sekcjaSugestia.tytul}
+        hero={
+          data.wpPost.ACFaudioterapia.sekcjaSugestia.obrazHero.localFile
             .childImageSharp.gatsbyImageData
         }
-        alt={data.wpPost.audioterapia.suggestionSection.image.altText}
-        duration={data.wpPost.audioterapia.suggestionSection.duration}
-        format={data.wpPost.audioterapia.suggestionSection.format}
-        price={data.wpPost.audioterapia.suggestionSection.price}
-        ctaLabel={data.wpPost.audioterapia.suggestionSection.ctaLabel}
-        ctaUrl={data.wpPost.audioterapia.suggestionSection.ctaUrl}
+        alt={data.wpPost.ACFaudioterapia.sekcjaSugestia.obrazHero.altText}
+        duration={data.wpPost.ACFaudioterapia.sekcjaSugestia.dlugosc}
+        format={data.wpPost.ACFaudioterapia.sekcjaSugestia.format}
+        price={data.wpPost.ACFaudioterapia.sekcjaSugestia.cena}
+        ctaLabel={data.wpPost.ACFaudioterapia.sekcjaSugestia.ctaEtykieta}
+        ctaUrl={data.wpPost.ACFaudioterapia.sekcjaSugestia.ctaUrl}
+        background={styles.color.lightOrange}
+        multiply
       />
       <BlogPreview />
     </Layout>
@@ -74,56 +78,50 @@ export const query = graphql`
     wpPost(id: { eq: $id }) {
       id
       title
-      audioterapia {
-        col2Section {
-          ctaLabel
+      ACFaudioterapia {
+        sekcjaHero {
+          ctaEtykieta
           ctaUrl
-          textLeft
-          textRight
-          title
-        }
-        heroSection {
-          title
-          image {
+          obrazHero {
+            altText
             localFile {
               childImageSharp {
                 gatsbyImageData(quality: 100)
               }
             }
-            altText
           }
+          tytul
         }
-        simpleSection {
-          text
-          title
+        sekcjaProsta {
+          tekst
+          tytul
         }
-        suggestionSection {
-          image {
-            localFile {
-              childImageSharp {
-                gatsbyImageData(quality: 100)
-              }
-            }
-            altText
-          }
-          ctaLabel
+        sekcjaSugestia {
+          cena
+          ctaEtykieta
           ctaUrl
-          duration
+          dlugosc
           format
-          price
-          title
-        }
-        productSection {
-          ctaLabel
-          ctaUrl
-          title
-          textLeft {
-            duration
-            format
-            price
-            availability
+          tytul
+          obrazHero {
+            altText
+            localFile {
+              childImageSharp {
+                gatsbyImageData(quality: 100)
+              }
+            }
           }
-          textRight
+        }
+        sekcja2KolumnyPierwsza {
+          tekstLewo
+          tekstPrawo
+          tytul
+        }
+        sekcja2KolumnyDruga {
+          ctaEtykieta
+          tekstLewo
+          tekstPrawo
+          tytul
         }
       }
     }

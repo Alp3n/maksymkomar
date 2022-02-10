@@ -1,18 +1,18 @@
-import React, { useState, useEffect } from "react"
+import React, { useState } from "react"
 // import PropTypes from "prop-types"
+
 import { Link } from "gatsby"
 import MenuItem from "./menu-item"
 import styled from "styled-components"
 import { GatsbyImage } from "gatsby-plugin-image"
 import styles from "../styles"
 import Button from "./button"
+import NavSocial from "./nav-social"
 
-const Header = ({ src, alt, openModal }) => {
+const Header = ({ src, alt, openModal, menu, socialmedia }) => {
   const [isShown, setIsShown] = useState(false)
+  const [isOpen, setIsOpen] = useState(false)
   const [subMenu, setSubmenu] = useState({ index: null, submenu: [null] })
-  useEffect(() => {
-    console.log(subMenu, "WTF")
-  }, [subMenu])
 
   const showItem = (submenu, index) => {
     setSubmenu({ submenu: [...submenu], index: index })
@@ -23,6 +23,34 @@ const Header = ({ src, alt, openModal }) => {
     setSubmenu([])
     setIsShown(false)
   }
+
+  const handleMenu = () => {
+    setIsOpen(prev => !prev)
+  }
+
+  const mobileLinks = [
+    { label: "O Mnie", url: "/o-mnie/", submenu: [] },
+    { label: "Moja metoda", url: "/o-mnie/#moja-metoda", submenu: [] },
+    {
+      label: "Seanse terapeutyczne",
+      url: "/seanse-terapeutyczne/",
+      submenu: [],
+    },
+    {
+      label: "Audioterapia",
+      url: "/audioterapie/poznanie-swoich-emocji",
+      submenu: [],
+    },
+    {
+      label: "Szkolenia dla terapeutów",
+      url: "/szkolenia-dla-terapeutow/",
+      submenu: [],
+    },
+
+    { label: "BLOG", url: "/blog/", submenu: [] },
+    { label: "FAQ", url: "/#faq", submenu: [] },
+    { label: "KONTAKT", url: "/kontakt/", submenu: [] },
+  ]
 
   const links = [
     { label: "Moja metoda", url: "/o-mnie/", submenu: [] },
@@ -41,7 +69,7 @@ const Header = ({ src, alt, openModal }) => {
         },
         {
           label: "Audioterapia - Korekcja Psychosomatyki",
-          url: "/audioterapie/korekcja-psychosomatyki-odnowienie-systemow-dzialania-organizmu",
+          url: "/audioterapie/korekcja-psychosomatyki",
         },
       ],
     },
@@ -57,16 +85,24 @@ const Header = ({ src, alt, openModal }) => {
     },
 
     { label: "Kontakt", url: "/kontakt/", submenu: [] },
-    { label: "Blog", url: "/blog/", submenu: [] },
   ]
 
   return (
     <>
-      <StyledHeader>
+      <StyledHeader isOpen={isOpen}>
         <StyledDiv>
           <Link to="/">
             <StyledLogo image={src} alt={alt} />
           </Link>
+          <StyledMenuButton
+            image={menu.localFile?.childImageSharp?.gatsbyImageData}
+            alt={menu.altText}
+            onClick={() => handleMenu()}
+          >
+            <StyledLine />
+            <StyledLine />
+            <StyledLine />
+          </StyledMenuButton>
           <StyledNav>
             {links.map((l, index) => (
               <StyledItemWrapper
@@ -74,18 +110,13 @@ const Header = ({ src, alt, openModal }) => {
                 onMouseEnter={() => showItem(l.submenu, index)}
                 onMouseLeave={() => hideItem()}
               >
-                <MenuItem
-                  to={l.url}
-                  label={l.label}
-                  isShown={isShown}
-                  className={"title"}
-                />
+                <MenuItem to={l.url} label={l.label} className={"title"} />
                 {subMenu.submenu?.length > 0 &&
                 isShown &&
                 index === subMenu.index ? (
                   <StyledSubmenu>
                     {subMenu.submenu.map(s => (
-                      <MenuItem to={s.url} label={s.label} invert />
+                      <MenuItem key={s.url} to={s.url} label={s.label} invert />
                     ))}
                   </StyledSubmenu>
                 ) : null}
@@ -93,9 +124,27 @@ const Header = ({ src, alt, openModal }) => {
             ))}
           </StyledNav>
 
-          <Button label="Umów Sesję" plain onClick={openModal} />
+          <ButtonWrapper>
+            <Button label="Umów Sesję" plain onClick={openModal} />
+          </ButtonWrapper>
         </StyledDiv>
       </StyledHeader>
+      {isOpen ? (
+        <StyledMenu>
+          {mobileLinks.map((l, index) => (
+            <StyledItemWrapper
+              key={l.url}
+              onMouseEnter={() => showItem(l.submenu, index)}
+              onMouseLeave={() => hideItem()}
+            >
+              <MenuItem to={l.url} label={l.label} className={"title"} />
+            </StyledItemWrapper>
+          ))}
+          <div>
+            <NavSocial socialmedia={socialmedia} />
+          </div>
+        </StyledMenu>
+      ) : null}
     </>
   )
 }
@@ -131,10 +180,14 @@ const StyledSubmenu = styled.div`
   padding: 30px;
   width: 500px;
   gap: 15px;
+  box-shadow: 3px 4px 6px grey;
 `
 
 const StyledNav = styled.nav`
   display: flex;
+  @media only screen and (max-width: 1200px) {
+    display: none;
+  }
 `
 
 const StyledDiv = styled.div`
@@ -155,11 +208,70 @@ const StyledHeader = styled.header`
     min(1450px, 100%)
     1fr;
   padding: 1.0875rem 1.45rem;
+  /* box-shadow: ${props => (props.isOpen ? 0 : "1px 3px 6px grey")}; */
+  box-shadow: 1px 3px 6px grey;
   background: white;
   z-index: 1000;
+  @media only screen and (max-width: 600px) {
+    padding: 0.2rem 1.2rem;
+  }
 `
 
 const StyledLogo = styled(GatsbyImage)`
   width: 240px;
   height: 80px;
+
+  @media only screen and (max-width: 1200px) {
+    width: 192px;
+    height: 64px;
+  }
+
+  @media only screen and (max-width: 600px) {
+    width: 130px;
+    height: 42px;
+  }
+`
+const ButtonWrapper = styled.div`
+  @media only screen and (max-width: 600px) {
+    display: none;
+  }
+`
+const StyledMenuButton = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 18px;
+  width: 28px;
+  cursor: pointer;
+
+  @media only screen and (max-width: 1200px) {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 18px;
+    width: 28px;
+  }
+`
+const StyledMenu = styled.div`
+  display: grid;
+  position: fixed;
+  top: 66px;
+  left: 0;
+  gap: 12px;
+  width: 100%;
+  background: ${styles.color.white};
+  box-shadow: 0px 3px 6px grey;
+  z-index: 999;
+  padding: 20px 0;
+  @media only screen and (min-width: 1200px) {
+    width: 30%;
+    left: 10%;
+    top: 102.5px;
+    padding: 20px 30px;
+  }
+`
+const StyledLine = styled.span`
+  border-bottom: 2px solid ${styles.color.primary};
+  width: 100%;
+  height: auto;
 `

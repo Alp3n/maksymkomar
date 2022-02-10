@@ -1,17 +1,20 @@
-import * as React from "react"
+import React from "react"
+
 // import PropTypes from "prop-types"
 import styled from "styled-components"
 import styles from "../styles"
 import Button from "./button"
 
-const BookForm = ({ closeModal }) => {
+const BookForm = ({ closeModal, noClose }) => {
   return (
     <StyledWrapper>
-      <StyledHeader>
-        <StyledClose style={{ placeSelf: "end" }} onClick={closeModal}>
-          ×
-        </StyledClose>
-        <h1>Umów Sesję</h1>
+      <StyledHeader noClose={noClose} id="book-form">
+        <StyledTitle>Umów Sesję</StyledTitle>
+        {noClose ? null : (
+          <StyledClose style={{ placeSelf: "end" }} onClick={closeModal}>
+            ×
+          </StyledClose>
+        )}
       </StyledHeader>
       <StyledForm method="post" action="#">
         <StyledLabel>
@@ -46,14 +49,15 @@ const BookForm = ({ closeModal }) => {
         </StyledLabel>
         <StyledLabel>
           <StyledSelect name="select" id="select" required>
-            <StyledOption value="Umówienie wizyty">
-              Umówienie wizyty*
+            <StyledOption value="">Kliknij i wybierz opcję*</StyledOption>
+            <StyledOption value="Seans terapeutyczny w gabinecie">
+              Seans terapeutyczny w gabinecie*
             </StyledOption>
-            <StyledOption value="Sesja terapeutyczna Offline">
-              Sesja terapeutyczna Offline*
+            <StyledOption value="Seans terapeutyczny online">
+              Seans terapeutyczny online*
             </StyledOption>
-            <StyledOption value="Konsultacja terapeutyczna Online">
-              Konsultacja terapeutyczna Online*
+            <StyledOption value="Kompleksowa terapia osobowości">
+              Kompleksowa terapia osobowości*
             </StyledOption>
           </StyledSelect>
         </StyledLabel>
@@ -82,17 +86,35 @@ const StyledWrapper = styled.div`
 
 const StyledHeader = styled.div`
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: space-between;
   background-color: ${styles.color.grey};
   padding: 20px 80px;
+  @media only screen and (max-width: 1100px) {
+    padding: 20px 50px;
+  }
+  @media only screen and (max-width: 600px) {
+    padding: 30px 40px 20px 40px;
+  }
+
+  scroll-margin-top: 150px;
 `
+const StyledTitle = styled.h1`
+  margin-bottom: 0;
+  padding: 0;
+`
+
 const StyledForm = styled.form`
   display: flex;
   flex-direction: column;
   align-items: center;
   padding: 20px 80px;
+  @media only screen and (max-width: 1100px) {
+    padding: 20px 50px;
+  }
+  @media only screen and (max-width: 600px) {
+    padding: 20px 40px;
+  }
 `
 const StyledLabel = styled.label`
   display: flex;
@@ -103,8 +125,11 @@ const StyledInput = styled.input`
   color: ${styles.color.primary};
   border: none;
   border-bottom: 1px solid ${styles.color.primary};
+
   margin-bottom: 30px;
   padding-bottom: 8px;
+  border-radius: 0;
+  -webkit-appearance: none;
 `
 const StyledSelect = styled.select`
   color: ${styles.color.primary};

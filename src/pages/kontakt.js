@@ -4,34 +4,34 @@ import Layout from "../components/layout"
 import Seo from "../components/seo"
 import TwoColumns from "../components/two-columns"
 import Newsletter from "../components/newsletter"
+import BookForm from "../components/book-form"
 
-const NotFoundPage = ({ data }) => (
+const Kontakt = ({ data }) => (
   <Layout>
     <Seo title="Kontakt" />
     <div style={{ marginBottom: "100px" }} />
     <TwoColumns
-      title={data.wpPage.contact.col2Section.title}
-      textLeft={data.wpPage.contact.col2Section.textLeft}
-      textRight={data.wpPage.contact.col2Section.textRight}
+      title={data.wpPage.ACFkontakt.sekcja2Kolumny.tytul}
+      textLeft={data.wpPage.ACFkontakt.sekcja2Kolumny.tekstLewo}
+      textRight={data.wpPage.ACFkontakt.sekcja2Kolumny.tekstPrawo}
     />
-    <div>MAPA full bleed</div>
+    {/* <div>MAPA full bleed</div> */}
     <Newsletter />
+    <BookForm noClose />
   </Layout>
 )
 export const pageQuery = graphql`
   query ContactQuery {
-    wpPage(databaseId: { eq: 465 }) {
+    wpPage(databaseId: { eq: 32 }) {
       id
-      contact {
-        col2Section {
-          ctaLabel
-          ctaUrl
-          textLeft
-          textRight
-          title
+      ACFkontakt {
+        sekcja2Kolumny {
+          tekstLewo
+          tekstPrawo
+          tytul
         }
       }
     }
   }
 `
-export default NotFoundPage
+export default Kontakt

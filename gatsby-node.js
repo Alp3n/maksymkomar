@@ -10,7 +10,7 @@ exports.createPages = async ({ graphql, actions }) => {
     {
       blog: allWpPost(
         filter: {
-          categories: { nodes: { elemMatch: { databaseId: { ne: 115 } } } }
+          categories: { nodes: { elemMatch: { databaseId: { ne: 39 } } } }
         }
       ) {
         edges {
@@ -22,7 +22,7 @@ exports.createPages = async ({ graphql, actions }) => {
       }
       audiotherapy: allWpPost(
         filter: {
-          categories: { nodes: { elemMatch: { databaseId: { eq: 115 } } } }
+          categories: { nodes: { elemMatch: { databaseId: { eq: 39 } } } }
         }
       ) {
         edges {

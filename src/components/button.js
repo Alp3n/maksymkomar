@@ -4,7 +4,7 @@ import { Link } from "gatsby"
 import styled from "styled-components"
 import styles from "../styles"
 
-const Button = ({ plain, label, url, onClick, href }) => {
+const Button = ({ plain, label, url, onClick, href, disabled, type }) => {
   return url ? (
     <StyledButtonLink to={url} plain={plain}>
       {label}
@@ -14,7 +14,12 @@ const Button = ({ plain, label, url, onClick, href }) => {
       {label}
     </StyledButtonHref>
   ) : (
-    <StyledButton plain={plain} onClick={onClick}>
+    <StyledButton
+      plain={plain}
+      onClick={onClick}
+      type={type}
+      disabled={disabled}
+    >
       {label}
     </StyledButton>
   )
@@ -28,7 +33,7 @@ const StyledButton = styled.button`
   border-radius: 32px;
   border: ${props =>
     props.plain ? ` 1px solid ${styles.color.primary}` : "none"};
-  font-size: 20px;
+  font-size: 1rem;
   text-decoration: none;
   background: ${props =>
     props.plain ? styles.color.white : styles.color.lightBlue};
@@ -36,8 +41,24 @@ const StyledButton = styled.button`
   text-transform: capitalize;
   cursor: pointer;
 
-  @media only screen and (max-width: 1200px) {
-    padding: 4px 40px;
+  :hover {
+    background: ${styles.color.primary};
+    color: ${styles.color.white};
+  }
+
+  :disabled {
+    border: 1px solid #999999;
+    background-color: #cccccc;
+    color: #666666;
+    cursor: not-allowed;
+  }
+
+  @media only screen and (max-width: 1160px) {
+    padding: 4px 30px;
+  }
+  @media only screen and (max-width: 600px) {
+    padding: 4px 20px;
+    font-size: 1rem;
   }
 `
 
@@ -47,15 +68,28 @@ const StyledButtonLink = styled(Link)`
   border-radius: 32px;
   border: ${props =>
     props.plain ? ` 1px solid ${styles.color.primary}` : "none"};
-  font-size: 20px;
+  font-size: 1rem;
   text-decoration: none;
   background: ${props =>
     props.plain ? styles.color.white : styles.color.lightBlue};
   color: ${styles.color.primary};
   text-transform: capitalize;
 
+  :hover {
+    background: ${styles.color.primary};
+    color: ${styles.color.white};
+  }
+
   @media only screen and (max-width: 1200px) {
     padding: 4px 40px;
+  }
+
+  @media only screen and (max-width: 1160px) {
+    padding: 4px 30px;
+  }
+  @media only screen and (max-width: 600px) {
+    padding: 4px 20px;
+    font-size: 1rem;
   }
 `
 
@@ -65,15 +99,28 @@ const StyledButtonHref = styled.a`
   border-radius: 32px;
   border: ${props =>
     props.plain ? ` 1px solid ${styles.color.primary}` : "none"};
-  font-size: 20px;
+  font-size: 1rem;
   text-decoration: none;
   background: ${props =>
     props.plain ? styles.color.white : styles.color.lightBlue};
   color: ${styles.color.primary};
   text-transform: capitalize;
 
+  :hover {
+    background: ${styles.color.primary};
+    color: ${styles.color.white};
+  }
+
   @media only screen and (max-width: 1200px) {
     padding: 4px 40px;
+  }
+  @media only screen and (max-width: 1160px) {
+    padding: 4px 30px;
+    font-size: 1rem;
+  }
+  @media only screen and (max-width: 600px) {
+    padding: 4px 20px;
+    font-size: 1rem;
   }
 `
 

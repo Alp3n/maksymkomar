@@ -8,13 +8,13 @@ const References = ({ title, text, references, ctaLabel, ctaUrl }) => {
   return (
     <StyledWrapper>
       <StyledTitle>{title}</StyledTitle>
-      <StyledText>{text}</StyledText>
+      <StyledText dangerouslySetInnerHTML={{ __html: text }}></StyledText>
       <StyledReferencesBox>
         <StyledVerticalLine />
         {references?.map(r => (
-          <StyledReference key={r.name}>
-            <StyledName>{r.name}</StyledName>
-            <p>{r.reference}</p>
+          <StyledReference key={r.imie}>
+            <StyledName>{r.imie}</StyledName>
+            <div dangerouslySetInnerHTML={{ __html: r.referencja }} />
           </StyledReference>
         ))}
       </StyledReferencesBox>
@@ -52,6 +52,9 @@ const StyledReferencesBox = styled.div`
   grid-template-columns: 1fr 1fr;
   grid-template-rows: repeat(2, auto);
   margin-bottom: 60px;
+  @media only screen and (max-width: 1200px) {
+    grid-template-columns: 1fr;
+  }
 `
 
 const StyledReference = styled.div`
@@ -62,6 +65,16 @@ const StyledReference = styled.div`
   }
   :nth-child(even) {
     margin-right: 10%;
+  }
+
+  @media only screen and (max-width: 1100px) {
+    :nth-child(odd) {
+      margin-left: 0;
+    }
+    :nth-child(even) {
+      margin-right: 0;
+    }
+    margin-bottom: 30px;
   }
 `
 
@@ -81,6 +94,9 @@ const StyledVerticalLine = styled.div`
   height: 100%;
   border-left: 1px solid ${styles.color.primary};
   z-index: 2;
+  @media only screen and (max-width: 1100px) {
+    display: none;
+  }
 `
 const StyledButtonWrapper = styled.div`
   display: flex;

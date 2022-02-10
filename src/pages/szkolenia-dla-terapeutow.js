@@ -1,45 +1,52 @@
 import * as React from "react"
 import { graphql } from "gatsby"
-import styled from "styled-components"
 import styles from "../styles"
 import Layout from "../components/layout"
 import Seo from "../components/seo"
 import TwoColumns4Items from "../components/two-columns-4-items"
-import FullBleedSection from "../components/full-bleed-section"
-import FullBleedOther from "../components/full-bleed-other"
+import FullBleed from "../components/full-bleed"
 import BlogPreview from "../components/blog-preview"
 
 const SzkoleniaDlaTerapeutow = ({ data }) => {
   return (
     <Layout>
       <Seo title={"Seanse terapeutyczne"} />
-      <FullBleedOther
-        background={styles.color.white}
+      <FullBleed
+        background={styles.color.grey}
         hero={
-          data.wpPage.courses.heroSection.image.localFile.childImageSharp
-            .gatsbyImageData
+          data.wpPage.ACFszkoleniaDlaTerapeutow.sekcjaHero.obrazHero.localFile
+            .childImageSharp.gatsbyImageData
         }
-        altHero={data.wpPage.courses.heroSection.image.altText}
-        title={data.wpPage.courses.heroSection.title}
+        alt={data.wpPage.ACFszkoleniaDlaTerapeutow.sekcjaHero.obrazHero.altText}
+        title={data.wpPage.ACFszkoleniaDlaTerapeutow.sekcjaHero.tytul}
+        heading={"strefa terapeuty"}
       />
       <TwoColumns4Items
-        items={data.wpPage.courses.coursesSection.items}
-        textButtonLabel={data.wpPage.courses.coursesSection.ctaLabel}
-        textButtonUrl={data.wpPage.courses.coursesSection.ctaUrl}
-        title={data.wpPage.courses.coursesSection.title}
-      />
-      <FullBleedSection
-        title={data.wpPage.courses.fwSection.title}
-        text={data.wpPage.courses.fwSection.text}
-        ctaLabel={data.wpPage.courses.fwSection.ctaLabel}
-        ctaUrl={data.wpPage.courses.fwSection.ctaUrl}
-        hero={
-          data.wpPage.courses.fwSection.image.localFile.childImageSharp
-            .gatsbyImageData
+        items={data.wpPage.ACFszkoleniaDlaTerapeutow.sekcjaKursy.kursy}
+        textButtonLabel={
+          data.wpPage.ACFszkoleniaDlaTerapeutow.sekcjaKursy.ctaEtykieta
         }
-        altHero={data.wpPage.courses.fwSection.image.altText}
-        cta
-        wide
+        textButtonUrl={data.wpPage.ACFszkoleniaDlaTerapeutow.sekcjaKursy.ctaUrl}
+        title={data.wpPage.ACFszkoleniaDlaTerapeutow.sekcjaKursy.tytul}
+      />
+      <FullBleed
+        title={data.wpPage.ACFszkoleniaDlaTerapeutow.sekcjaFullBleed.tytul}
+        subtitle={data.wpPage.ACFszkoleniaDlaTerapeutow.sekcjaFullBleed.tekst}
+        ctaLabel={
+          data.wpPage.ACFszkoleniaDlaTerapeutow.sekcjaFullBleed.ctaEtykieta
+        }
+        ctaUrl={data.wpPage.ACFszkoleniaDlaTerapeutow.sekcjaFullBleed.ctaUrl}
+        hero={
+          data.wpPage.ACFszkoleniaDlaTerapeutow.sekcjaFullBleed.obrazHero
+            .localFile.childImageSharp.gatsbyImageData
+        }
+        alt={
+          data.wpPage.ACFszkoleniaDlaTerapeutow.sekcjaFullBleed.obrazHero
+            .altText
+        }
+        background={styles.color.grey}
+        noStyle
+        centered
       />
       <BlogPreview />
     </Layout>
@@ -50,42 +57,40 @@ export default SzkoleniaDlaTerapeutow
 
 export const CoursesQuery = graphql`
   query CoursesQuery {
-    wpPage(databaseId: { eq: 274 }) {
-      courses {
-        coursesSection {
-          ctaLabel
+    wpPage(databaseId: { eq: 23 }) {
+      ACFszkoleniaDlaTerapeutow {
+        sekcjaFullBleed {
+          ctaEtykieta
           ctaUrl
-          items {
-            ctaLabel
+          tekst
+          tytul
+          obrazHero {
+            altText
+            localFile {
+              childImageSharp {
+                gatsbyImageData(quality: 100)
+              }
+            }
+          }
+        }
+        sekcjaHero {
+          obrazHero {
+            altText
+            localFile {
+              childImageSharp {
+                gatsbyImageData(quality: 100)
+              }
+            }
+          }
+          tytul
+        }
+        sekcjaKursy {
+          tytul
+          kursy {
+            ctaEtykieta
             ctaUrl
-            text
-            title
-          }
-          title
-        }
-        fwSection {
-          ctaLabel
-          ctaUrl
-          text
-          title
-          image {
-            altText
-            localFile {
-              childImageSharp {
-                gatsbyImageData(quality: 100)
-              }
-            }
-          }
-        }
-        heroSection {
-          title
-          image {
-            altText
-            localFile {
-              childImageSharp {
-                gatsbyImageData(quality: 100)
-              }
-            }
+            tekst
+            tytul
           }
         }
       }

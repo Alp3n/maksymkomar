@@ -17,30 +17,33 @@ const Opinions = ({ opinions, single }) => {
     prevArrow: <StyledArrow left />,
     responsive: [
       {
-        breakpoint: 1024,
+        breakpoint: 1100,
         settings: {
           slidesToShow: single ? 1 : 2,
           slidesToScroll: single ? 1 : 2,
           arrows: false,
-          dots: true,
+          // dots: true,
         },
       },
+
       {
-        breakpoint: 600,
+        breakpoint: 800,
         settings: {
           slidesToShow: 1,
           slidesToScroll: 1,
           arrows: false,
-          dots: true,
+          // dots: true,
+          centerMode: true,
         },
       },
       {
-        breakpoint: 480,
+        breakpoint: 500,
         settings: {
           slidesToShow: 1,
           slidesToScroll: 1,
           arrows: false,
-          dots: true,
+          // dots: true,
+          centerMode: false,
         },
       },
     ],
@@ -51,22 +54,29 @@ const Opinions = ({ opinions, single }) => {
       <Slider {...settings}>
         {opinions.map(o =>
           single ? (
-            <StyledItemSingle>
-              <StyledName>{o.name}</StyledName>
-              <StyledOpinion>{o.opinion}</StyledOpinion>
+            <StyledItemSingle key={o.imie}>
+              <StyledName>{o.imie}</StyledName>
+              <StyledOpinion
+                single={single}
+                dangerouslySetInnerHTML={{ __html: o.opinia }}
+              ></StyledOpinion>
             </StyledItemSingle>
           ) : (
-            <StyledItem key={o.name}>
+            <StyledItem key={o.imie}>
               <StyledPortraitWrapper>
                 <StyledPortraitBackground />
                 <StyledPortraitImage
-                  image={o.image.localFile.childImageSharp.gatsbyImageData}
-                  alt={o.image.altText}
+                  image={
+                    o?.obrazPortret?.localFile?.childImageSharp?.gatsbyImageData
+                  }
+                  alt={o?.obrazPortret?.altText ? o.obrazPortret.altText : ""}
                 />
               </StyledPortraitWrapper>
 
-              <StyledName>{o.name}</StyledName>
-              <StyledOpinion>{o.opinion}</StyledOpinion>
+              <StyledName>{o?.imie}</StyledName>
+              <StyledOpinion
+                dangerouslySetInnerHTML={{ __html: o.opinia }}
+              ></StyledOpinion>
             </StyledItem>
           )
         )}
@@ -85,17 +95,33 @@ Opinions.defaultProps = {} */
 const StyledWrapper = styled.div`
   width: 100%;
   margin-bottom: 100px;
+  @media only screen and (max-width: 1000px) {
+    margin-bottom: 60px;
+  }
+  @media only screen and (max-width: 600px) {
+    margin-bottom: 20px;
+  }
 `
 
 const StyledTitle = styled.h1`
   white-space: nowrap;
   margin-bottom: 60px;
+  @media only screen and (max-width: 1100px) {
+    font-size: 2.2rem;
+    margin-bottom: 30px;
+  }
+  @media only screen and (max-width: 600px) {
+    font-size: 2rem;
+  }
 `
 
 const StyledItem = styled.div`
   display: flex;
   flex-direction: column;
   padding: 0 40px;
+  @media only screen and (max-width: 600px) {
+    padding: 0 8px;
+  }
 `
 
 const StyledPortraitWrapper = styled.div`
@@ -103,6 +129,11 @@ const StyledPortraitWrapper = styled.div`
   width: 150px;
   height: 150px;
   margin-bottom: 40px;
+  @media only screen and (max-width: 600px) {
+    width: 100px;
+    height: 100px;
+    margin-bottom: 20px;
+  }
 `
 
 const StyledPortraitBackground = styled.div`
@@ -128,10 +159,22 @@ const StyledName = styled.h4`
   grid-area: name;
   margin-bottom: 40px;
   font-family: ${styles.font.family.montserrat};
+  @media only screen and (max-width: 600px) {
+    margin-bottom: 20px;
+  }
 `
 
 const StyledOpinion = styled.p`
   grid-area: opinion;
+  ${props =>
+    props.single
+      ? `column-count: 2;
+  column-gap: 40px;`
+      : null}
+
+  @media only screen and (max-width: 1100px) {
+    ${props => (props.single ? `column-count: 1; ` : null)}
+  }
 `
 
 const StyledArrow = styled.div`

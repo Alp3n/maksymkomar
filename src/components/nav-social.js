@@ -8,14 +8,14 @@ const NavSocial = ({ socialmedia }) => {
     <StyledWrapper>
       {socialmedia.map(s => (
         <StyledLink
-          key={s.url}
-          href={s.url}
+          key={s?.url}
+          href={s?.url}
           target="_blank"
           rel="noopener norefferer"
         >
           <StyledLogo
-            image={s.icon.localFile.childImageSharp.gatsbyImageData}
-            alt={s.icon.altText}
+            image={s?.ikona?.localFile?.childImageSharp?.gatsbyImageData}
+            alt={s?.ikona?.altText}
           />
         </StyledLink>
       ))}
@@ -39,6 +39,11 @@ const StyledLogo = styled(GatsbyImage)`
   width: 31px;
   height: 31px;
   z-index: 4;
+  @media only screen and (max-width: 600px) {
+    width: 24px;
+    height: 24px;
+    padding: 3px;
+  }
 `
 
 const StyledWrapper = styled.div`
@@ -49,7 +54,9 @@ const StyledWrapper = styled.div`
   gap: 16px;
   z-index: 3;
 
-  @media screen and (max-width: 1200px) {
-    display: none;
+  @media only screen and (max-width: 1200px) {
+    padding: 16px;
+    position: static;
+    display: flex;
   }
 `
