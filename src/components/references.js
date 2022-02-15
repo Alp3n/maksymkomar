@@ -3,10 +3,11 @@ import * as React from "react"
 import styled from "styled-components"
 import styles from "../styles"
 import Button from "./button"
+import FullBleedWrapper from "./full-bleed-wrapper"
 
 const References = ({ title, text, references, ctaLabel, ctaUrl }) => {
   return (
-    <StyledWrapper>
+    <FullBleedWrapper>
       <StyledTitle>{title}</StyledTitle>
       <StyledText dangerouslySetInnerHTML={{ __html: text }}></StyledText>
       <StyledReferencesBox>
@@ -21,7 +22,7 @@ const References = ({ title, text, references, ctaLabel, ctaUrl }) => {
       <StyledButtonWrapper>
         <Button label={ctaLabel} url={ctaUrl} />
       </StyledButtonWrapper>
-    </StyledWrapper>
+    </FullBleedWrapper>
   )
 }
 
@@ -32,13 +33,6 @@ export default References
 References.defaultProps = {} */
 
 /* STYLED COMPONENTS */
-
-const StyledWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  margin-bottom: 150px;
-`
 
 const StyledTitle = styled.h1`
   white-space: nowrap;
@@ -67,7 +61,7 @@ const StyledReference = styled.div`
     margin-right: 10%;
   }
 
-  @media only screen and (max-width: 1100px) {
+  @media only screen and (max-width: 1200px) {
     :nth-child(odd) {
       margin-left: 0;
     }
@@ -94,7 +88,7 @@ const StyledVerticalLine = styled.div`
   height: 100%;
   border-left: 1px solid ${styles.color.primary};
   z-index: 2;
-  @media only screen and (max-width: 1100px) {
+  @media only screen and (max-width: 1200px) {
     display: none;
   }
 `

@@ -2,10 +2,11 @@ import React from "react"
 import styled from "styled-components"
 import styles from "../styles"
 import Button from "./button"
+import FullBleedWrapper from "./full-bleed-wrapper"
 
 const PriceList = ({ priceListSection, openModal }) => {
   return (
-    <StyledWrapper>
+    <FullBleedWrapper background={styles.color.grey}>
       <StyledTitle>Cennik</StyledTitle>
       <p dangerouslySetInnerHTML={{ __html: priceListSection.tekstPierwszy }} />
       <StyledTextsBox>
@@ -23,7 +24,7 @@ const PriceList = ({ priceListSection, openModal }) => {
       </StyledTextsBox>
       <div dangerouslySetInnerHTML={{ __html: priceListSection.tekstDrugi }} />
       <Button label={priceListSection.ctaEtykieta} onClick={openModal} />
-    </StyledWrapper>
+    </FullBleedWrapper>
   )
 }
 

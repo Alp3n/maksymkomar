@@ -4,6 +4,7 @@ import styled from "styled-components"
 import styles from "../styles"
 import { GatsbyImage } from "gatsby-plugin-image"
 import MenuItem from "./menu-item"
+import FullBleedWrapper from "./full-bleed-wrapper"
 
 const links = [
   { label: "Home", url: "/" },
@@ -29,7 +30,7 @@ const links = [
 
 const Footer = ({ src, alt }) => {
   return (
-    <StyledFooterWrapper>
+    <FullBleedWrapper background={styles.color.grey}>
       <StyledFooterContent>
         <StyledContactInfo>
           <StyledLogo image={src} alt={alt} />
@@ -62,7 +63,7 @@ const Footer = ({ src, alt }) => {
         </StyledNav>
         {/* © {new Date().getFullYear()}, <a href="/">Maksym Komar</a> */}
       </StyledFooterContent>
-    </StyledFooterWrapper>
+    </FullBleedWrapper>
   )
 }
 
@@ -72,22 +73,14 @@ export default Footer
 
 /* STYLED COMPONENTS */
 
-const StyledFooterWrapper = styled.footer`
-  width: 100%;
-  display: grid;
-  grid-template-columns: 1fr min(1450px, 100%) 1fr;
-  padding: 60px 0;
-  background: ${styles.color.grey};
-`
-
 const StyledFooterContent = styled.div`
-  grid-column: 2;
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-auto-flow: column;
   @media only screen and (max-width: 600px) {
     grid-template-columns: 1fr;
     place-self: center;
+    margin: 40px 0;
   }
 `
 

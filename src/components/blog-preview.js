@@ -1,4 +1,4 @@
-import * as React from "react"
+import React, { useState, useEffect } from "react"
 // import PropTypes from "prop-types"
 import styled from "styled-components"
 import { GatsbyImage } from "gatsby-plugin-image"
@@ -6,10 +6,15 @@ import styles from "../styles"
 import Button from "./button"
 import { Link, useStaticQuery, graphql } from "gatsby"
 import Slider from "react-slick"
+import FullBleedWrapper from "./full-bleed-wrapper"
+import Title from "./title"
+import { useMediaQuery } from "react-responsive"
 
-const BlogPreview = ({ noButton }) => {
+const BlogPreview = ({ noButton, grid, filterPhrase }) => {
+  const isMobile = useMediaQuery({ query: "(max-width:600px)" })
+  const [blogPosts, setBlogPosts] = useState(null)
   const data = useStaticQuery(graphql`
-    query NotAudiotherapy {
+    query BlogPosts {
       allWpPost(
         filter: {
           categories: { nodes: { elemMatch: { databaseId: { ne: 115 } } } }
@@ -41,14 +46,24 @@ const BlogPreview = ({ noButton }) => {
       }
     }
   `)
-  /*   const filteredItems = data.allWpPost.edges.reduce( 
-    node.categories.nodes.map(c => c)
+
+  /* let resultArray = blogPosts.filter(post =>
+    post.node.categories.nodes.every(category => filterPhrase.includes(category.name))
   ) */
 
-  // console.log(filteredItems, "FILTERRRRRRR")
+  useEffect(() => {
+    console.log(data.allWpPost.edges)
+    setBlogPosts(
+      data.allWpPost.edges.filter(post =>
+        post.node.categories.nodes.some(category =>
+          filterPhrase?.includes(category.name)
+        )
+      )
+    )
+  }, [filterPhrase])
 
   const settings = {
-    infinite: true,
+    infinite: false,
     dots: false,
     speed: 1000,
     slidesToShow: 3,
@@ -71,7 +86,6 @@ const BlogPreview = ({ noButton }) => {
           slidesToShow: 1,
           slidesToScroll: 1,
           arrows: false,
-          // dots: false,
           centerMode: true,
         },
       },
@@ -81,24 +95,21 @@ const BlogPreview = ({ noButton }) => {
           slidesToShow: 1,
           slidesToScroll: 1,
           arrows: false,
-          // dots: false,
           centerMode: false,
         },
       },
     ],
   }
   return (
-    <StyledWrapper>
-      <StyledInner>
-        <StyledTitleMain>Blog</StyledTitleMain>
-        <Slider {...settings}>
-          {data.allWpPost.edges.map(p => (
+    <FullBleedWrapper noPadding={isMobile ? true : false}>
+      {grid ? (
+        <StyledGrid>
+          {blogPosts?.map(p => (
             <StyledBlogItem key={p.node.id}>
               <StyledImageWrapper>
-                <StyledCategory>
+                <StyledCategory p={p.node.categories.nodes}>
                   {p.node.categories.nodes[0].name}
                   {p.node.categories.nodes[1]?.name ? ", " : null}
-
                   {p.node.categories.nodes[1]?.name}
                 </StyledCategory>
                 <StyledImage
@@ -118,39 +129,86 @@ const BlogPreview = ({ noButton }) => {
               </StyledLink>
             </StyledBlogItem>
           ))}
-        </Slider>
-        {noButton ? null : (
-          <StyledButtonWrapper>
-            <Button label="Zobacz wszystkie" url={"/blog/"} />
-          </StyledButtonWrapper>
-        )}
-      </StyledInner>
-    </StyledWrapper>
+        </StyledGrid>
+      ) : filterPhrase ? (
+        <>
+          <Title title={filterPhrase} />
+          <Slider {...settings}>
+            {blogPosts?.map(p => (
+              <StyledBlogItem key={p.node.id}>
+                <StyledImageWrapper>
+                  <StyledCategory>
+                    {p.node.categories.nodes[0].name}
+                    {p.node.categories.nodes[1]?.name ? ", " : null}
+                    {p.node.categories.nodes[1]?.name}
+                  </StyledCategory>
+                  <StyledImage
+                    image={
+                      p.node.featuredImage.node.localFile.childImageSharp
+                        .gatsbyImageData
+                    }
+                    alt={p.node.title}
+                  />
+                </StyledImageWrapper>
+                <StyledTitle>{p.node.title}</StyledTitle>
+                <StyledDesc
+                  dangerouslySetInnerHTML={{ __html: p.node.excerpt }}
+                ></StyledDesc>
+                <StyledLink to={`/blog/${p.node.slug}`} className="more">
+                  Więcej
+                </StyledLink>
+              </StyledBlogItem>
+            ))}
+          </Slider>
+        </>
+      ) : (
+        <>
+          <Title title={"Blog"} />
+          <Slider {...settings}>
+            {data.allWpPost.edges.map(p => (
+              <StyledBlogItem key={p.node.id}>
+                <StyledImageWrapper>
+                  <StyledCategory>
+                    {p.node.categories.nodes[0].name}
+                    {p.node.categories.nodes[1]?.name ? ", " : null}
+
+                    {p.node.categories.nodes[1]?.name}
+                  </StyledCategory>
+                  <StyledImage
+                    image={
+                      p.node.featuredImage.node.localFile.childImageSharp
+                        .gatsbyImageData
+                    }
+                    alt={p.node.title}
+                  />
+                </StyledImageWrapper>
+                <StyledTitle>{p.node.title}</StyledTitle>
+                <StyledDesc
+                  dangerouslySetInnerHTML={{ __html: p.node.excerpt }}
+                ></StyledDesc>
+                <StyledLink to={`/blog/${p.node.slug}`} className="more">
+                  Więcej
+                </StyledLink>
+              </StyledBlogItem>
+            ))}
+          </Slider>
+        </>
+      )}
+      {noButton ? null : (
+        <StyledButtonWrapper>
+          <Button label="Zobacz wszystkie" url={"/blog/"} />
+        </StyledButtonWrapper>
+      )}
+    </FullBleedWrapper>
   )
 }
 
 export default BlogPreview
 
 /* STYLED COMPONENTS */
-const StyledWrapper = styled.div`
-  grid-column: 1 / -1;
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  margin-bottom: 100px;
-  place-content: center;
-`
-const StyledInner = styled.div`
-  position: relative;
-  > * {
-    grid-column: 2;
-  }
-  display: grid;
-  grid-template-columns: 1fr min(1420px, 100%) 1fr;
-`
 const StyledTitleMain = styled.h1`
   margin-bottom: 60px;
-  @media only screen and (max-width: 1100px) {
+  @media only screen and (max-width: 1200px) {
     padding: 0 40px;
     font-size: 2.2rem;
     margin-bottom: 30px;
@@ -159,6 +217,19 @@ const StyledTitleMain = styled.h1`
     padding: 0 20px;
     font-size: 2rem;
     margin-bottom: 30px;
+  }
+`
+const StyledGrid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: auto;
+  justify-items: center;
+
+  @media only screen and (max-width: 1400px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  @media only screen and (max-width: 1200px) {
+    grid-template-columns: repeat(1, 1fr);
   }
 `
 
@@ -184,6 +255,7 @@ const StyledCategory = styled.div`
   padding: 5px 10px;
   background-color: ${styles.color.lightBlue};
   z-index: 9;
+  ${props => (props.p > 1 ? `font-size: 5px` : null)}
 `
 const StyledImage = styled(GatsbyImage)`
   max-height: 260px;
@@ -191,7 +263,7 @@ const StyledImage = styled(GatsbyImage)`
 
 const StyledTitle = styled.h4`
   font-family: ${styles.font.family.montserrat};
-  @media only screen and (max-width: 1100px) {
+  @media only screen and (max-width: 1200px) {
     font-size: 1.7rem;
     margin-bottom: 30px;
   }
@@ -210,6 +282,7 @@ const StyledLink = styled(Link)`
   text-decoration: none;
   color: ${styles.color.primary};
   z-index: 3;
+  width: fit-content;
 `
 const StyledButtonWrapper = styled.div`
   display: flex;

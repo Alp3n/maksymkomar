@@ -1,4 +1,4 @@
-import * as React from "react"
+import React, { useEffect, useState } from "react"
 import { graphql } from "gatsby"
 import styled from "styled-components"
 import Layout from "../components/layout"
@@ -6,45 +6,77 @@ import Seo from "../components/seo"
 import FullBleed from "../components/full-bleed"
 import styles from "../styles"
 import BlogPreview from "../components/blog-preview"
+import FullBleedWrapper from "../components/full-bleed-wrapper"
 
-const Blog = ({ data }) => (
-  <Layout>
-    <Seo title="Blog" />
-    <FullBleed
-      hero={
-        data.wpPage.ACFblog.sekcjaHero.obrazHero.localFile.childImageSharp
-          .gatsbyImageData
-      }
-      alt={data.wpPage.ACFblog.sekcjaHero.obrazHero.altText}
-      title={"Blog"}
-      background={styles.color.lightBlue}
-    />
-    {/* <StyledCategoryWrapper>
-      <h1>Kategorie</h1>
-      <StyledCategoryItemsWrapper>
-        {data.allWpCategory.edges.map(c => (
-          <StyledCategoryItem>{c.node.name}</StyledCategoryItem>
-        ))}
-      </StyledCategoryItemsWrapper>
-    </StyledCategoryWrapper> */}
-    <BlogPreview noButton />
-    <FullBleed
-      title={data.wpPage.ACFblog.sekcjaSugestia.tytul}
-      hero={
-        data.wpPage.ACFblog.sekcjaSugestia.obrazHero.localFile.childImageSharp
-          .gatsbyImageData
-      }
-      alt={data.wpPage.ACFblog.sekcjaSugestia.obrazHero.altText}
-      duration={data.wpPage.ACFblog.sekcjaSugestia.dlugosc}
-      format={data.wpPage.ACFblog.sekcjaSugestia.format}
-      price={data.wpPage.ACFblog.sekcjaSugestia.cena}
-      ctaLabel={data.wpPage.ACFblog.sekcjaSugestia.ctaEtykieta}
-      ctaUrl={data.wpPage.ACFblog.sekcjaSugestia.ctaUrl}
-      background={styles.color.lightOrange}
-      multiply
-    />
-  </Layout>
-)
+const Blog = ({ data }) => {
+  const [selected, setSelected] = useState("")
+
+  const handleSelect = category => {
+    if (selected === category) {
+      return setSelected("")
+    }
+    setSelected(category.toLowerCase())
+  }
+
+  useEffect(() => {
+    console.log(selected)
+  }, [selected])
+  return (
+    <Layout>
+      <Seo title="Blog" />
+      <FullBleed
+        hero={
+          data.wpPage.ACFblog.sekcjaHero.obrazHero.localFile.childImageSharp
+            .gatsbyImageData
+        }
+        alt={data.wpPage.ACFblog.sekcjaHero.obrazHero.altText}
+        title={"Blog"}
+        background={styles.color.lightBlue}
+        noPadding
+      />
+      <FullBleedWrapper>
+        <StyledCategoryWrapper>
+          <h1>Kategorie</h1>
+          <StyledCategoryItemsWrapper>
+            {data.allWpCategory.edges.map((c, i) => (
+              <StyledCategoryItem
+                key={c.node.name}
+                onClick={() => handleSelect(c.node.name)}
+                selected={selected === c.node.name}
+              >
+                {c.node.name}
+              </StyledCategoryItem>
+            ))}
+          </StyledCategoryItemsWrapper>
+        </StyledCategoryWrapper>
+      </FullBleedWrapper>
+      {selected ? (
+        <FullBleedWrapper background={styles.color.grey}>
+          <div>
+            <h3>Wyniki dla {selected.toLowerCase()}</h3>
+            <BlogPreview filterPhrase={selected} grid noButton />
+          </div>
+        </FullBleedWrapper>
+      ) : null}
+      <BlogPreview noButton filterPhrase={"hipnoterapia"} />
+      <FullBleed
+        title={data.wpPage.ACFblog.sekcjaSugestia.tytul}
+        hero={
+          data.wpPage.ACFblog.sekcjaSugestia.obrazHero.localFile.childImageSharp
+            .gatsbyImageData
+        }
+        alt={data.wpPage.ACFblog.sekcjaSugestia.obrazHero.altText}
+        duration={data.wpPage.ACFblog.sekcjaSugestia.dlugosc}
+        format={data.wpPage.ACFblog.sekcjaSugestia.format}
+        price={data.wpPage.ACFblog.sekcjaSugestia.cena}
+        ctaLabel={data.wpPage.ACFblog.sekcjaSugestia.ctaEtykieta}
+        ctaUrl={data.wpPage.ACFblog.sekcjaSugestia.ctaUrl}
+        background={styles.color.lightOrange}
+        multiply
+      />
+    </Layout>
+  )
+}
 
 export default Blog
 
@@ -105,14 +137,11 @@ export const BlogItems = graphql`
 const StyledCategoryWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  width: 100%;
-  margin-bottom: 100px;
 `
 const StyledCategoryItemsWrapper = styled.div`
   display: grid;
   width: 100%;
   grid-template-columns: repeat(4, 1fr);
-  /* grid-auto-rows: 100px; */
   gap: 10px;
 `
 const StyledCategoryItem = styled.a`
@@ -120,6 +149,12 @@ const StyledCategoryItem = styled.a`
   text-transform: lowercase;
   border-bottom: 1px solid ${styles.color.primary};
   padding: 20px 10px;
+  background-color: ${props =>
+    props.selected ? styles.color.lightBlue : "transparent"};
+
+  @media only screen and (max-width: 600px) {
+    padding: 0;
+  }
 
   :hover {
     background-color: ${styles.color.lightBlue};

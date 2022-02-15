@@ -4,74 +4,77 @@ import React from "react"
 import styled from "styled-components"
 import styles from "../styles"
 import Button from "./button"
+import FullBleedWrapper from "./full-bleed-wrapper"
 
 const BookForm = ({ closeModal, noClose }) => {
   return (
-    <StyledWrapper>
-      <StyledHeader noClose={noClose} id="book-form">
-        <StyledTitle>Umów Sesję</StyledTitle>
-        {noClose ? null : (
-          <StyledClose style={{ placeSelf: "end" }} onClick={closeModal}>
-            ×
-          </StyledClose>
-        )}
-      </StyledHeader>
-      <StyledForm method="post" action="#">
-        <StyledLabel>
-          <StyledInput
-            type="text"
-            name="name"
-            id="name"
-            required
-            placeholder="Twoje imię*"
-          />
-        </StyledLabel>
-        <StyledLabel>
-          <StyledInput
-            type="email"
-            name="email"
-            id="email"
-            required
-            placeholder="Twój e-mail*"
-          />
-        </StyledLabel>
-        <StyledLabel>
-          <StyledInput
-            type="tel"
-            name="phone"
-            id="phone"
-            required
-            pattern="[0-9]{3}-[0-9]{3}-[0-9]{3}"
-            minlength={9}
-            maxLength={9}
-            placeholder="Numer telefonu*"
-          />
-        </StyledLabel>
-        <StyledLabel>
-          <StyledSelect name="select" id="select" required>
-            <StyledOption value="">Kliknij i wybierz opcję*</StyledOption>
-            <StyledOption value="Seans terapeutyczny w gabinecie">
-              Seans terapeutyczny w gabinecie*
-            </StyledOption>
-            <StyledOption value="Seans terapeutyczny online">
-              Seans terapeutyczny online*
-            </StyledOption>
-            <StyledOption value="Kompleksowa terapia osobowości">
-              Kompleksowa terapia osobowości*
-            </StyledOption>
-          </StyledSelect>
-        </StyledLabel>
-        <StyledLabel>
-          <StyledTextArea
-            name="message"
-            id="message"
-            rows="5"
-            placeholder="Treść wiadomości (dodatkowe)"
-          />
-        </StyledLabel>
-        <Button type="submit" label="Wyślij" />
-      </StyledForm>
-    </StyledWrapper>
+    <FullBleedWrapper>
+      <StyledWrapper>
+        <StyledHeader noClose={noClose} id="book-form">
+          <StyledTitle>Umów Sesję</StyledTitle>
+          {noClose ? null : (
+            <StyledClose style={{ placeSelf: "end" }} onClick={closeModal}>
+              ×
+            </StyledClose>
+          )}
+        </StyledHeader>
+        <StyledForm method="post" action="#">
+          <StyledLabel>
+            <StyledInput
+              type="text"
+              name="name"
+              id="name"
+              required
+              placeholder="Twoje imię*"
+            />
+          </StyledLabel>
+          <StyledLabel>
+            <StyledInput
+              type="email"
+              name="email"
+              id="email"
+              required
+              placeholder="Twój e-mail*"
+            />
+          </StyledLabel>
+          <StyledLabel>
+            <StyledInput
+              type="tel"
+              name="phone"
+              id="phone"
+              required
+              pattern="[0-9]{3}-[0-9]{3}-[0-9]{3}"
+              minlength={9}
+              maxLength={9}
+              placeholder="Numer telefonu*"
+            />
+          </StyledLabel>
+          <StyledLabel>
+            <StyledSelect name="select" id="select" required>
+              <StyledOption value="">Kliknij i wybierz opcję*</StyledOption>
+              <StyledOption value="Seans terapeutyczny w gabinecie">
+                Seans terapeutyczny w gabinecie*
+              </StyledOption>
+              <StyledOption value="Seans terapeutyczny online">
+                Seans terapeutyczny online*
+              </StyledOption>
+              <StyledOption value="Kompleksowa terapia osobowości">
+                Kompleksowa terapia osobowości*
+              </StyledOption>
+            </StyledSelect>
+          </StyledLabel>
+          <StyledLabel>
+            <StyledTextArea
+              name="message"
+              id="message"
+              rows="5"
+              placeholder="Treść wiadomości (dodatkowe)"
+            />
+          </StyledLabel>
+          <Button type="submit" label="Wyślij" />
+        </StyledForm>
+      </StyledWrapper>
+    </FullBleedWrapper>
   )
 }
 
@@ -82,6 +85,8 @@ export default BookForm
 const StyledWrapper = styled.div`
   display: flex;
   flex-direction: column;
+  max-width: 500px;
+  place-self: center;
 `
 
 const StyledHeader = styled.div`

@@ -3,37 +3,37 @@ import React, { useState } from "react"
 import styled from "styled-components"
 import styles from "../styles"
 import Button from "./button"
+import FullBleedWrapper from "./full-bleed-wrapper"
+import Title from "./title"
 
 const Newsletter = () => {
   const [value, setValue] = useState("")
   return (
-    <StyledWrapper>
-      <StyledInner>
-        <StyledTitle>Newsletter</StyledTitle>
-        <p>
-          Zapisz się do naszego newslettera abyt otrzymywać najnowsze wiadomości
-          i porady
-        </p>
+    <FullBleedWrapper background={styles.color.grey} height={"medium"}>
+      <Title title={"Newsletter"} />
+      <p>
+        Zapisz się do naszego newslettera aby otrzymywać najnowsze wiadomości i
+        porady
+      </p>
 
-        <form>
-          <StyledForm>
-            <StyledInput type="text" required placeholder="Twoje imię*" />
-            <StyledInput
-              type="email"
-              value={value.email}
-              required
-              onChange={e => setValue(e.target.value)}
-              placeholder="Twój email*"
-            />
-          </StyledForm>
-          <Button
-            label="Zapisz się"
-            type="submit"
-            disabled={value ? false : true}
+      <form>
+        <StyledForm>
+          <StyledInput type="text" required placeholder="Twoje imię*" />
+          <StyledInput
+            type="email"
+            value={value.email}
+            required
+            onChange={e => setValue(e.target.value)}
+            placeholder="Twój email*"
           />
-        </form>
-      </StyledInner>
-    </StyledWrapper>
+        </StyledForm>
+        <Button
+          label="Zapisz się"
+          type="submit"
+          disabled={value ? false : true}
+        />
+      </form>
+    </FullBleedWrapper>
   )
 }
 
@@ -43,7 +43,7 @@ export default Newsletter
 
 /* STYLED COMPONENTS */
 
-const StyledWrapper = styled.div`
+/* const StyledWrapper = styled.div`
   grid-column: 1 / -1;
 
   width: 100%;
@@ -67,7 +67,7 @@ const StyledInner = styled.div`
   @media only screen and (max-width: 600px) {
     width: 100%;
   }
-`
+` */
 
 const StyledTitle = styled.h1`
   margin-bottom: 60px;

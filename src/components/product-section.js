@@ -3,6 +3,8 @@ import * as React from "react"
 import styled from "styled-components"
 import styles from "../styles"
 import Button from "./button"
+import FullBleedWrapper from "./full-bleed-wrapper"
+import Title from "./title"
 
 const ProductSection = ({
   title,
@@ -13,23 +15,13 @@ const ProductSection = ({
   id,
 }) => {
   return (
-    <StyledWrapper id={id}>
-      <StyledTitle>{title}</StyledTitle>
+    <FullBleedWrapper id={id}>
+      <Title title={title} />
       <StyledTextsBox>
-        <StyledTextBox right dangerouslySetInnerHTML={{ __html: textLeft }}>
-          {/* <span>
-            <strong>Format</strong> - {textLeft.format}
-          </span>
-          <span>
-            <strong>Długość</strong> - {textLeft.duration}
-          </span>
-          <span>
-            <strong>Cena</strong> - {textLeft.price}
-          </span>
-          <span>
-            <strong>Dostępność</strong> - {textLeft.availability}
-          </span> */}
-        </StyledTextBox>
+        <StyledTextBox
+          right
+          dangerouslySetInnerHTML={{ __html: textLeft }}
+        ></StyledTextBox>
         <StyledVerticalLine />
         <StyledTextBox
           left
@@ -37,7 +29,7 @@ const ProductSection = ({
         ></StyledTextBox>
       </StyledTextsBox>
       <Button label={ctaLabel} url={ctaUrl} disabled />
-    </StyledWrapper>
+    </FullBleedWrapper>
   )
 }
 
@@ -60,14 +52,6 @@ ProductSection.defaultProps = {
 } */
 
 /* STYLED COMPONENTS */
-
-const StyledWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  margin-bottom: 100px;
-  scroll-margin-top: 150px;
-`
 
 const StyledTitle = styled.h1`
   margin-bottom: 60px;

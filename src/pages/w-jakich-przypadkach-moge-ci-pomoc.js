@@ -7,6 +7,7 @@ import FullBleed from "../components/full-bleed"
 import styles from "../styles"
 import BlogPreview from "../components/blog-preview"
 import DropDown from "../components/drop-down"
+import FullBleedWrapper from "../components/full-bleed-wrapper"
 
 const HowCanIHelp = ({ data }) => {
   return (
@@ -25,14 +26,15 @@ const HowCanIHelp = ({ data }) => {
         background={styles.color.lightOrange}
         multiply
         heading={"strefa klienta"}
+        noPadding
       />
-      <StyledWrapper>
+      <FullBleedWrapper>
         {data.wpPage.ACFwJakichPrzypadkachMogeCiPomoc.sekcjaZaawansowana.map(
           c => (
             <DropDown key={c.kategoria.tytul} categories={c} />
           )
         )}
-      </StyledWrapper>
+      </FullBleedWrapper>
 
       <BlogPreview />
     </Layout>
@@ -68,13 +70,5 @@ export const HowCanIHelpQuery = graphql`
         }
       }
     }
-  }
-`
-
-const StyledWrapper = styled.div`
-  width: 100%;
-
-  div:last-child() {
-    margin-bottom: 150px;
   }
 `

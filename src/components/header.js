@@ -56,7 +56,7 @@ const Header = ({ src, alt, openModal, menu, socialmedia }) => {
     { label: "Moja metoda", url: "/o-mnie/", submenu: [] },
     {
       label: "Strefa klienta",
-      url: "/seanse-terapeutyczne/",
+      url: "",
       submenu: [
         { label: "Seanse terapeutyczne", url: "/seanse-terapeutyczne/" },
         {
@@ -64,18 +64,14 @@ const Header = ({ src, alt, openModal, menu, socialmedia }) => {
           url: "/w-jakich-przypadkach-moge-ci-pomoc/",
         },
         {
-          label: "Audioterapia - Poznanie Swoich Emocji",
-          url: "/audioterapie/poznanie-swoich-emocji",
-        },
-        {
-          label: "Audioterapia - Korekcja Psychosomatyki",
-          url: "/audioterapie/korekcja-psychosomatyki",
+          label: "Audioterapie",
+          url: "/audioterapie/",
         },
       ],
     },
     {
       label: "Strefa terapeuty",
-      url: "/szkolenia-dla-terapeutow/",
+      url: "",
       submenu: [
         {
           label: "Szkolenia dla terapeutów",
@@ -106,7 +102,7 @@ const Header = ({ src, alt, openModal, menu, socialmedia }) => {
           <StyledNav>
             {links.map((l, index) => (
               <StyledItemWrapper
-                key={l.url}
+                key={l.label}
                 onMouseEnter={() => showItem(l.submenu, index)}
                 onMouseLeave={() => hideItem()}
               >
@@ -133,7 +129,7 @@ const Header = ({ src, alt, openModal, menu, socialmedia }) => {
         <StyledMenu>
           {mobileLinks.map((l, index) => (
             <StyledItemWrapper
-              key={l.url}
+              key={l.label}
               onMouseEnter={() => showItem(l.submenu, index)}
               onMouseLeave={() => hideItem()}
             >
@@ -181,6 +177,9 @@ const StyledSubmenu = styled.div`
   width: 500px;
   gap: 15px;
   box-shadow: 3px 4px 6px grey;
+  a:hover {
+    color: ${styles.color.white};
+  }
 `
 
 const StyledNav = styled.nav`

@@ -8,6 +8,7 @@ import FullBleed from "../components/full-bleed"
 import TwoColumns from "../components/two-columns"
 import Patent from "../components/patent"
 import References from "../components/references"
+import FullBleedWrapper from "../components/full-bleed-wrapper"
 
 const Omnie = ({ data }) => {
   const myData = data.wpPage.ACFoMnie
@@ -31,11 +32,16 @@ const Omnie = ({ data }) => {
         logoBottom
         multiply
         subtitleBig
+        noPadding
       />
-      <StyledSimpleSection>
-        <h1>{myData.sekcjaProsta.tytul}</h1>
-        <p dangerouslySetInnerHTML={{ __html: myData.sekcjaProsta.tekst }} />
-      </StyledSimpleSection>
+      <FullBleedWrapper>
+        <StyledSimpleSection>
+          <h1>{myData.sekcjaProsta.tytul}</h1>
+          <div
+            dangerouslySetInnerHTML={{ __html: myData.sekcjaProsta.tekst }}
+          />
+        </StyledSimpleSection>
+      </FullBleedWrapper>
       <TwoColumns
         title={myData.sekcja2Kolumny.tytul}
         textLeft={myData.sekcja2Kolumny.tekstLewo}
@@ -145,11 +151,14 @@ const StyledSimpleSection = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
-  margin-bottom: 100px;
   @media only screen and (max-width: 1200px) {
     margin-bottom: 60px;
   }
   @media only screen and (max-width: 600px) {
     margin-bottom: 40px;
+  }
+
+  li {
+    list-style-type: "- ";
   }
 `

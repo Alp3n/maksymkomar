@@ -84,11 +84,8 @@ const StyledButtonLink = styled(Link)`
     padding: 4px 40px;
   }
 
-  @media only screen and (max-width: 1160px) {
-    padding: 4px 30px;
-  }
   @media only screen and (max-width: 600px) {
-    padding: 4px 20px;
+    padding: 4px 30px;
     font-size: 1rem;
   }
 `

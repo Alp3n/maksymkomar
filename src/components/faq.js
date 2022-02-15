@@ -1,10 +1,11 @@
 import * as React from "react"
 import styled from "styled-components"
+import FullBleedWrapper from "./full-bleed-wrapper"
 // import PropTypes from "prop-types"
 
 const Faq = ({ qa }) => {
   return (
-    <StyledWrapper id="faq">
+    <FullBleedWrapper id="faq">
       <StyledTitle>FAQ</StyledTitle>
       {qa.map(i => (
         <StyledItemWrapper key={i.pytanie}>
@@ -20,7 +21,7 @@ const Faq = ({ qa }) => {
           />
         </StyledItemWrapper>
       ))}
-    </StyledWrapper>
+    </FullBleedWrapper>
   )
 }
 

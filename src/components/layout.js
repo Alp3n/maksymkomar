@@ -79,9 +79,9 @@ const Layout = ({ children }) => {
       />
 
       <StyledMain>
-        <StyledBook>
+        {/* <StyledBook>
           <Button label="Umów sesję" onClick={openModal} />
-        </StyledBook>
+        </StyledBook> */}
         <StyledSocialWrapper>
           <NavSocial socialmedia={data?.wpPage?.ACFlogaISocial?.socialmedia} />
         </StyledSocialWrapper>
@@ -137,7 +137,7 @@ export default Layout
 /* STYLED COMPONENTS */
 
 const StyledMain = styled.main`
-  position: relative;
+  /* position: relative;
   > * {
     grid-column: 2;
   }
@@ -147,7 +147,7 @@ const StyledMain = styled.main`
 
   @media only screen and (max-width: 1560px) {
     grid-template-columns: 1fr min(90%, 100%) 1fr;
-  }
+  } */
   /* @media only screen and (max-width: 1310px) {
     grid-template-columns: 1fr min(1100px, 100%) 1fr;
   }

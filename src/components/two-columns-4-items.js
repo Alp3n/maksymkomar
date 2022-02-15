@@ -3,6 +3,7 @@ import * as React from "react"
 import styled from "styled-components"
 import styles from "../styles"
 import Button from "./button"
+import FullBleedWrapper from "./full-bleed-wrapper"
 
 const TwoColumns4Items = ({
   title,
@@ -12,7 +13,7 @@ const TwoColumns4Items = ({
   id,
 }) => {
   return (
-    <StyledWrapper id={id}>
+    <FullBleedWrapper id={id}>
       <StyledTitle>{title}</StyledTitle>
       <StyledTextsBox>
         {items.map(i => (
@@ -30,7 +31,7 @@ const TwoColumns4Items = ({
           url={"https://prohypnoinstitute.com/"}
         />
       </StyledFlex>
-    </StyledWrapper>
+    </FullBleedWrapper>
   )
 }
 

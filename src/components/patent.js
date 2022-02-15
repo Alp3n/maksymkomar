@@ -6,6 +6,7 @@ import Button from "./button"
 import Modal from "react-modal"
 
 import { GatsbyImage } from "gatsby-plugin-image"
+import FullBleedWrapper from "./full-bleed-wrapper"
 Modal.setAppElement("#___gatsby")
 
 const Patent = ({ image, image2, alt2, ctaLabel, alt, title }) => {
@@ -17,7 +18,7 @@ const Patent = ({ image, image2, alt2, ctaLabel, alt, title }) => {
     setIsOpen(false)
   }
   return (
-    <StyledWrapper id="wrapper">
+    <FullBleedWrapper id="wrapper">
       <Modal
         parentSelector={() => document.querySelector("#___gatsby")}
         isOpen={isOpen}
@@ -58,14 +59,18 @@ const Patent = ({ image, image2, alt2, ctaLabel, alt, title }) => {
           </StyledModalContent>
         </StyledModalWrapper>
       </Modal>
-      <StyledBox>
-        <StyledTitle dangerouslySetInnerHTML={{ __html: title }}></StyledTitle>
-        <Button label={ctaLabel} onClick={openModal} />
-      </StyledBox>
-      <StyledBox>
-        <StyledImage image={image} alt={alt} />
-      </StyledBox>
-    </StyledWrapper>
+      <StyledWrapper>
+        <StyledBox>
+          <StyledTitle
+            dangerouslySetInnerHTML={{ __html: title }}
+          ></StyledTitle>
+          <Button label={ctaLabel} onClick={openModal} />
+        </StyledBox>
+        <StyledBox>
+          <StyledImage image={image2} alt={alt2} width={"600px"} />
+        </StyledBox>
+      </StyledWrapper>
+    </FullBleedWrapper>
   )
 }
 
@@ -79,6 +84,7 @@ const StyledWrapper = styled.div`
   width: 100%;
   place-items: center;
   margin-bottom: 120px;
+  gap: 40px;
   @media only screen and (max-width: 1200px) {
     grid-template-columns: 1fr;
     margin-bottom: 60px;
@@ -88,11 +94,19 @@ const StyledWrapper = styled.div`
   }
 `
 
-const StyledTitle = styled.h1`
+const StyledTitle = styled.h2`
   white-space: nowrap;
   margin-bottom: 40px;
   color: ${props => props.color};
   text-align: center;
+  @media only screen and (max-width: 1100px) {
+    font-size: 2.2rem;
+    margin-bottom: 30px;
+  }
+  @media only screen and (max-width: 600px) {
+    font-size: 2rem;
+    margin-bottom: 30px;
+  }
 `
 const StyledBox = styled.div`
   display: flex;
@@ -103,6 +117,12 @@ const StyledBox = styled.div`
 const StyledImage = styled(GatsbyImage)`
   width: ${props => (props.width ? props.width : "300px")};
   height: auto;
+  @media only screen and (max-width: 1100px) {
+    width: 80%;
+  }
+  @media only screen and (max-width: 600px) {
+    width: 100%;
+  }
 `
 const StyledModalContent = styled.div`
   display: grid;

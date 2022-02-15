@@ -5,24 +5,29 @@ import styled from "styled-components"
 import Layout from "../components/layout"
 import Seo from "../components/seo"
 import { GatsbyImage } from "gatsby-plugin-image"
+import FullBleedWrapper from "../components/full-bleed-wrapper"
+import Title from "../components/title"
+import styles from "../styles"
 
 const Referencje = ({ data }) => {
   return (
     <Layout>
       <Seo title="Referencje" />
-      <StyledWrapper>
-        <StyledTitle>Referencje Maksykma Komara</StyledTitle>
-        {data.wpPage.ACFreferencje2.sekcjareferencje.map(i => (
-          <StyledItem>
-            <h4>{i.imie}</h4>
-            <StyledImage
-              image={i.portret.localFile.childImageSharp.gatsbyImageData}
-              alt={i.portret.altText}
-            />
-            <p dangerouslySetInnerHTML={{ __html: i.referencja }} />
-          </StyledItem>
-        ))}
-      </StyledWrapper>
+      <FullBleedWrapper>
+        <StyledWrapper>
+          <Title title={"Referencje Maksyma Komara"} />
+          {data.wpPage.ACFreferencje2.sekcjareferencje.map(i => (
+            <StyledItem>
+              <h4>{i.imie}</h4>
+              <StyledImage
+                image={i.portret.localFile.childImageSharp.gatsbyImageData}
+                alt={i.portret.altText}
+              />
+              <p dangerouslySetInnerHTML={{ __html: i.referencja }} />
+            </StyledItem>
+          ))}
+        </StyledWrapper>
+      </FullBleedWrapper>
     </Layout>
   )
 }
@@ -52,24 +57,13 @@ export const referencesQuery = graphql`
 `
 
 const StyledWrapper = styled.div`
-  display: grid;
-  grid-auto-rows: auto;
-  width: 100%;
-  padding: 100px 0;
-  @media only screen and (max-width: 1100px) {
-    padding: 60px 0;
+  margin-top: 100px;
+
+  @media only screen and (max-width: 1200px) {
+    margin-top: 60px;
   }
   @media only screen and (max-width: 600px) {
-    padding: 30px 0;
-  }
-`
-const StyledTitle = styled.h1`
-  margin-bottom: 80px;
-  @media only screen and (max-width: 1100px) {
-    margin-bottom: 60px;
-  }
-  @media only screen and (max-width: 600px) {
-    margin-bottom: 30px;
+    margin-top: 40px;
   }
 `
 
@@ -79,7 +73,7 @@ const StyledItem = styled.div`
   width: 60%;
   margin-bottom: 60px;
 
-  @media only screen and (max-width: 1100px) {
+  @media only screen and (max-width: 1200px) {
     width: 100%;
   }
 `
@@ -88,7 +82,7 @@ const StyledImage = styled(GatsbyImage)`
   width: fit-content;
   height: auto;
   margin-bottom: 30px;
-  @media only screen and (max-width: 1100px) {
+  @media only screen and (max-width: 1200px) {
     width: 80%;
   }
 `

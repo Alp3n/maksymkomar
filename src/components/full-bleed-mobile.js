@@ -6,7 +6,7 @@ import styles from "../styles"
 import Button from "./button"
 import FullBleedWrapper from "./full-bleed-wrapper"
 
-const FullBleed = ({
+const FullBleedMobile = ({
   heading,
   multiply,
   logoTop,
@@ -31,87 +31,98 @@ const FullBleed = ({
   smallTitle,
   centered,
   noPadding,
+  objectPosition,
+  noMargin,
 }) => {
   return (
-    <FullBleedWrapper $full={true} noPadding={noPadding}>
+    <FullBleedWrapper $full={true} noPadding={noPadding} noMargin={noMargin}>
       <StyledImageWrapper>
-        <StyledStaticImage image={hero} alt={alt} $isMain={$isMain} />
+        <StyledStaticImage
+          image={hero}
+          alt={alt}
+          $isMain={$isMain}
+          objectPosition={objectPosition}
+        />
+
+        <StyledBox centered={centered}>
+          <StyledBoxBackground background={background} multiply={multiply} />
+          <StyledBoxContent>
+            {heading ? (
+              <StyledHeading multiply={multiply}>{heading}</StyledHeading>
+            ) : null}
+            {date ? <StyledDate>{date}</StyledDate> : null}
+            {logoTop ? <StyledStaticLogo image={logo} alt={altLogo} /> : null}
+            {title ? (
+              <StyledTitle
+                dangerouslySetInnerHTML={{ __html: title }}
+                multiply={multiply}
+                noStyle={noStyle}
+                smallTitle={smallTitle}
+              />
+            ) : null}
+
+            {categories ? (
+              <StyledFlex multiply={multiply}>
+                {categories &&
+                  categories.map(c => (
+                    <StyledLink key={c.name} to={`/blog/=?${c.slug}`}>
+                      {c.name}
+                    </StyledLink>
+                  ))}
+              </StyledFlex>
+            ) : null}
+
+            {logoBottom ? (
+              <StyledStaticLogo image={logo} alt={altLogo} />
+            ) : null}
+          </StyledBoxContent>
+        </StyledBox>
       </StyledImageWrapper>
-      <StyledBox centered={centered}>
-        <StyledBoxBackground background={background} multiply={multiply} />
-        <StyledBoxContent>
-          {heading ? (
-            <StyledHeading multiply={multiply}>{heading}</StyledHeading>
-          ) : null}
-          {date ? <StyledDate>{date}</StyledDate> : null}
-          {logoTop ? <StyledStaticLogo image={logo} alt={altLogo} /> : null}
-          {title ? (
-            <StyledTitle
-              dangerouslySetInnerHTML={{ __html: title }}
-              multiply={multiply}
-              noStyle={noStyle}
-              smallTitle={smallTitle}
-            />
-          ) : null}
-          {duration || format || price ? (
-            <StyledSuggestion multiply={multiply}>
-              <span>
-                <strong>Format</strong> - {format}
-              </span>
-              <span>
-                <strong>Długość</strong> - {duration}
-              </span>
-              <span>
-                <strong>Cena</strong> - {price}
-              </span>
-            </StyledSuggestion>
-          ) : null}
-          {subtitle ? (
-            <StyledFlex
-              dangerouslySetInnerHTML={{ __html: subtitle }}
-              subtitleBig={subtitleBig}
-              multiply={multiply}
-            />
-          ) : null}
-          {categories ? (
-            <StyledFlex multiply={multiply}>
-              {categories &&
-                categories.map(c => (
-                  <StyledLink key={c.name} to={`/blog/=?${c.slug}`}>
-                    {c.name}
-                  </StyledLink>
-                ))}
-            </StyledFlex>
-          ) : null}
-          {ctaLabel && ctaUrl ? <Button label={ctaLabel} url={ctaUrl} /> : null}
-          {logoBottom ? <StyledStaticLogo image={logo} alt={altLogo} /> : null}
-        </StyledBoxContent>
-      </StyledBox>
+      <FullBleedWrapper noMargin>
+        {duration || format || price ? (
+          <StyledSuggestion multiply={multiply}>
+            <span>
+              <strong>Format</strong> - {format}
+            </span>
+            <span>
+              <strong>Długość</strong> - {duration}
+            </span>
+            <span>
+              <strong>Cena</strong> - {price}
+            </span>
+          </StyledSuggestion>
+        ) : null}
+        {subtitle ? (
+          <StyledFlex
+            dangerouslySetInnerHTML={{ __html: subtitle }}
+            subtitleBig={subtitleBig}
+            multiply={multiply}
+          />
+        ) : null}
+        {ctaLabel && ctaUrl ? (
+          <StyledFlex>
+            <Button label={ctaLabel} url={ctaUrl} />
+          </StyledFlex>
+        ) : null}
+      </FullBleedWrapper>
     </FullBleedWrapper>
   )
 }
 
-export default FullBleed
+export default FullBleedMobile
+
+const StyledImageWrapper = styled.div`
+  position: relative;
+  margin-bottom: 40px;
+`
 
 /* STYLED COMPONENTS */
-const StyledImageWrapper = styled.div`
-  @media only screen and (max-width: 600px) {
-    object-fit: contain;
-    object-position: 500% 50%;
-  }
-`
 const StyledStaticImage = styled(GatsbyImage)`
   max-width: 100%;
   position: relative;
-  height: ${props => (props.$isMain ? "780px" : "670px")};
+  height: ${props => (props.$isMain ? "420px" : "400px")};
 
-  @media only screen and (max-width: 1200px) {
-    height: 540px;
-  }
-  @media only screen and (max-width: 600px) {
-    height: 320px;
-    transform: scale(1.3);
-  }
+  /* transform: scale(1.5); */
 `
 
 const StyledBox = styled.div`
@@ -119,40 +130,28 @@ const StyledBox = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-around;
-  left: 8%;
-  top: ${props => (props.centered ? "-4%" : "15%")};
-  min-width: 600px;
-  max-width: 750px;
-  min-height: 600px;
-  padding: 60px 80px;
-
-  @media only screen and (max-width: 1200px) {
-    padding: 30px 40px;
-    min-width: 400px;
-    max-width: 550px;
-    min-height: 400px;
-    top: ${props => (props.centered ? "-4%" : "20%")};
-  }
-
-  @media only screen and (max-width: 600px) {
-    align-self: center;
-    padding: 0px 25px;
-    min-width: 90%;
-    min-height: 250px;
-    top: 30%;
-  }
+  left: 5%;
+  bottom: -5%;
+  align-self: center;
+  padding: 30px 0;
+  min-width: 90%;
+  /* min-height: 250px;  */
+  /* top: 30%; */
 `
 
 const StyledBoxContent = styled.div`
   position: relative;
   display: flex;
   flex-direction: column;
+  align-items: center;
+  text-align: center;
   z-index: 3;
 `
 const StyledTitle = styled.h1`
   /* white-space: nowrap; */
-  margin-top: 30px;
-  /* margin-bottom: 70px; */
+  /* margin-top: 30px; */
+  margin-bottom: 0;
+  padding-bottom: 0;
   font-size: ${props => (props.smallTitle ? "2.2rem" : null)};
   text-transform: ${props => (props.noStyle ? "none" : "uppercase")};
   color: ${props =>
@@ -213,9 +212,8 @@ const StyledFlex = styled.div`
     props.multiply ? styles.color.white : styles.color.primary};
   /* margin-bottom: 40px; */
   gap: 10px;
-  @media only screen and (max-width: 600px) {
-    display: none;
-  }
+  /* text-align: center; */
+  justify-content: center;
 `
 
 const StyledLink = styled(Link)`

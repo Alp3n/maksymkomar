@@ -5,9 +5,10 @@ import { GatsbyImage } from "gatsby-plugin-image"
 import styles from "../styles"
 import Button from "./button"
 import { useStaticQuery, graphql } from "gatsby"
-import Slider from "react-slick"
+import Slider from "./slider"
+import FullBleedWrapper from "./full-bleed-wrapper"
 
-const AudiotherapyPreview = () => {
+const AudiotherapyPreview = ({ grid }) => {
   const data = useStaticQuery(graphql`
     query AudtiotherapyPreview {
       allWpPost(
@@ -94,41 +95,78 @@ const AudiotherapyPreview = () => {
     ],
   }
   return (
-    <StyledWrapper>
+    <FullBleedWrapper>
       <StyledTitleMain>Audioterapie</StyledTitleMain>
-      <Slider {...settings}>
-        {data.allWpPost.edges.map(p => (
-          <StyledBlogItem key={p.node.id}>
-            <StyledImageWrapper>
-              <StyledImage
-                image={
-                  p.node.featuredImage.node.localFile.childImageSharp
-                    .gatsbyImageData
-                }
-                alt={``}
-                objectFit="cover"
-              />
-            </StyledImageWrapper>
-            <StyledTitle>{p.node.title}</StyledTitle>
-            <StyledDesc>
-              <span>
-                <strong>Format</strong> -{" "}
-                {p.node.ACFaudioterapia.sekcjaSugestia.format}
-              </span>
-              <span>
-                <strong>Długość</strong> -{" "}
-                {p.node.ACFaudioterapia.sekcjaSugestia.dlugosc}
-              </span>
-              <span>
-                <strong>Cena</strong> -{" "}
-                {p.node.ACFaudioterapia.sekcjaSugestia.cena}
-              </span>
-            </StyledDesc>
-            <Button url={`/audioterapie/${p.node.slug}`} label="Więcej" />
-          </StyledBlogItem>
-        ))}
-      </Slider>
-    </StyledWrapper>
+      {grid ? (
+        <StyledGrid>
+          {data.allWpPost.edges.map(p => (
+            <StyledBlogItem key={p.node.id}>
+              <StyledImageWrapper>
+                <StyledImage
+                  image={
+                    p.node.featuredImage.node.localFile.childImageSharp
+                      .gatsbyImageData
+                  }
+                  alt={``}
+                  objectFit="cover"
+                />
+              </StyledImageWrapper>
+              <StyledTitle>{p.node.title}</StyledTitle>
+              <StyledDesc>
+                <span>
+                  <strong>Format</strong> -{" "}
+                  {p.node.ACFaudioterapia.sekcjaSugestia.format}
+                </span>
+                <span>
+                  <strong>Długość</strong> -{" "}
+                  {p.node.ACFaudioterapia.sekcjaSugestia.dlugosc}
+                </span>
+                <span>
+                  <strong>Cena</strong> -{" "}
+                  {p.node.ACFaudioterapia.sekcjaSugestia.cena}
+                </span>
+              </StyledDesc>
+              <Button url={`/audioterapie/${p.node.slug}`} label="Więcej" />
+            </StyledBlogItem>
+          ))}
+        </StyledGrid>
+      ) : (
+        <Slider {...settings}>
+          {data.allWpPost.edges.map(p => (
+            <StyledBlogItem key={p.node.id}>
+              <StyledImageWrapper>
+                <StyledImage
+                  image={
+                    p.node.featuredImage.node.localFile.childImageSharp
+                      .gatsbyImageData
+                  }
+                  alt={``}
+                  objectFit="cover"
+                />
+              </StyledImageWrapper>
+              <StyledTitle>{p.node.title}</StyledTitle>
+              <StyledDesc>
+                <span>
+                  <strong>Format</strong> -{" "}
+                  {p.node.ACFaudioterapia.sekcjaSugestia.format}
+                </span>
+                <span>
+                  <strong>Długość</strong> -{" "}
+                  {p.node.ACFaudioterapia.sekcjaSugestia.dlugosc}
+                </span>
+                <span>
+                  <strong>Cena</strong> -{" "}
+                  {p.node.ACFaudioterapia.sekcjaSugestia.cena}
+                </span>
+              </StyledDesc>
+              <StyledFlex>
+                <Button url={`/audioterapie/${p.node.slug}`} label="Więcej" />
+              </StyledFlex>
+            </StyledBlogItem>
+          ))}
+        </Slider>
+      )}
+    </FullBleedWrapper>
   )
 }
 
@@ -152,6 +190,7 @@ const StyledTitleMain = styled.h1`
 const StyledBlogItem = styled.div`
   display: flex;
   flex-direction: column;
+  align-items: center;
   margin-bottom: 60px;
 `
 const StyledImageWrapper = styled.div`
@@ -162,7 +201,7 @@ const StyledImageWrapper = styled.div`
 `
 const StyledImage = styled(GatsbyImage)`
   width: 350px;
-  height: auto;
+  height: 270px;
   @media only screen and (max-width: 600px) {
     width: 100%;
   }
@@ -189,4 +228,15 @@ const StyledArrow = styled.div`
   width: 30px;
   z-index: 100;
   cursor: pointer;
+`
+const StyledGrid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: auto;
+  @media only screen and (max-width: 600px) {
+    grid-template-columns: 1fr;
+  }
+`
+const StyledFlex = styled.div`
+  place-self: center;
 `

@@ -8,6 +8,9 @@ import styled from "styled-components"
 import BlogPreview from "../components/blog-preview"
 import ProductSection from "../components/product-section"
 import TwoColumns from "../components/two-columns"
+import FullBleedWrapper from "../components/full-bleed-wrapper"
+import Opinions from "../components/opinions"
+import Title from "../components/title"
 
 const AudiotherapyTemplate = ({ data }) => {
   return (
@@ -33,24 +36,32 @@ const AudiotherapyTemplate = ({ data }) => {
           data.wpPost.ACFaudioterapia.sekcja2KolumnyPierwsza.tekstPrawo
         }
       />
-      <StyledSimpleSection>
-        <StyledSimpleSectionInner>
-          <StyledSimpleSectionTitle>
-            {data.wpPost.ACFaudioterapia.sekcjaProsta.tytul}
-          </StyledSimpleSectionTitle>
-          <p
-            dangerouslySetInnerHTML={{
-              __html: data.wpPost.ACFaudioterapia.sekcjaProsta.tekst,
-            }}
-          />
-        </StyledSimpleSectionInner>
-      </StyledSimpleSection>
+      <FullBleedWrapper background={styles.color.grey}>
+        <StyledSimpleSectionTitle>
+          {data.wpPost.ACFaudioterapia.sekcjaProsta.tytul}
+        </StyledSimpleSectionTitle>
+        <p
+          dangerouslySetInnerHTML={{
+            __html: data.wpPost.ACFaudioterapia.sekcjaProsta.tekst,
+          }}
+        />
+      </FullBleedWrapper>
+
       <ProductSection
-        title={data.wpPost?.ACFaudioterapia?.sekcja2KolumnyDruga?.tytul}
+        title={data.wpPost?.ACFaudioterapia?.sekcja2KolumnyDruga.tytul}
         textLeft={data.wpPost.ACFaudioterapia.sekcja2KolumnyDruga.tekstLewo}
         textRight={data.wpPost.ACFaudioterapia.sekcja2KolumnyDruga.tekstPrawo}
         ctaLabel={data.wpPost.ACFaudioterapia.sekcja2KolumnyDruga.ctaEtykieta}
       />
+      <Opinions
+        single
+        opinions={data?.wpPage?.ACFopinieOSeansach?.opinie}
+        background={styles.color.grey}
+        marginBottom
+      />
+      <FullBleedWrapper noMargin>
+        <Title title={"Może Cię także zainteresować"} noMargin />
+      </FullBleedWrapper>
       <FullBleed
         title={data.wpPost.ACFaudioterapia.sekcjaSugestia.tytul}
         hero={
@@ -70,6 +81,19 @@ const AudiotherapyTemplate = ({ data }) => {
     </Layout>
   )
 }
+/* 
+allWpPost(
+  filter: {categories: {nodes: {elemMatch: {name: {eq: $category}}}}}
+) {
+  edges {
+    node {
+      id
+      slug
+      title
+      excerpt
+    }
+  }
+} */
 
 export default AudiotherapyTemplate
 
@@ -125,23 +149,15 @@ export const query = graphql`
         }
       }
     }
+    wpPage(databaseId: { eq: 408 }) {
+      ACFopinieOSeansach {
+        opinie {
+          imie
+          opinia
+        }
+      }
+    }
   }
-`
-
-const StyledSimpleSection = styled.div`
-  grid-column: 1 / -1;
-  width: 100%;
-  background-color: ${styles.color.grey};
-  padding: 100px 0;
-  margin-bottom: 100px;
-`
-const StyledSimpleSectionInner = styled.div`
-  > * {
-    grid-column: 2;
-  }
-  display: grid;
-  grid-template-columns: 1fr min(1450px, 100%) 1fr;
-  /* justify-items: center; */
 `
 
 const StyledSimpleSectionTitle = styled.h1`

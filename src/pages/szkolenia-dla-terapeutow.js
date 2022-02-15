@@ -20,6 +20,7 @@ const SzkoleniaDlaTerapeutow = ({ data }) => {
         alt={data.wpPage.ACFszkoleniaDlaTerapeutow.sekcjaHero.obrazHero.altText}
         title={data.wpPage.ACFszkoleniaDlaTerapeutow.sekcjaHero.tytul}
         heading={"strefa terapeuty"}
+        noPadding
       />
       <TwoColumns4Items
         items={data.wpPage.ACFszkoleniaDlaTerapeutow.sekcjaKursy.kursy}

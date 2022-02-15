@@ -17,6 +17,7 @@ const StyledLink = styled(Link)`
   text-decoration: none;
   width: fit-content;
   margin: 0 16px;
+  pointer-events: ${props => (props.to ? "auto" : "none")};
 
   /* unvisited link */
   :link {

@@ -13,6 +13,8 @@ import PriceList from "../components/price-list"
 import TherapyProduct from "../components/therapy-product"
 import Modal from "react-modal"
 import BookForm from "../components/book-form"
+import FullBleedWrapper from "../components/full-bleed-wrapper"
+import Title from "../components/title"
 
 const SeanseTerapeutyczne = ({ data }) => {
   const [isOpen, setIsOpen] = useState(false)
@@ -60,6 +62,7 @@ const SeanseTerapeutyczne = ({ data }) => {
         background={styles.color.lightOrange}
         multiply
         heading={"strefa klienta"}
+        noPadding
       />
       <TwoColumns
         title={data.wpPage.ACFseanse.sekcja2Kolumny.tytul}
@@ -69,22 +72,26 @@ const SeanseTerapeutyczne = ({ data }) => {
         textButtonLabel={data.wpPage.ACFseanse.sekcja2Kolumny.ctaEtykieta}
         textButtonUrl={data.wpPage.ACFseanse.sekcja2Kolumny.ctaUrl}
       />
-      <StyledSimpleSection>
-        <StyledTitle>{data.wpPage.ACFseanse.sekcjaProsta.tytul}</StyledTitle>
-        <p
-          dangerouslySetInnerHTML={{
-            __html: data.wpPage.ACFseanse.sekcjaProsta.tekst,
-          }}
-        />
-      </StyledSimpleSection>
-      <StyledSimpleSection>
-        <StyledTitle>{data.wpPage.ACFseanse.sekcjaProsta2.tytul}</StyledTitle>
-        <p
-          dangerouslySetInnerHTML={{
-            __html: data.wpPage.ACFseanse.sekcjaProsta2.tekst,
-          }}
-        />
-      </StyledSimpleSection>
+      <FullBleedWrapper background={styles.color.grey}>
+        <StyledSimpleSection>
+          <Title title={data.wpPage.ACFseanse.sekcjaProsta.tytul} />
+          <div
+            dangerouslySetInnerHTML={{
+              __html: data.wpPage.ACFseanse.sekcjaProsta.tekst,
+            }}
+          />
+        </StyledSimpleSection>
+      </FullBleedWrapper>
+      <FullBleedWrapper>
+        <StyledSimpleSection>
+          <Title title={data.wpPage.ACFseanse.sekcjaProsta2.tytul} />
+          <div
+            dangerouslySetInnerHTML={{
+              __html: data.wpPage.ACFseanse.sekcjaProsta2.tekst,
+            }}
+          />
+        </StyledSimpleSection>
+      </FullBleedWrapper>
       <PriceList
         priceListSection={data.wpPage.ACFseanse.sekcjaCennik}
         openModal={openModal}
@@ -99,7 +106,11 @@ const SeanseTerapeutyczne = ({ data }) => {
         title={data.wpPage.ACFseanse.sekcjaJak.tytul}
         text={data.wpPage.ACFseanse.sekcjaJak.tekst}
       />
-      <Opinions single opinions={data.wpPage.ACFseanse.sekcjaOpinie2} />
+      <Opinions
+        single
+        opinions={data.wpPage.ACFseanse.sekcjaOpinie2}
+        background={styles.color.grey}
+      />
       <AudiotherapyPreview />
     </Layout>
   )
@@ -188,16 +199,8 @@ const StyledSimpleSection = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
-  margin-bottom: 100px;
-
-  @media only screen and (max-width: 1100px) {
-    margin-bottom: 80px;
-  }
-  @media only screen and (max-width: 600px) {
-    margin-bottom: 20px;
-  }
 `
-const StyledTitle = styled.h1`
+const StyledTitle = styled.div`
   @media only screen and (max-width: 1100px) {
     font-size: 2.2rem;
     margin-bottom: 30px;

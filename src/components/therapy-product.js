@@ -2,10 +2,11 @@ import React from "react"
 import styled from "styled-components"
 import styles from "../styles"
 import Button from "./button"
+import FullBleedWrapper from "./full-bleed-wrapper"
 
 const TherapyProduct = ({ sekcja, openModal }) => {
   return (
-    <StyledWrapper>
+    <FullBleedWrapper>
       <StyledTitle>{sekcja?.tytul}</StyledTitle>
       <StyledText dangerouslySetInnerHTML={{ __html: sekcja.tekstPierwszy }} />
       <StyledTextsBox>
@@ -29,7 +30,7 @@ const TherapyProduct = ({ sekcja, openModal }) => {
       <StyledText dangerouslySetInnerHTML={{ __html: sekcja.tekstDrugi }} />
 
       <Button label={sekcja.ctaEtykieta} onClick={openModal} />
-    </StyledWrapper>
+    </FullBleedWrapper>
   )
 }
 

@@ -4,6 +4,7 @@ import styled from "styled-components"
 import styles from "../styles"
 import Slider from "react-slick"
 import "slick-carousel/slick/slick.css"
+import FullBleedWrapper from "./full-bleed-wrapper"
 
 const HowSession = ({ videos, title, text }) => {
   const settings = {
@@ -48,7 +49,7 @@ const HowSession = ({ videos, title, text }) => {
     ],
   }
   return (
-    <StyledWrapper>
+    <FullBleedWrapper>
       <StyledTitle>{title}</StyledTitle>
       <p dangerouslySetInnerHTML={{ __html: text }}></p>
       <Slider {...settings}>
@@ -59,7 +60,7 @@ const HowSession = ({ videos, title, text }) => {
           </StyledItem>
         ))}
       </Slider>
-    </StyledWrapper>
+    </FullBleedWrapper>
   )
 }
 
