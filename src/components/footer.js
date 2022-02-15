@@ -5,6 +5,7 @@ import styles from "../styles"
 import { GatsbyImage } from "gatsby-plugin-image"
 import MenuItem from "./menu-item"
 import FullBleedWrapper from "./full-bleed-wrapper"
+import Signature from "../components/signature"
 
 const links = [
   { label: "Home", url: "/" },
@@ -30,10 +31,10 @@ const links = [
 
 const Footer = ({ src, alt }) => {
   return (
-    <FullBleedWrapper background={styles.color.grey}>
+    <FullBleedWrapper background={styles.color.grey} noMargin somePadding>
       <StyledFooterContent>
         <StyledContactInfo>
-          <StyledLogo image={src} alt={alt} />
+          <Signature svg={src} width={`200px`} color={styles.color.primary} />
           <p>
             +48 577 910 391
             <br />
@@ -106,5 +107,13 @@ const StyledNav = styled.div`
 
   @media only screen and (max-width: 600px) {
     display: none;
+  }
+`
+const StyledSignature = styled(Signature)`
+  fill: ${styles.color.primary};
+  width: 200px;
+  /* transform: scale(1.5); */
+  svg {
+    width: 200px;
   }
 `

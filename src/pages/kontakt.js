@@ -5,11 +5,13 @@ import Seo from "../components/seo"
 import TwoColumns from "../components/two-columns"
 import Newsletter from "../components/newsletter"
 import BookForm from "../components/book-form"
+import styled from "styled-components"
+import FullBleedWrapper from "../components/full-bleed-wrapper"
 
 const Kontakt = ({ data }) => (
   <Layout>
     <Seo title="Kontakt" />
-    <div style={{ marginBottom: "100px" }} />
+    <StyledWrapper />
     <TwoColumns
       title={data.wpPage.ACFkontakt.sekcja2Kolumny.tytul}
       textLeft={data.wpPage.ACFkontakt.sekcja2Kolumny.tekstLewo}
@@ -17,7 +19,9 @@ const Kontakt = ({ data }) => (
     />
     {/* <div>MAPA full bleed</div> */}
     <Newsletter />
-    <BookForm noClose />
+    <FullBleedWrapper>
+      <BookForm noClose />
+    </FullBleedWrapper>
   </Layout>
 )
 export const pageQuery = graphql`
@@ -35,3 +39,11 @@ export const pageQuery = graphql`
   }
 `
 export default Kontakt
+
+const StyledWrapper = styled.div`
+  margin-bottom: 100px;
+
+  @media only screen and (max-width: 600px) {
+    margin-bottom: 50px;
+  }
+`

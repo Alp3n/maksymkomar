@@ -7,59 +7,83 @@ import Seo from "../components/seo"
 import FullBleed from "../components/full-bleed"
 import styled from "styled-components"
 import BlogPreview from "../components/blog-preview"
+import FullBleedMobile from "../components/full-bleed-mobile"
+import { useMediaQuery } from "react-responsive"
+import FullBleedWrapper from "../components/full-bleed-wrapper"
 
 const BlogPostTemplate = ({ data }) => {
+  const isMobile = useMediaQuery({ query: "(max-width:600px)" })
+
   return (
     <Layout>
       <Seo title={data.wpPost.title} />
-      <FullBleed
-        hero={
-          data.wpPost.ACFblogpost.sekcjaHero.obrazHero.localFile.childImageSharp
-            .gatsbyImageData
-        }
-        altHero={data.wpPost.ACFblogpost.sekcjaHero.obrazHero.altText}
-        title={data.wpPost.ACFblogpost.sekcjaHero.tytul}
-        categories={data.wpPost.categories.nodes}
-        background={styles.color.lightBlue}
-        heading={"BLOG"}
-        date={data.wpPost.date}
-        smallTitle
-      />
-      <StyledWrapper>
-        {data.wpPost.ACFblogpost.sekcjaOpis ? (
-          <StyledDescription
-            dangerouslySetInnerHTML={{
-              __html: data.wpPost.ACFblogpost.sekcjaOpis,
-            }}
-          />
-        ) : null}
-        {data.wpPost.ACFblogpost.sekcjaPowtarzalna.map(i => (
-          <StyledItem key={i.tytul ? i.tytul : null}>
-            {i.tytul ? <StyledTitle>{i.tytul}</StyledTitle> : null}
-            {i.tekst ? (
-              <div dangerouslySetInnerHTML={{ __html: i.tekst }} />
-            ) : null}
-            {i.obraz?.localFile.childImageSharp.gatsbyImageData ? (
-              <StyledImage
-                image={i.obraz.localFile.childImageSharp.gatsbyImageData}
-                alt={i.obraz.altText}
-              />
-            ) : null}
-            {i.wideo ? (
-              <StyledIframe
-                src={i.wideo}
-                title="Video"
-                webkitallowfullscreen="true"
-                mozallowfullscreen="true"
-                allowFullScreen
-                frameBorder={0}
-              />
-            ) : null}
-          </StyledItem>
-        ))}
-        <i>Autor: Maksym Komar</i>
-      </StyledWrapper>
-      <BlogPreview />
+      {isMobile ? (
+        <FullBleedMobile
+          hero={
+            data.wpPost.ACFblogpost.sekcjaHer0.obrazHero.localFile
+              .childImageSharp.gatsbyImageData
+          }
+          altHero={data.wpPost.ACFblogpost.sekcjaHer0.obrazHero.altText}
+          title={data.wpPost.ACFblogpost.sekcjaHer0.tytul}
+          categories={data.wpPost.categories.nodes}
+          background={styles.color.lightBlue}
+          heading={"BLOG"}
+          date={data.wpPost.date}
+          smallTitle
+          noMargin
+        />
+      ) : (
+        <FullBleed
+          hero={
+            data.wpPost.ACFblogpost.sekcjaHer0.obrazHero.localFile
+              .childImageSharp.gatsbyImageData
+          }
+          altHero={data.wpPost.ACFblogpost.sekcjaHer0.obrazHero.altText}
+          title={data.wpPost.ACFblogpost.sekcjaHer0.tytul}
+          categories={data.wpPost.categories.nodes}
+          background={styles.color.lightBlue}
+          heading={"BLOG"}
+          date={data.wpPost.date}
+          smallTitle
+        />
+      )}
+      <FullBleedWrapper>
+        <StyledWrapper>
+          {data.wpPost.ACFblogpost.sekcjaOpis ? (
+            <StyledDescription
+              dangerouslySetInnerHTML={{
+                __html: data.wpPost.ACFblogpost.sekcjaOpis,
+              }}
+            />
+          ) : null}
+          {data.wpPost.ACFblogpost.sekcjaPowtarzalna.map(i => (
+            <StyledItem key={i.tytul ? i.tytul : null}>
+              {i.tytul ? <StyledTitle>{i.tytul}</StyledTitle> : null}
+              {i.tekst ? (
+                <div dangerouslySetInnerHTML={{ __html: i.tekst }} />
+              ) : null}
+              {i.obraz?.localFile.childImageSharp.gatsbyImageData ? (
+                <StyledImage
+                  image={i.obraz.localFile.childImageSharp.gatsbyImageData}
+                  alt={i.obraz.altText}
+                />
+              ) : null}
+              {i.wideo ? (
+                <StyledIframe
+                  src={i.wideo}
+                  title="Video"
+                  webkitallowfullscreen="true"
+                  mozallowfullscreen="true"
+                  allowFullScreen
+                  frameBorder={0}
+                />
+              ) : null}
+            </StyledItem>
+          ))}
+          <i>Autor: Maksym Komar</i>
+        </StyledWrapper>
+        <BlogPreview />
+      </FullBleedWrapper>
     </Layout>
   )
 }
@@ -77,7 +101,7 @@ export const query = graphql`
         }
       }
       ACFblogpost {
-        sekcjaHero {
+        sekcjaHer0 {
           tytul
           ctaUrl
           ctaEtykieta
@@ -121,10 +145,15 @@ const StyledWrapper = styled.div`
   }
 `
 const StyledDescription = styled.h4`
-  font-family: Montserrat;
+  /* font-family: Montserrat; */
   font-weight: 300;
   line-height: 1.4;
-  margin-bottom: 60px;
+  /* margin-bottom: 60px; */
+  @media only screen and (max-width: 600px) {
+    font-size: 1.2rem;
+    line-height: 1.4;
+    font-weight: 300;
+  }
 `
 const StyledItem = styled.div`
   display: flex;
@@ -138,20 +167,20 @@ const StyledIframe = styled.iframe`
     height: 420px;
   }
   @media only screen and (max-width: 600px) {
-    height: 280px;
+    height: auto;
   }
 `
 const StyledImage = styled(GatsbyImage)`
   height: 50%;
-  width: 50%;
-  margin-bottom: 20px;
+  width: 80%;
+  margin-bottom: 30px;
   @media only screen and (max-width: 1200px) {
     height: 80%;
-    width: 80%;
+    width: 90%;
   }
   @media only screen and (max-width: 600px) {
     height: 90%;
-    width: 90%;
+    width: 100%;
   }
 `
 

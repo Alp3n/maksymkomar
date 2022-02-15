@@ -10,7 +10,7 @@ export default Title
 /* STYLED COMPONENTS */
 const StyledTitleMain = styled.h1`
   place-self: start;
-  
+
   margin-bottom: ${props => (props.noMargin ? "0" : "60px")};
   ::first-letter {
     text-transform: capitalize;

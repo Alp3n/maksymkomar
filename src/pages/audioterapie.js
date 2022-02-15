@@ -33,16 +33,17 @@ const Audioterapie = ({ data }) => {
           heading={
             data?.audioterapie?.ACFaudioterapie?.sekcjaHero?.podkategoria
           }
-          noPadding
+          noMargin
+          objectPosition={"75% 50%"}
         />
       ) : (
         <FullBleed
           hero={
-            data?.audioterapie?.ACFaudioterapie?.sekcjaHero?.obrazhero
+            data?.audioterapie?.ACFaudioterapie?.sekcjaHero?.obrazHero
               ?.localFile?.childImageSharp.gatsbyImageData
           }
           alt={
-            data?.audioterapie?.ACFaudioterapie?.sekcjaHero?.obrazhero?.altText
+            data?.audioterapie?.ACFaudioterapie?.sekcjaHero?.obrazHero?.altText
           }
           title={data?.audioterapie?.ACFaudioterapie?.sekcjaHero?.tytul}
           background={styles.color.lightOrange}
@@ -59,7 +60,8 @@ const Audioterapie = ({ data }) => {
       </FullBleedWrapper>
       {isMobile ? (
         <FullBleedMobile
-          title={data.blog.ACFblog.sekcjaSugestia.tytul}
+          // title={data.blog.ACFblog.sekcjaSugestia.tytul}
+          title={"Seans<br/>terapeutyczny"}
           hero={
             data.blog.ACFblog.sekcjaSugestia.obrazHero.localFile.childImageSharp
               .gatsbyImageData
@@ -72,6 +74,7 @@ const Audioterapie = ({ data }) => {
           ctaUrl={data.blog.ACFblog.sekcjaSugestia.ctaUrl}
           background={styles.color.lightOrange}
           multiply
+          noPadding
         />
       ) : (
         <FullBleed

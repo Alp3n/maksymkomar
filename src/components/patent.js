@@ -90,7 +90,7 @@ const StyledWrapper = styled.div`
     margin-bottom: 60px;
   }
   @media only screen and (max-width: 600px) {
-    margin-bottom: 40px;
+    margin-bottom: 20px;
   }
 `
 
@@ -104,7 +104,7 @@ const StyledTitle = styled.h2`
     margin-bottom: 30px;
   }
   @media only screen and (max-width: 600px) {
-    font-size: 2rem;
+    font-size: 1.8rem;
     margin-bottom: 30px;
   }
 `

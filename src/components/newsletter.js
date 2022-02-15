@@ -5,11 +5,16 @@ import styles from "../styles"
 import Button from "./button"
 import FullBleedWrapper from "./full-bleed-wrapper"
 import Title from "./title"
+import { useMediaQuery } from "react-responsive"
 
 const Newsletter = () => {
+  const isMobile = useMediaQuery({ query: "(max-width:600px)" })
   const [value, setValue] = useState("")
   return (
-    <FullBleedWrapper background={styles.color.grey} height={"medium"}>
+    <FullBleedWrapper
+      background={styles.color.grey}
+      height={isMobile ? "small" : "medium"}
+    >
       <Title title={"Newsletter"} />
       <p>
         Zapisz się do naszego newslettera aby otrzymywać najnowsze wiadomości i

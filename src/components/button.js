@@ -111,10 +111,6 @@ const StyledButtonHref = styled.a`
   @media only screen and (max-width: 1200px) {
     padding: 4px 40px;
   }
-  @media only screen and (max-width: 1160px) {
-    padding: 4px 30px;
-    font-size: 1rem;
-  }
   @media only screen and (max-width: 600px) {
     padding: 4px 20px;
     font-size: 1rem;

@@ -8,15 +8,15 @@ const FullBleedWrapper = ({
   id,
   $full,
   noMargin,
-  noPadding,
-  marginBottom,
+  somePadding,
+  marginBottom
 }) => (
   <StyledWrapper
     background={background}
     height={height}
     id={id}
     noMargin={noMargin}
-    noPadding={noPadding}
+    somePadding={somePadding}
     marginBottom={marginBottom}
   >
     <StyledInner $full={$full ? true : false}>{children}</StyledInner>
@@ -31,11 +31,11 @@ const StyledWrapper = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
-  padding: ${props =>
-    props.noMargin ? "0" : props.noPadding ? "0 0 65px 0" : "65px 0"};
-  margin-bottom: ${props => (props.marginBottom ? "100px" : "0")};
+  padding: ${props => (props.somePadding ? "65px 0" : "0")};
+  margin-bottom: ${props => (props.noMargin ? "0" : "100px")};
   place-content: center;
   background-color: ${props => (props.background ? props.background : "none")};
+  scroll-margin-top: 120px;
   ${props =>
     props.height === "small"
       ? `min-height: 400px`
@@ -44,9 +44,11 @@ const StyledWrapper = styled.div`
       : props.height === "big"
       ? `min-height: 680px`
       : null};
-      @media only screen and (max-width: 600px) {
-        
-      }
+  @media only screen and (max-width: 600px) {
+    margin-bottom: ${props => (props.noMargin ? "0" : "50px")};
+    padding: ${props => (props.somePadding ? "25px 0" : "0")};
+    /* scroll-margin-top: 1000px; */
+  }
 `
 const StyledInner = styled.div`
   position: relative;

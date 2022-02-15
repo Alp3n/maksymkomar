@@ -15,8 +15,11 @@ import Modal from "react-modal"
 import BookForm from "../components/book-form"
 import FullBleedWrapper from "../components/full-bleed-wrapper"
 import Title from "../components/title"
+import FullBleedMobile from "../components/full-bleed-mobile"
+import { useMediaQuery } from "react-responsive"
 
 const SeanseTerapeutyczne = ({ data }) => {
+  const isMobile = useMediaQuery({ query: "(max-width:600px)" })
   const [isOpen, setIsOpen] = useState(false)
   const openModal = () => {
     setIsOpen(true)
@@ -42,7 +45,7 @@ const SeanseTerapeutyczne = ({ data }) => {
             bottom: "auto",
             marginRight: "-50%",
             transform: "translate(-50%, -50%)",
-            minWidth: "600px",
+            // minWidth: "600px",
           },
           overlay: {
             zIndex: 1000,
@@ -52,18 +55,33 @@ const SeanseTerapeutyczne = ({ data }) => {
       >
         <BookForm closeModal={closeModal} />
       </Modal>
-      <FullBleed
-        hero={
-          data.wpPage.ACFseanse.sekcjaHero.obrazHero.localFile.childImageSharp
-            .gatsbyImageData
-        }
-        alt={data.wpPage.ACFseanse.sekcjaHero.obrazHero.altText}
-        title={data.wpPage.ACFseanse.sekcjaHero.tytul}
-        background={styles.color.lightOrange}
-        multiply
-        heading={"strefa klienta"}
-        noPadding
-      />
+      {isMobile ? (
+        <FullBleedMobile
+          hero={
+            data.wpPage.ACFseanse.sekcjaHer0.obrazHero.localFile.childImageSharp
+              .gatsbyImageData
+          }
+          alt={data.wpPage.ACFseanse.sekcjaHer0.obrazHero.altText}
+          title={"seanse<br/>terapeutyczne"}
+          // title={data.wpPage.ACFseanse.sekcjaHer0.tytul}
+          background={styles.color.lightOrange}
+          multiply
+          heading={"strefa klienta"}
+        />
+      ) : (
+        <FullBleed
+          hero={
+            data.wpPage.ACFseanse.sekcjaHer0.obrazHero.localFile.childImageSharp
+              .gatsbyImageData
+          }
+          alt={data.wpPage.ACFseanse.sekcjaHer0.obrazHero.altText}
+          title={data.wpPage.ACFseanse.sekcjaHer0.tytul}
+          background={styles.color.lightOrange}
+          multiply
+          heading={"strefa klienta"}
+        />
+      )}
+
       <TwoColumns
         title={data.wpPage.ACFseanse.sekcja2Kolumny.tytul}
         textLeft={data.wpPage.ACFseanse.sekcja2Kolumny.tekstLewo}
@@ -72,7 +90,7 @@ const SeanseTerapeutyczne = ({ data }) => {
         textButtonLabel={data.wpPage.ACFseanse.sekcja2Kolumny.ctaEtykieta}
         textButtonUrl={data.wpPage.ACFseanse.sekcja2Kolumny.ctaUrl}
       />
-      <FullBleedWrapper background={styles.color.grey}>
+      <FullBleedWrapper background={styles.color.grey} somePadding>
         <StyledSimpleSection>
           <Title title={data.wpPage.ACFseanse.sekcjaProsta.tytul} />
           <div
@@ -82,7 +100,7 @@ const SeanseTerapeutyczne = ({ data }) => {
           />
         </StyledSimpleSection>
       </FullBleedWrapper>
-      <FullBleedWrapper>
+      <FullBleedWrapper somePadding>
         <StyledSimpleSection>
           <Title title={data.wpPage.ACFseanse.sekcjaProsta2.tytul} />
           <div
@@ -110,6 +128,7 @@ const SeanseTerapeutyczne = ({ data }) => {
         single
         opinions={data.wpPage.ACFseanse.sekcjaOpinie2}
         background={styles.color.grey}
+        somePadding
       />
       <AudiotherapyPreview />
     </Layout>
@@ -136,7 +155,7 @@ export const pageQuery = graphql`
           tekstPierwszy
           tekstPrawo
         }
-        sekcjaHero {
+        sekcjaHer0 {
           tytul
           obrazHero {
             altText

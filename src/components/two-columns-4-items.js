@@ -13,7 +13,7 @@ const TwoColumns4Items = ({
   id,
 }) => {
   return (
-    <FullBleedWrapper id={id}>
+    <FullBleedWrapper id={id} somePadding>
       <StyledTitle>{title}</StyledTitle>
       <StyledTextsBox>
         {items.map(i => (
@@ -91,7 +91,7 @@ const StyledTextsBox = styled.div`
     grid-template-columns: 1fr;
   }
   @media only screen and (max-width: 600px) {
-    gap: 30px;
+    gap: 60px;
   }
 `
 
@@ -99,7 +99,9 @@ const StyledTextBox = styled.div`
   width: 80%;
   /* padding-left: ${props => (props.left ? "12%" : "0")};
   padding-right: ${props => (props.right ? "10%" : "0")}; */
-  @media only screen and (max-width: 1100px) {
+  @media only screen and (max-width: 1200px) {
+    align-items: center;
+    text-align: center;
     width: 100%;
   }
 `

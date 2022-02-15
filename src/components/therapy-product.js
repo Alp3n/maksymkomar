@@ -6,7 +6,7 @@ import FullBleedWrapper from "./full-bleed-wrapper"
 
 const TherapyProduct = ({ sekcja, openModal }) => {
   return (
-    <FullBleedWrapper>
+    <FullBleedWrapper somePadding>
       <StyledTitle>{sekcja?.tytul}</StyledTitle>
       <StyledText dangerouslySetInnerHTML={{ __html: sekcja.tekstPierwszy }} />
       <StyledTextsBox>
@@ -28,20 +28,19 @@ const TherapyProduct = ({ sekcja, openModal }) => {
       </StyledTextsBox>
 
       <StyledText dangerouslySetInnerHTML={{ __html: sekcja.tekstDrugi }} />
-
-      <Button label={sekcja.ctaEtykieta} onClick={openModal} />
+      <StyledCenter>
+        <Button label={sekcja.ctaEtykieta} onClick={openModal} />
+      </StyledCenter>
     </FullBleedWrapper>
   )
 }
 
 export default TherapyProduct
 
-const StyledWrapper = styled.div`
+const StyledCenter = styled.div`
   display: flex;
-  flex-direction: column;
-  width: 100%;
-  margin-bottom: 100px;
-  scroll-margin-top: 150px;
+  justify-content: center;
+  align-items: center;
 `
 
 const StyledTitle = styled.h1`

@@ -1,7 +1,7 @@
 import React from "react"
 // import PropTypes from "prop-types"
 import styled from "styled-components"
-import { GatsbyImage } from "gatsby-plugin-image"
+import styles from "../styles"
 
 const NavSocial = ({ socialmedia }) => {
   return (
@@ -14,7 +14,9 @@ const NavSocial = ({ socialmedia }) => {
           rel="noopener norefferer"
         >
           <StyledLogo
-            image={s?.ikona?.localFile?.childImageSharp?.gatsbyImageData}
+            dangerouslySetInnerHTML={{
+              __html: s?.ikona?.localFile?.svg?.content,
+            }}
             alt={s?.ikona?.altText}
           />
         </StyledLink>
@@ -35,10 +37,19 @@ const StyledLink = styled.a`
   z-index: 5;
 `
 
-const StyledLogo = styled(GatsbyImage)`
+const StyledLogo = styled.div`
   width: 31px;
   height: 31px;
   z-index: 4;
+
+  svg {
+    fill: ${styles.color.primary};
+
+    :hover {
+      fill: ${styles.color.lightBlue};
+    }
+  }
+
   @media only screen and (max-width: 600px) {
     width: 24px;
     height: 24px;

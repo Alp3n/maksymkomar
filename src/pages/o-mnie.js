@@ -9,31 +9,53 @@ import TwoColumns from "../components/two-columns"
 import Patent from "../components/patent"
 import References from "../components/references"
 import FullBleedWrapper from "../components/full-bleed-wrapper"
+import FullBleedMobile from "../components/full-bleed-mobile"
+import { useMediaQuery } from "react-responsive"
 
 const Omnie = ({ data }) => {
   const myData = data.wpPage.ACFoMnie
+  const isMobile = useMediaQuery({ query: "(max-width:600px)" })
   return (
     <Layout>
       <Seo title="O mnie" />
-      <FullBleed
-        hero={
-          myData.sekcjaHero.obrazHero.localFile.childImageSharp.gatsbyImageData
-        }
-        alt={myData.sekcjaHero.obrazHero.altText}
-        logo={
-          myData.sekcjaHero.obrazPodpis.localFile.childImageSharp
-            .gatsbyImageData
-        }
-        altLogo={myData.sekcjaHero.obrazPodpis.altText}
-        background={styles.color.primary}
-        subtitle={
-          /* myData.sekcjaHero.text */ `“Moim wewnętrznym powołaniem jest wskazywanie osobom, które tego pragną, drogi jak przełamywać wewnętrzne bariery i odkrywać potencjał własnej osobowości, ukrytej w sile ludzkiego umysłu.”`
-        }
-        logoBottom
-        multiply
-        subtitleBig
-        noPadding
-      />
+      {isMobile ? (
+        <FullBleedMobile
+          hero={
+            myData.sekcjaHer0.obrazHero.localFile.childImageSharp
+              .gatsbyImageData
+          }
+          alt={myData.sekcjaHer0.obrazHero.altText}
+          logo={myData.sekcjaHer0.obrazPodpis.localFile.svg.content}
+          altLogo={myData.sekcjaHer0.obrazPodpis.altText}
+          background={styles.color.primary}
+          subtitle={
+            /* myData.sekcjaHero.text */ `“Moim wewnętrznym powołaniem jest wskazywanie osobom, które tego pragną, drogi jak przełamywać wewnętrzne bariery i odkrywać potencjał własnej osobowości, ukrytej w sile ludzkiego umysłu.”`
+          }
+          logoBottom
+          multiply
+          // subtitleBig
+          objectPosition={"65% 0"}
+        />
+      ) : (
+        <FullBleed
+          hero={
+            myData.sekcjaHer0.obrazHero.localFile.childImageSharp
+              .gatsbyImageData
+          }
+          alt={myData.sekcjaHer0.obrazHero.altText}
+          logo={myData.sekcjaHer0.obrazPodpis.localFile.svg.content}
+          altLogo={myData.sekcjaHer0.obrazPodpis.altText}
+          background={styles.color.primary}
+          subtitle={
+            /* myData.sekcjaHero.text */ `“Moim wewnętrznym powołaniem jest wskazywanie osobom, które tego pragną, drogi jak przełamywać wewnętrzne bariery i odkrywać potencjał własnej osobowości, ukrytej w sile ludzkiego umysłu.”`
+          }
+          logoBottom
+          multiply
+          subtitleBig
+          noPadding
+        />
+      )}
+
       <FullBleedWrapper>
         <StyledSimpleSection>
           <h1>{myData.sekcjaProsta.tytul}</h1>
@@ -85,7 +107,7 @@ export const pageQuery = graphql`
           tekstPrawo
           tytul
         }
-        sekcjaHero {
+        sekcjaHer0 {
           obrazHero {
             altText
             localFile {
@@ -97,8 +119,8 @@ export const pageQuery = graphql`
           obrazPodpis {
             altText
             localFile {
-              childImageSharp {
-                gatsbyImageData(quality: 100)
+              svg {
+                content
               }
             }
           }
@@ -155,7 +177,7 @@ const StyledSimpleSection = styled.div`
     margin-bottom: 60px;
   }
   @media only screen and (max-width: 600px) {
-    margin-bottom: 40px;
+    margin-bottom: 0px;
   }
 
   li {

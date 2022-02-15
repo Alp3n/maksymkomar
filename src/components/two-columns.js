@@ -1,4 +1,5 @@
 import * as React from "react"
+import { useMediaQuery } from "react-responsive"
 // import PropTypes from "prop-types"
 import styled from "styled-components"
 import styles from "../styles"
@@ -15,8 +16,9 @@ const TwoColumns = ({
   cta,
   id,
 }) => {
+  const isMobile = useMediaQuery({ query: "(max-width:600px)" })
   return (
-    <FullBleedWrapper id={id} height={"medium"}>
+    <FullBleedWrapper id={id} height={isMobile ? "small" : "medium"}>
       <Title title={title} />
       <StyledTextsBox>
         <StyledTextBox

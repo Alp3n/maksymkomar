@@ -51,7 +51,9 @@ const FullBleedMobile = ({
               <StyledHeading multiply={multiply}>{heading}</StyledHeading>
             ) : null}
             {date ? <StyledDate>{date}</StyledDate> : null}
-            {logoTop ? <StyledStaticLogo image={logo} alt={altLogo} /> : null}
+            {logoTop ? (
+              <StyledStaticLogo dangerouslySetInnerHTML={{ __html: logo }} />
+            ) : null}
             {title ? (
               <StyledTitle
                 dangerouslySetInnerHTML={{ __html: title }}
@@ -61,7 +63,7 @@ const FullBleedMobile = ({
               />
             ) : null}
 
-            {categories ? (
+            {/* {categories ? (
               <StyledFlex multiply={multiply}>
                 {categories &&
                   categories.map(c => (
@@ -70,10 +72,10 @@ const FullBleedMobile = ({
                     </StyledLink>
                   ))}
               </StyledFlex>
-            ) : null}
+            ) : null} */}
 
             {logoBottom ? (
-              <StyledStaticLogo image={logo} alt={altLogo} />
+              <StyledStaticLogo dangerouslySetInnerHTML={{ __html: logo }} />
             ) : null}
           </StyledBoxContent>
         </StyledBox>
@@ -129,12 +131,13 @@ const StyledBox = styled.div`
   position: absolute;
   display: flex;
   align-items: center;
-  justify-content: space-around;
+  justify-content: center;
   left: 5%;
   bottom: -5%;
   align-self: center;
   padding: 30px 0;
   min-width: 90%;
+  max-width: 90%;
   /* min-height: 250px;  */
   /* top: 30%; */
 `
@@ -150,26 +153,15 @@ const StyledBoxContent = styled.div`
 const StyledTitle = styled.h1`
   /* white-space: nowrap; */
   /* margin-top: 30px; */
-  margin-bottom: 0;
-  padding-bottom: 0;
-  font-size: ${props => (props.smallTitle ? "2.2rem" : null)};
+  width: fit-content;
+  font-size: ${props => (props.smallTitle ? "1.4rem" : "1.6rem")};
   text-transform: ${props => (props.noStyle ? "none" : "uppercase")};
   color: ${props =>
     props.multiply ? styles.color.white : styles.color.primary};
-
-  @media only screen and (max-width: 1200px) {
-    font-size: 2rem;
-    line-height: 2.4rem;
-  }
-
-  @media only screen and (max-width: 600px) {
-    margin-top: 0;
-    font-size: 1.8rem;
-    line-height: 2.2rem;
-  }
+  margin-bottom: 0;
 `
 
-const StyledStaticLogo = styled(GatsbyImage)`
+const StyledStaticLogo = styled.div`
   width: 260px;
   margin-bottom: 35px;
   @media only screen and (max-width: 1150px) {
@@ -201,6 +193,10 @@ const StyledHeading = styled.h4`
     ${props => (props.multiply ? styles.color.white : styles.color.primary)};
   color: ${props =>
     props.multiply ? styles.color.white : styles.color.primary};
+  @media only screen and (max-width: 600px) {
+    font-size: 1.4rem;
+    padding-bottom: 10px;
+  }
 `
 
 const StyledFlex = styled.div`
@@ -208,8 +204,7 @@ const StyledFlex = styled.div`
   grid-auto-flow: column;
   grid-template-rows: auto;
   font-size: ${props => (props.subtitleBig ? "1.2rem" : null)};
-  color: ${props =>
-    props.multiply ? styles.color.white : styles.color.primary};
+  color: ${styles.color.primary};
   /* margin-bottom: 40px; */
   gap: 10px;
   /* text-align: center; */
@@ -231,8 +226,7 @@ const StyledLink = styled(Link)`
 const StyledSuggestion = styled.div`
   display: flex;
   flex-direction: column;
-  color: ${props =>
-    props.multiply ? styles.color.white : styles.color.primary};
+  color: ${styles.color.primary};
   margin-bottom: 30px;
 `
 const StyledDate = styled.div`

@@ -16,7 +16,16 @@ module.exports = {
       },
     },
     `gatsby-transformer-sharp`,
-    `gatsby-plugin-sharp`,
+    {
+      resolve: `gatsby-plugin-sharp`,
+      options: {
+        defaults: {
+          formats: [`auto`, `webp`],
+          quality: 100,
+          breakpoints: [600, 1200, 1920],
+        },
+      },
+    },
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
@@ -38,6 +47,11 @@ module.exports = {
       options: {
         // url: "http://localhost/maksymkomar/?graphql=true",
         url: "https://maksymkomar.adamwalukiewicz.pl/?graphql=true",
+        schema: {
+          perPage: 20, // currently set to 100
+          requestConcurrency: 5, // currently set to 15
+          previewRequestConcurrency: 2, // currently set to 5
+        },
       },
     },
     {
@@ -73,5 +87,14 @@ module.exports = {
     //     environments: ['production'/* , 'development' */]
     //   },
     // },
+    `gatsby-transformer-inline-svg`,
+    {
+      resolve: "gatsby-plugin-react-svg",
+      options: {
+        rule: {
+          include: /assets/, // See below to configure properly
+        },
+      },
+    },
   ],
 }

@@ -6,7 +6,7 @@ import FullBleedWrapper from "./full-bleed-wrapper"
 
 const PriceList = ({ priceListSection, openModal }) => {
   return (
-    <FullBleedWrapper background={styles.color.grey}>
+    <FullBleedWrapper background={styles.color.grey} somePadding>
       <StyledTitle>Cennik</StyledTitle>
       <p dangerouslySetInnerHTML={{ __html: priceListSection.tekstPierwszy }} />
       <StyledTextsBox>
@@ -23,19 +23,19 @@ const PriceList = ({ priceListSection, openModal }) => {
         </StyledTextBox>
       </StyledTextsBox>
       <div dangerouslySetInnerHTML={{ __html: priceListSection.tekstDrugi }} />
-      <Button label={priceListSection.ctaEtykieta} onClick={openModal} />
+      <StyledCenter>
+        <Button label={priceListSection.ctaEtykieta} onClick={openModal} />
+      </StyledCenter>
     </FullBleedWrapper>
   )
 }
 
 export default PriceList
 
-const StyledWrapper = styled.div`
+const StyledCenter = styled.div`
   display: flex;
-  flex-direction: column;
-  width: 100%;
-  margin-bottom: 150px;
-  scroll-margin-top: 150px;
+  justify-content: center;
+  align-items: center;
 `
 
 const StyledTitle = styled.h1`

@@ -4,29 +4,16 @@ import React, { useState, useContext } from "react"
 import { Link } from "gatsby"
 import MenuItem from "./menu-item"
 import styled from "styled-components"
-// import { GatsbyImage } from "gatsby-plugin-image"
 import styles from "../styles"
-import Button from "./button"
 import NavSocial from "./nav-social"
 import Signature from "./signature"
 import Cart from "./cart"
 import CartContext from "../context/cartContext"
 import CartItem from "./cart-item"
 
-const Header = ({ src, sklep, openModal, socialmedia }) => {
-  const [isShown, setIsShown] = useState(false)
+const HeaderMobile = ({ src, openModal, socialmedia, sklep, booking }) => {
   const [isOpen, setIsOpen] = useState(false)
-  const [subMenu, setSubmenu] = useState({ index: null, submenu: [null] })
   const { cart, showCart, removeFromCart } = useContext(CartContext)
-  const showItem = (submenu, index) => {
-    setSubmenu({ submenu: [...submenu], index: index })
-    setIsShown(true)
-  }
-
-  const hideItem = () => {
-    setSubmenu([])
-    setIsShown(false)
-  }
 
   const handleMenu = () => {
     setIsOpen(prev => !prev)
@@ -55,87 +42,31 @@ const Header = ({ src, sklep, openModal, socialmedia }) => {
     { label: "KONTAKT", url: "/kontakt/", submenu: [] },
   ]
 
-  const links = [
-    { label: "Moja metoda", url: "/o-mnie/", submenu: [] },
-    {
-      label: "Strefa klienta",
-      url: "",
-      submenu: [
-        { label: "Seanse terapeutyczne", url: "/seanse-terapeutyczne/" },
-        {
-          label: "W jakich przypadkach mogę Ci pomóc",
-          url: "/w-jakich-przypadkach-moge-ci-pomoc/",
-        },
-        {
-          label: "Audioterapie",
-          url: "/audioterapie/",
-        },
-      ],
-    },
-    {
-      label: "Strefa terapeuty",
-      url: "",
-      submenu: [
-        {
-          label: "Szkolenia dla terapeutów",
-          url: "/szkolenia-dla-terapeutow/",
-        },
-      ],
-    },
-
-    { label: "Kontakt", url: "/kontakt/", submenu: [] },
-  ]
-
   return (
     <>
       <StyledHeader isOpen={isOpen}>
         <StyledDiv>
-          <ButtonsWrapper>
-            <StyledLink to="/">
-              <Signature
-                svg={src}
-                color={styles.color.primary}
-                width={`200px`}
-              />
-            </StyledLink>
-            <StyledMenuButton onClick={() => handleMenu()}>
-              <StyledLine />
-              <StyledLine />
-              <StyledLine />
-            </StyledMenuButton>
-          </ButtonsWrapper>
+          <StyledMenuButton onClick={() => handleMenu()}>
+            <StyledLine />
+            <StyledLine />
+            <StyledLine />
+          </StyledMenuButton>
 
-          <StyledNav>
-            {links.map((l, index) => (
-              <StyledItemWrapper
-                key={l.label}
-                onMouseEnter={() => showItem(l.submenu, index)}
-                onMouseLeave={() => hideItem()}
-              >
-                <MenuItem to={l.url} label={l.label} className={"title"} />
-                {subMenu.submenu?.length > 0 &&
-                isShown &&
-                index === subMenu.index ? (
-                  <StyledSubmenu>
-                    {subMenu.submenu.map(s => (
-                      <MenuItem key={s.url} to={s.url} label={s.label} invert />
-                    ))}
-                  </StyledSubmenu>
-                ) : null}
-              </StyledItemWrapper>
-            ))}
-          </StyledNav>
-
+          <Link to="/">
+            <Signature svg={src} width={`150px`} color={styles.color.primary} />
+          </Link>
           <ButtonsWrapper>
-            {/* <StyledIcon dangerouslySetInnerHTML={{ __html: sklep }} /> */}
             <Cart svg={sklep} />
-            <Button label="Umów Sesję" plain onClick={openModal} />
+            <StyledIcon
+              dangerouslySetInnerHTML={{ __html: booking }}
+              onClick={openModal}
+            />
           </ButtonsWrapper>
         </StyledDiv>
       </StyledHeader>
       {isOpen ? (
         <StyledMenu>
-          {mobileLinks.map((l, index) => (
+          {mobileLinks.map(l => (
             <StyledItemWrapper key={l.label}>
               <MenuItem to={l.url} label={l.label} className={"title"} />
             </StyledItemWrapper>
@@ -165,7 +96,7 @@ const Header = ({ src, sklep, openModal, socialmedia }) => {
 
 Header.defaultProps = {} */
 
-export default Header
+export default HeaderMobile
 
 /* STYLED COMPONENTS */
 
@@ -176,32 +107,6 @@ const StyledItemWrapper = styled.div`
     .title {
       color: ${styles.color.lightBlue};
     }
-  }
-`
-
-const StyledSubmenu = styled.div`
-  position: absolute;
-  display: flex;
-  flex-direction: column;
-  margin-left: auto;
-  margin-right: auto;
-  top: 35px;
-  left: 0;
-  right: 0;
-  background-color: ${styles.color.lightBlue};
-  padding: 30px;
-  width: 500px;
-  gap: 15px;
-  box-shadow: 3px 4px 6px grey;
-  a:hover {
-    color: ${styles.color.white};
-  }
-`
-
-const StyledNav = styled.nav`
-  display: flex;
-  @media only screen and (max-width: 1200px) {
-    display: none;
   }
 `
 
@@ -227,9 +132,6 @@ const StyledHeader = styled.header`
   box-shadow: 1px 3px 6px grey;
   background: white;
   z-index: 1000;
-  @media only screen and (max-width: 1200px) {
-    padding: 0.5rem 1.4rem;
-  }
   @media only screen and (max-width: 600px) {
     padding: 0.2rem 1.2rem;
   }
@@ -239,6 +141,7 @@ const ButtonsWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  height: 100%;
 `
 const StyledMenuButton = styled.div`
   display: flex;
@@ -253,10 +156,10 @@ const StyledMenuButton = styled.div`
     flex-direction: column;
     justify-content: space-between;
     height: 18px;
-    width: 28px;
+    width: 24px;
   }
 `
-const StyledMenu = styled.div`
+const StyledMenu = styled.nav`
   display: grid;
   position: fixed;
   top: 66px;
@@ -268,7 +171,7 @@ const StyledMenu = styled.div`
   z-index: 999;
   padding: 20px 0;
   @media only screen and (min-width: 1200px) {
-    width: 370px;
+    width: 30%;
     left: 10%;
     top: 102.5px;
     padding: 20px 30px;
@@ -282,37 +185,25 @@ const StyledLine = styled.span`
 
 const StyledIcon = styled.div`
   display: block;
-  width: 25px;
+  width: 20px;
   height: auto;
   :first-child {
-    margin-right: 35px;
+    margin-right: 20px;
   }
   svg {
     display: block;
     fill: ${styles.color.primary};
   }
 `
-const StyledLink = styled(Link)`
-  margin-right: 24px;
-`
-
 const StyledCart = styled.div`
   display: grid;
   position: fixed;
+  top: 66px;
+  right: 0;
   gap: 12px;
+  width: 100%;
   background: ${styles.color.white};
   box-shadow: 0px 3px 6px grey;
   z-index: 999;
-  /* width: 300px; */
-  right: 15%;
-  top: 102.5px;
-  padding: 20px 30px;
-
-  @media only screen and (min-width: 601px) and (max-width: 1200px) {
-    top: 80px;
-  }
-
-  h5 {
-    font-family: ${styles.font.family.montserrat};
-  }
+  padding: 20px 20px;
 `

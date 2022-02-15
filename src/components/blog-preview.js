@@ -5,13 +5,12 @@ import { GatsbyImage } from "gatsby-plugin-image"
 import styles from "../styles"
 import Button from "./button"
 import { Link, useStaticQuery, graphql } from "gatsby"
-import Slider from "react-slick"
+import Slider from "./slider"
 import FullBleedWrapper from "./full-bleed-wrapper"
 import Title from "./title"
 import { useMediaQuery } from "react-responsive"
 
 const BlogPreview = ({ noButton, grid, filterPhrase }) => {
-  const isMobile = useMediaQuery({ query: "(max-width:600px)" })
   const [blogPosts, setBlogPosts] = useState(null)
   const data = useStaticQuery(graphql`
     query BlogPosts {
@@ -62,46 +61,8 @@ const BlogPreview = ({ noButton, grid, filterPhrase }) => {
     )
   }, [filterPhrase])
 
-  const settings = {
-    infinite: false,
-    dots: false,
-    speed: 1000,
-    slidesToShow: 3,
-    slidesToScroll: 1,
-    nextArrow: <StyledArrow right />,
-    prevArrow: <StyledArrow left />,
-
-    responsive: [
-      {
-        breakpoint: 1100,
-        settings: {
-          slidesToShow: 2,
-          slidesToScroll: 1,
-          arrows: false,
-        },
-      },
-      {
-        breakpoint: 800,
-        settings: {
-          slidesToShow: 1,
-          slidesToScroll: 1,
-          arrows: false,
-          centerMode: true,
-        },
-      },
-      {
-        breakpoint: 500,
-        settings: {
-          slidesToShow: 1,
-          slidesToScroll: 1,
-          arrows: false,
-          centerMode: false,
-        },
-      },
-    ],
-  }
   return (
-    <FullBleedWrapper noPadding={isMobile ? true : false}>
+    <FullBleedWrapper noMargin>
       {grid ? (
         <StyledGrid>
           {blogPosts?.map(p => (
@@ -133,7 +94,7 @@ const BlogPreview = ({ noButton, grid, filterPhrase }) => {
       ) : filterPhrase ? (
         <>
           <Title title={filterPhrase} />
-          <Slider {...settings}>
+          <Slider>
             {blogPosts?.map(p => (
               <StyledBlogItem key={p.node.id}>
                 <StyledImageWrapper>
@@ -163,8 +124,8 @@ const BlogPreview = ({ noButton, grid, filterPhrase }) => {
         </>
       ) : (
         <>
-          <Title title={"Blog"} />
-          <Slider {...settings}>
+          <Title title={"Blog"} noMargin />
+          <Slider noMargin>
             {data.allWpPost.edges.map(p => (
               <StyledBlogItem key={p.node.id}>
                 <StyledImageWrapper>
@@ -206,19 +167,6 @@ const BlogPreview = ({ noButton, grid, filterPhrase }) => {
 export default BlogPreview
 
 /* STYLED COMPONENTS */
-const StyledTitleMain = styled.h1`
-  margin-bottom: 60px;
-  @media only screen and (max-width: 1200px) {
-    padding: 0 40px;
-    font-size: 2.2rem;
-    margin-bottom: 30px;
-  }
-  @media only screen and (max-width: 600px) {
-    padding: 0 20px;
-    font-size: 2rem;
-    margin-bottom: 30px;
-  }
-`
 const StyledGrid = styled.div`
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -244,18 +192,21 @@ const StyledImageWrapper = styled.div`
   max-width: 400px;
   height: auto;
   margin-bottom: 30px;
-  @media only screen and (max-width: 600px) {
-    max-width: 300px;
-  }
 `
 const StyledCategory = styled.div`
   position: absolute;
   bottom: 8%;
-  left: -15px;
+  /* left: -15px; */
+
   padding: 5px 10px;
   background-color: ${styles.color.lightBlue};
   z-index: 9;
   ${props => (props.p > 1 ? `font-size: 5px` : null)}
+
+  @media only screen and (max-width:600px) {
+    width: 100%;
+    bottom: -10%;
+  }
 `
 const StyledImage = styled(GatsbyImage)`
   max-height: 260px;
@@ -288,17 +239,5 @@ const StyledButtonWrapper = styled.div`
   display: flex;
   width: 100%;
   justify-content: center;
-`
-const StyledArrow = styled.div`
-  position: absolute;
-  top: 50%;
-  left: ${props => (props.left ? "-50px" : null)};
-  right: ${props => (props.right ? "-50px" : null)};
-  border-top: 2px solid ${styles.color.primary};
-  border-right: 2px solid ${styles.color.primary};
-  transform: ${props => (props.left ? "rotate(-135deg)" : "rotate(45deg)")};
-  height: 30px;
-  width: 30px;
-  z-index: 100;
-  cursor: pointer;
+  margin: 50px 0 50px 0;
 `

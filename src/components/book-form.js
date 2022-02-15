@@ -8,73 +8,69 @@ import FullBleedWrapper from "./full-bleed-wrapper"
 
 const BookForm = ({ closeModal, noClose }) => {
   return (
-    <FullBleedWrapper>
-      <StyledWrapper>
-        <StyledHeader noClose={noClose} id="book-form">
-          <StyledTitle>Umów Sesję</StyledTitle>
-          {noClose ? null : (
-            <StyledClose style={{ placeSelf: "end" }} onClick={closeModal}>
-              ×
-            </StyledClose>
-          )}
-        </StyledHeader>
-        <StyledForm method="post" action="#">
-          <StyledLabel>
-            <StyledInput
-              type="text"
-              name="name"
-              id="name"
-              required
-              placeholder="Twoje imię*"
-            />
-          </StyledLabel>
-          <StyledLabel>
-            <StyledInput
-              type="email"
-              name="email"
-              id="email"
-              required
-              placeholder="Twój e-mail*"
-            />
-          </StyledLabel>
-          <StyledLabel>
-            <StyledInput
-              type="tel"
-              name="phone"
-              id="phone"
-              required
-              pattern="[0-9]{3}-[0-9]{3}-[0-9]{3}"
-              minlength={9}
-              maxLength={9}
-              placeholder="Numer telefonu*"
-            />
-          </StyledLabel>
-          <StyledLabel>
-            <StyledSelect name="select" id="select" required>
-              <StyledOption value="">Kliknij i wybierz opcję*</StyledOption>
-              <StyledOption value="Seans terapeutyczny w gabinecie">
-                Seans terapeutyczny w gabinecie*
-              </StyledOption>
-              <StyledOption value="Seans terapeutyczny online">
-                Seans terapeutyczny online*
-              </StyledOption>
-              <StyledOption value="Kompleksowa terapia osobowości">
-                Kompleksowa terapia osobowości*
-              </StyledOption>
-            </StyledSelect>
-          </StyledLabel>
-          <StyledLabel>
-            <StyledTextArea
-              name="message"
-              id="message"
-              rows="5"
-              placeholder="Treść wiadomości (dodatkowe)"
-            />
-          </StyledLabel>
-          <Button type="submit" label="Wyślij" />
-        </StyledForm>
-      </StyledWrapper>
-    </FullBleedWrapper>
+    // <FullBleedWrapper>
+    <StyledWrapper>
+      <StyledHeader noClose={noClose} id="book-form">
+        {noClose ? null : <StyledClose onClick={closeModal}>×</StyledClose>}
+        <StyledTitle>Umów Sesję</StyledTitle>
+      </StyledHeader>
+      <StyledForm method="post" action="#">
+        <StyledLabel>
+          <StyledInput
+            type="text"
+            name="name"
+            id="name"
+            required
+            placeholder="Twoje imię*"
+          />
+        </StyledLabel>
+        <StyledLabel>
+          <StyledInput
+            type="email"
+            name="email"
+            id="email"
+            required
+            placeholder="Twój e-mail*"
+          />
+        </StyledLabel>
+        <StyledLabel>
+          <StyledInput
+            type="tel"
+            name="phone"
+            id="phone"
+            required
+            pattern="[0-9]{3}-[0-9]{3}-[0-9]{3}"
+            minlength={9}
+            maxLength={9}
+            placeholder="Numer telefonu*"
+          />
+        </StyledLabel>
+        <StyledLabel>
+          <StyledSelect name="select" id="select" required>
+            <StyledOption value="">Kliknij i wybierz opcję*</StyledOption>
+            <StyledOption value="Seans terapeutyczny w gabinecie">
+              Seans terapeutyczny w gabinecie*
+            </StyledOption>
+            <StyledOption value="Seans terapeutyczny online">
+              Seans terapeutyczny online*
+            </StyledOption>
+            <StyledOption value="Kompleksowa terapia osobowości">
+              Kompleksowa terapia osobowości*
+            </StyledOption>
+          </StyledSelect>
+        </StyledLabel>
+        <StyledLabel>
+          <StyledTextArea
+            name="message"
+            id="message"
+            rows="5"
+            placeholder="Treść wiadomości (dodatkowe)"
+          />
+        </StyledLabel>
+        <Button type="submit" label="Wyślij" />
+      </StyledForm>
+    </StyledWrapper>
+    // </FullBleedWrapper>
   )
 }
 
@@ -91,8 +87,9 @@ const StyledWrapper = styled.div`
 
 const StyledHeader = styled.div`
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: space-between;
+  /* justify-content: space-between; */
   background-color: ${styles.color.grey};
   padding: 20px 80px;
   @media only screen and (max-width: 1100px) {
@@ -153,6 +150,9 @@ const StyledTextArea = styled.textarea`
   margin-bottom: 30px;
 `
 const StyledClose = styled.h5`
+  align-self: flex-end;
+  -webkit-align-self: flex-end; /* add prefixed version */
+  -ms-flex-item-align: end; /* add prefixed version */
   transform: scale(1.5);
   color: rgba(21, 45, 65, 0.5);
   :hover {

@@ -10,13 +10,13 @@ const Slider = ({
   children,
   title,
   background,
-  marginBottom,
-  noPadding,
+  somePadding,
   noMargin,
   single,
+  marginBottom,
 }) => {
   const settings = {
-    infinite: true,
+    infinite: false,
     dots: false,
     speed: 1000,
     slidesToShow: single ? 1 : 3,
@@ -29,8 +29,8 @@ const Slider = ({
         settings: {
           slidesToShow: single ? 1 : 2,
           slidesToScroll: single ? 1 : 2,
-          nextArrow: <StyledArrowMobile right />,
-          prevArrow: <StyledArrowMobile left />,
+          nextArrow: <StyledArrowMobile right single={single} />,
+          prevArrow: <StyledArrowMobile left single={single} />,
         },
       },
 
@@ -39,9 +39,10 @@ const Slider = ({
         settings: {
           slidesToShow: 1,
           slidesToScroll: 1,
-          nextArrow: <StyledArrowMobile right />,
-          prevArrow: <StyledArrowMobile left />,
-          centerMode: true,
+          nextArrow: <StyledArrowMobile right single={single} />,
+          prevArrow: <StyledArrowMobile left single={single} />,
+          centerMode: false,
+          adaptiveHeight: true,
         },
       },
       {
@@ -49,8 +50,8 @@ const Slider = ({
         settings: {
           slidesToShow: 1,
           slidesToScroll: 1,
-          nextArrow: <StyledArrowMobile right />,
-          prevArrow: <StyledArrowMobile left />,
+          nextArrow: <StyledArrowMobile right single={single} />,
+          prevArrow: <StyledArrowMobile left single={single} />,
           centerMode: false,
           adaptiveHeight: true,
         },
@@ -60,9 +61,10 @@ const Slider = ({
   return (
     <FullBleedWrapper
       background={background}
+      somePadding
       noMargin={noMargin}
-      noPadding={noPadding}
       marginBottom={marginBottom}
+      somePadding={somePadding}
     >
       <Title title={title} />
       <SlickSlider {...settings}>{children}</SlickSlider>
@@ -89,7 +91,7 @@ const StyledArrow = styled.div`
 `
 const StyledArrowMobile = styled.div`
   position: absolute;
-  bottom: -8%;
+  bottom: ${props => (props.single ? "-1%" : "-4%")};
   left: ${props => (props.left ? "40%" : null)};
   right: ${props => (props.right ? "40%" : null)};
   border-top: 2px solid ${styles.color.primary};
@@ -99,4 +101,8 @@ const StyledArrowMobile = styled.div`
   width: 20px;
   z-index: 100;
   cursor: pointer;
+
+  @media only screen and (min-width: 800px) {
+    bottom: ${props => (props.single ? "0" : "-8%")};
+  }
 `

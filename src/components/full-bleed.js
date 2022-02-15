@@ -14,7 +14,6 @@ const FullBleed = ({
   hero,
   alt,
   logo,
-  altLogo,
   background,
   title,
   subtitle,
@@ -44,7 +43,9 @@ const FullBleed = ({
             <StyledHeading multiply={multiply}>{heading}</StyledHeading>
           ) : null}
           {date ? <StyledDate>{date}</StyledDate> : null}
-          {logoTop ? <StyledStaticLogo image={logo} alt={altLogo} /> : null}
+          {logoTop ? (
+            <StyledStaticLogo dangerouslySetInnerHTML={{ __html: logo }} />
+          ) : null}
           {title ? (
             <StyledTitle
               dangerouslySetInnerHTML={{ __html: title }}
@@ -84,7 +85,12 @@ const FullBleed = ({
             </StyledFlex>
           ) : null}
           {ctaLabel && ctaUrl ? <Button label={ctaLabel} url={ctaUrl} /> : null}
-          {logoBottom ? <StyledStaticLogo image={logo} alt={altLogo} /> : null}
+          {logoBottom ? (
+            <StyledStaticLogo
+              dangerouslySetInnerHTML={{ __html: logo }}
+              logoBottom={logoBottom}
+            />
+          ) : null}
         </StyledBoxContent>
       </StyledBox>
     </FullBleedWrapper>
@@ -170,19 +176,19 @@ const StyledTitle = styled.h1`
   }
 `
 
-const StyledStaticLogo = styled(GatsbyImage)`
+const StyledStaticLogo = styled.div`
   width: 260px;
-  margin-bottom: 35px;
-  @media only screen and (max-width: 1150px) {
-    margin-bottom: 20px;
+  height: auto;
+  margin-top: ${props => (props.logoBottom ? "100px" : null)};
+  @media only screen and (max-width: 1200px) {
     width: 192px;
-    height: 64px;
+    height: auto;
   }
 
   @media only screen and (max-width: 600px) {
     margin-bottom: 10px;
     width: 130px;
-    height: 42px;
+    height: auto;
   }
 `
 

@@ -21,43 +21,41 @@ const IndexPage = ({ data }) => {
       {isMobile ? (
         <FullBleedMobile
           hero={
-            data.wpPage?.ACFhome?.sekcjaHero?.obrazHero?.localFile
+            data.wpPage?.ACFhome?.sekcjaHer0?.obrazHero?.localFile
               ?.childImageSharp?.gatsbyImageData
           }
-          alt={data.wpPage?.ACFhome?.sekcjaHero?.obrazHero?.altText}
+          alt={data.wpPage?.ACFhome?.sekcjaHer0?.obrazHero?.altText}
           logo={
-            data.wpPage.ACFhome?.sekcjaHero?.obrazPodpis?.localFile
-              ?.childImageSharp?.gatsbyImageData
+            data.wpPage.ACFhome?.sekcjaHer0?.obrazPodpis?.localFile?.svg
+              ?.content
           }
           logoTop
-          altLogo={data.wpPage.ACFhome?.sekcjaHero?.obrazPodpis?.altText}
-          title={data.wpPage.ACFhome.sekcjaHero.tytul}
+          altLogo={data.wpPage.ACFhome?.sekcjaHer0?.obrazPodpis?.altText}
+          title={data.wpPage.ACFhome.sekcjaHer0.tytul}
           background={styles.color.primary}
           multiply
           $isMain={true}
-          noMargin
           objectPosition={"75% 0"}
         />
       ) : (
         <FullBleed
           hero={
-            data.wpPage.ACFhome?.sekcjaHero?.obrazHero?.localFile
+            data.wpPage.ACFhome?.sekcjaHer0?.obrazHero?.localFile
               ?.childImageSharp?.gatsbyImageData
           }
-          alt={data.wpPage.ACFhome?.sekcjaHero?.obrazHero?.altText}
+          alt={data.wpPage.ACFhome?.sekcjaHer0?.obrazHero?.altText}
           logo={
-            data.wpPage.ACFhome?.sekcjaHero?.obrazPodpis?.localFile
-              ?.childImageSharp?.gatsbyImageData
+            data.wpPage.ACFhome?.sekcjaHer0?.obrazPodpis?.localFile?.svg
+              ?.content
           }
           logoTop
-          altLogo={data.wpPage.ACFhome?.sekcjaHero?.obrazPodpis?.altText}
-          title={data.wpPage.ACFhome.sekcjaHero.tytul}
+          altLogo={data.wpPage.ACFhome?.sekcjaHer0?.obrazPodpis?.altText}
+          title={data.wpPage.ACFhome.sekcjaHer0.tytul}
           background={styles.color.primary}
-          ctaLabel={data.wpPage.ACFhome.sekcjaHero.ctaEtykieta}
-          ctaUrl={data.wpPage.ACFhome.sekcjaHero.ctaUrl}
+          ctaLabel={data.wpPage.ACFhome.sekcjaHer0.ctaEtykieta}
+          ctaUrl={data.wpPage.ACFhome.sekcjaHer0.ctaUrl}
           multiply
           $isMain={true}
-          noPadding
         />
       )}
 
@@ -84,7 +82,6 @@ const IndexPage = ({ data }) => {
           // title={data.wpPage.ACFhome.sekcjaFullBleed.tytul}
           subtitle={data.wpPage.ACFhome.sekcjaFullBleed.tekst}
           noStyle
-          noMargin
         />
       ) : (
         <FullBleed
@@ -127,7 +124,6 @@ const IndexPage = ({ data }) => {
           subtitle={data.wpPage.ACFhome.sekcjaFullBleed2.tekst}
           noStyle
           objectPosition={"60% 0"}
-          noMargin
         />
       ) : (
         <FullBleed
@@ -191,7 +187,7 @@ export const pageQuery = graphql`
     wpPage(databaseId: { eq: 12 }) {
       id
       ACFhome {
-        sekcjaHero {
+        sekcjaHer0 {
           ctaEtykieta
           ctaUrl
           obrazHero {
@@ -205,8 +201,8 @@ export const pageQuery = graphql`
           obrazPodpis {
             altText
             localFile {
-              childImageSharp {
-                gatsbyImageData(quality: 100)
+              svg {
+                content
               }
             }
           }

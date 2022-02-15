@@ -2,57 +2,17 @@ import * as React from "react"
 // import PropTypes from "prop-types"
 import styled from "styled-components"
 import styles from "../styles"
-import Slider from "react-slick"
+import Slider from "./slider"
 import "slick-carousel/slick/slick.css"
 import FullBleedWrapper from "./full-bleed-wrapper"
+import Title from "./title"
 
 const HowSession = ({ videos, title, text }) => {
-  const settings = {
-    infinite: true,
-    dots: false,
-    speed: 1000,
-    slidesToShow: 3,
-    slidesToScroll: 3,
-    nextArrow: <StyledArrow right />,
-    prevArrow: <StyledArrow left />,
-    responsive: [
-      {
-        breakpoint: 1200,
-        settings: {
-          slidesToShow: 2,
-          slidesToScroll: 2,
-          arrows: false,
-          dots: true,
-        },
-      },
-
-      {
-        breakpoint: 800,
-        settings: {
-          slidesToShow: 1,
-          slidesToScroll: 1,
-          arrows: false,
-          dots: true,
-          centerMode: true,
-        },
-      },
-      {
-        breakpoint: 500,
-        settings: {
-          slidesToShow: 1,
-          slidesToScroll: 1,
-          arrows: false,
-          dots: true,
-          centerMode: false,
-        },
-      },
-    ],
-  }
   return (
-    <FullBleedWrapper>
-      <StyledTitle>{title}</StyledTitle>
-      <p dangerouslySetInnerHTML={{ __html: text }}></p>
-      <Slider {...settings}>
+    <FullBleedWrapper noMargin somePadding>
+      <Title title={title} />
+      <div dangerouslySetInnerHTML={{ __html: text }} />
+      <Slider>
         {videos.map(v => (
           <StyledItem key={v.url}>
             <StyledIframe src={v.url} allowFullScreen />
@@ -79,7 +39,7 @@ const StyledTitle = styled.h1`
 const StyledItem = styled.div`
   display: flex;
   flex-direction: column;
-  padding: 0 40px;
+  /* padding: 0 40px; */
 `
 
 const StyledName = styled.h5`
@@ -102,7 +62,11 @@ const StyledArrow = styled.div`
 `
 
 const StyledIframe = styled.iframe`
-  width: 300px;
+  width: 325px;
   height: 250px;
   border: none;
+
+  @media only screen and (max-width: 600px) {
+    height: auto;
+  }
 `

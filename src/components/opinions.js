@@ -4,12 +4,20 @@ import { GatsbyImage } from "gatsby-plugin-image"
 import styles from "../styles"
 import Slider from "./slider"
 
-const Opinions = ({ opinions, single, background, marginBottom }) => {
+const Opinions = ({
+  opinions,
+  single,
+  background,
+  marginBottom,
+  somePadding,
+}) => {
   return (
     <Slider
       background={background ? background : false}
       marginBottom={marginBottom}
       title={"Opinie"}
+      single={single}
+      somePadding={somePadding}
     >
       {opinions.map(o =>
         single ? (

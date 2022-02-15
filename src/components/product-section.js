@@ -1,10 +1,11 @@
-import * as React from "react"
-// import PropTypes from "prop-types"
+import React, { useState, useContext } from "react"
 import styled from "styled-components"
 import styles from "../styles"
 import Button from "./button"
 import FullBleedWrapper from "./full-bleed-wrapper"
 import Title from "./title"
+import CartContext from "../context/cartContext"
+import { useAlert } from "react-alert"
 
 const ProductSection = ({
   title,
@@ -14,6 +15,9 @@ const ProductSection = ({
   ctaUrl,
   id,
 }) => {
+  const { cart, addToCart } = useContext(CartContext)
+  const [disabled, setDisabled] = useState(false)
+  const alert = useAlert()
   return (
     <FullBleedWrapper id={id}>
       <Title title={title} />
@@ -28,40 +32,33 @@ const ProductSection = ({
           dangerouslySetInnerHTML={{ __html: textRight }}
         ></StyledTextBox>
       </StyledTextsBox>
-      <Button label={ctaLabel} url={ctaUrl} disabled />
+      <StyledFlex>
+        <Button
+          label={ctaLabel}
+          url={ctaUrl}
+          disabled={cart.findIndex(i => i.name === title) === -1 ? false : true}
+          onClick={() => {
+            addToCart({ id: title, name: title })
+            alert.success("Dodano do koszyka")
+          }}
+        />
+      </StyledFlex>
     </FullBleedWrapper>
   )
 }
 
 export default ProductSection
 
-/* ProductSection.propTypes = {
-  title: PropTypes.string,
-  textLeft: PropTypes.object,
-  textRight: PropTypes.string,
-  ctaLabel: PropTypes.string,
-  ctaUrl: PropTypes.string,
-}
-
-ProductSection.defaultProps = {
-  title: "Tytuł",
-  textLeft: {},
-  textRight: "Tekst po prawej stronie",
-  ctaLabel: "",
-  ctaUrl: "",
-} */
-
 /* STYLED COMPONENTS */
-
-const StyledTitle = styled.h1`
-  margin-bottom: 60px;
-  width: 50%;
-`
 
 const StyledTextsBox = styled.div`
   display: grid;
   grid-template-columns: 1fr 1px 1fr;
   margin-bottom: 60px;
+  @media only screen and (max-width: 1200px) {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+  }
 `
 
 const StyledTextBox = styled.div`
@@ -69,7 +66,19 @@ const StyledTextBox = styled.div`
   flex-direction: column;
   padding-left: ${props => (props.left ? "12%" : "0")};
   padding-right: ${props => (props.right ? "10%" : "0")};
+  @media only screen and (max-width: 1200px) {
+    padding-left: 0;
+    padding-right: 0;
+  }
 `
 const StyledVerticalLine = styled.div`
   border-left: 1px solid ${styles.color.primary};
+  @media only screen and (max-width: 1200px) {
+    display: none;
+  }
+`
+const StyledFlex = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `
