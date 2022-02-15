@@ -36,7 +36,9 @@ const ProductSection = ({
         <Button
           label={ctaLabel}
           url={ctaUrl}
-          disabled={cart.findIndex(i => i.name === title) === -1 ? false : true}
+          disabled={
+            cart?.findIndex(i => i.name === title) === -1 ? false : true
+          }
           onClick={() => {
             addToCart({ id: title, name: title })
             alert.success("Dodano do koszyka")
